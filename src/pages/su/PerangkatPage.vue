@@ -40,7 +40,14 @@
     </q-card>
 
     <div v-if="$q.platform.is.mobile">
-      <q-card v-ripple class="my-card q-mt-sm" flat bordered v-for="(d, i) in this.pengguna" :key="i">
+      <q-card
+        v-ripple
+        class="my-card q-mt-sm"
+        flat
+        bordered
+        v-for="(d, i) in this.pengguna"
+        :key="i"
+      >
         <q-item>
           <q-item-section avatar>
             <q-avatar>
@@ -49,7 +56,13 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>{{ d.NAMA }} <q-badge class="text-uppercase">{{ d.KODE_INSTANSI }}</q-badge> <q-badge :color="d.STATUS == 0 ? 'blue-10' : 'green-7'" :label="d.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"></q-badge>
+            <q-item-label
+              >{{ d.NAMA }}
+              <q-badge class="text-uppercase">{{ d.KODE_INSTANSI }}</q-badge>
+              <q-badge
+                :color="d.STATUS == 0 ? 'blue-10' : 'green-7'"
+                :label="d.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"
+              ></q-badge>
             </q-item-label>
             <q-item-label caption> {{ d.TELEPON }} </q-item-label>
           </q-item-section>
@@ -62,9 +75,11 @@
         </q-card-section>
 
         <q-card-section horizontal class="q-pa-sm bg-grey-3">
-          <q-item-label caption class="flex"> <q-icon name="event" class="q-mr-sm"></q-icon> {{ $parseDate(d.CREATED_AT).fullDate }} </q-item-label>
+          <q-item-label caption class="flex">
+            <q-icon name="event" class="q-mr-sm"></q-icon>
+            {{ $parseDate(d.CREATED_AT).fullDate }}
+          </q-item-label>
         </q-card-section>
-
       </q-card>
     </div>
 
@@ -104,7 +119,7 @@
                 @click="this.editData(props.row)"
                 size="sm"
                 icon="edit"
-                ><q-tooltip>edit data warung</q-tooltip></q-btn
+                ><q-tooltip>edit data Perangkat</q-tooltip></q-btn
               >
               <q-btn
                 round
@@ -121,22 +136,92 @@
       </q-table>
     </q-card>
 
-    <q-dialog v-model="deletenotif" persistent transition-show="scale" transition-hide="scale">
+    <q-dialog
+      v-model="deletenotif"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
       <q-card class="bg-teal text-white" style="width: 300px">
         <q-card-section>
           <div class="text-h6">HAPUS DATA</div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
-          yakin dek?
-        </q-card-section>
+        <q-card-section class="q-pt-none"> yakin dek? </q-card-section>
 
         <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn @click="this.deletedialogdata(this.GUID)" flat label="OK" v-close-popup />
+          <q-btn
+            @click="this.deletedialogdata(this.GUID)"
+            flat
+            label="OK"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
 
+    <q-dialog
+      v-model="editnotif"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card class="bg-teal text-white" style="width: 900px; max-width: 80vw">
+        <q-card-section>
+          <div class="text-h6">EDIT DATA PERANGKAT</div>
+        </q-card-section>
+        <q-form @submit="onEdit">
+          <q-card-section class="q-pt-none">
+            <div class="q-mt-md items-start row q-col-gutter-md">
+              <q-input
+                class="col-4"
+                color="teal"
+                filled
+                outlined
+                v-model="form.NAMA"
+                label="Nama Perangkat"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="category" />
+                </template>
+              </q-input>
+
+              <q-input
+                class="col-4"
+                color="teal"
+                filled
+                outlined
+                v-model="form.MAC_ADDRESS"
+                label="Mac Address Perangkat"
+              >
+                <q-chip label="Gram" />
+                <template v-slot:prepend>
+                  <q-icon name="scale" />
+                </template>
+              </q-input>
+
+              <q-input
+                class="col-4"
+                color="teal"
+                filled
+                outlined
+                v-model="form.JENIS"
+                label="Jenis Perangkat"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="savings" />
+                </template>
+              </q-input>
+            </div>
+          </q-card-section>
+
+          <q-card-actions align="right" class="bg-white text-teal">
+            <q-btn type="submit" flat label="OK" v-close-popup />
+            <q-btn flat label="cancel" v-close-popup />
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -145,53 +230,53 @@ const model = () => {
   return {
     NAMA: null,
     MAC_ADDRESS: null,
-    JENIS: null
-  }
-}
+    JENIS: null,
+  };
+};
 
 export default {
   name: "IndexPage",
   data() {
     return {
-      options: {
-      },
+      options: {},
       deletenotif: false,
+      editnotif: false,
       GUID: null,
-      form: model (),
+      form: model(),
       columns: [
         {
           name: "NAMA",
           align: "left",
           label: "NAMA PERANGKAT",
-          field: "NAMA"
+          field: "NAMA",
         },
         {
           name: "MAC_ADDRESS",
           align: "left",
           label: "MAC_ADDRESS",
-          field: "MAC_ADDRESS"
+          field: "MAC_ADDRESS",
         },
         {
           name: "JENIS",
           align: "left",
           label: "JENIS",
-          field: "JENIS"
+          field: "JENIS",
         },
         {
           name: "ACTION",
           align: "center",
           label: "#",
-          field: "ACTION"
-        }
+          field: "ACTION",
+        },
       ],
       pagination: {
         sortBy: "desc",
         descending: false,
-        rowsPerPage: 3
+        rowsPerPage: 3,
       },
       rows: [],
       visibles: false,
-      perangkat: []
+      perangkat: [],
     };
   },
   created() {
@@ -199,23 +284,57 @@ export default {
   },
   methods: {
     deletedata(DATA) {
-      this.deletenotif = true
-      this.GUID = DATA.GUID
+      this.deletenotif = true;
+      this.GUID = DATA.GUID;
       // console.log(this.GUID)
-      // 
-      },
-      deletedialogdata() {
-        this.$axios
-      .delete(`/perangkat/${this.GUID}`)
-      .finally(() => this.$q.loading.hide())
-      .then((response) => {
-        if (!this.$parseResponse(response.data)) {
-          this.getData()
-        }
-      })
-      .catch(() => this.$commonErrorNotif());
-      
-      },
-    }
-  }
+      //
+    },
+    deletedialogdata() {
+      this.$axios
+        .delete(`/perangkat/${this.GUID}`)
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            this.getData();
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+    editdata(DATA) {
+      this.form.NAMA = DATA.NAMA;
+      this.form.MAC_ADDRESS = DATA.MAC_ADDRESS;
+      this.form.JENIS = DATA.JENIS;
+      this.editnotif = true;
+    },
+    onEdit() {
+      this.onUpdate();
+    },
+
+    onUpdate() {
+      // console.log(this.form)
+      this.$axios
+        .put(`/perangkat/${this.GUID}`, this.form)
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            console.log(response.data);
+            this.getData();
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+
+    getData: async function () {
+      await this.$axios
+        .get("perangkat/getByStatusAll")
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            this.rows = response.data.data;
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+  },
+};
 </script>
