@@ -84,20 +84,14 @@
         </template>
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td key="ID" :props="props" class="text-uppercase">
-              <q-badge color="green-7">{{ props.row.KODE_INSTANSI }}</q-badge>
-            </q-td>
             <q-td key="NAMA" :props="props" class="text-capitalize">
               {{ props.row.NAMA }}
             </q-td>
-            <q-td key="TELEPON" :props="props" class="text-capitalize">
-              {{ props.row.TELEPON }}
+            <q-td key="MAC_ADDRESS" :props="props" class="text-capitalize">
+              {{ props.row.MAC_ADDRESS }}
             </q-td>
-            <q-td key="DOMISILI" :props="props" class="text-capitalize">
-              {{ props.row.DOMISILI }}
-            </q-td>
-            <q-td key="STATUS" :props="props" class="text-capitalize">
-              <q-badge :color="props.row.STATUS == 0 ? 'blue-10' : 'green-7'" :label="props.row.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"></q-badge>
+            <q-td key="JENIS" :props="props" class="text-capitalize">
+              {{ props.row.JENIS }}
             </q-td>
             <q-td key="TGL_DAFTAR" :props="props" class="text-capitalize">
               {{ $parseDate(props.row.CREATED_AT).fullDate }}
@@ -119,63 +113,69 @@
                 color="blue-10"
                 size="sm"
                 icon="delete"
-                ><q-tooltip>hapus data warung</q-tooltip></q-btn
+                ><q-tooltip>Hapus Data Perangkat</q-tooltip></q-btn
               >
             </q-td>
           </q-tr>
         </template>
       </q-table>
     </q-card>
+
+    <q-dialog v-model="deletenotif" persistent transition-show="scale" transition-hide="scale">
+      <q-card class="bg-teal text-white" style="width: 300px">
+        <q-card-section>
+          <div class="text-h6">HAPUS DATA</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          yakin dek?
+        </q-card-section>
+
+        <q-card-actions align="right" class="bg-white text-teal">
+          <q-btn @click="this.deletedialogdata(this.GUID)" flat label="OK" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
   </q-page>
 </template>
 
 <script>
-const status = ["Aktif", "Tidak Aktif"];
+const model = () => {
+  return {
+    NAMA: null,
+    MAC_ADDRESS: null,
+    JENIS: null
+  }
+}
 
 export default {
   name: "IndexPage",
-  components: {},
   data() {
     return {
       options: {
-        status
       },
+      deletenotif: false,
+      GUID: null,
+      form: model (),
       columns: [
-        {
-          name: "ID",
-          align: "left",
-          label: "ID",
-          field: "ID"
-        },
         {
           name: "NAMA",
           align: "left",
-          label: "NAMA LENGKAP",
+          label: "NAMA PERANGKAT",
           field: "NAMA"
         },
         {
-          name: "TELEPON",
+          name: "MAC_ADDRESS",
           align: "left",
-          label: "TELEPON",
-          field: "TELEPON"
+          label: "MAC_ADDRESS",
+          field: "MAC_ADDRESS"
         },
         {
-          name: "DOMISILI",
+          name: "JENIS",
           align: "left",
-          label: "DOMISILI",
-          field: "DOMISILI"
-        },
-        {
-          name: "STATUS",
-          align: "left",
-          label: "STATUS",
-          field: "STATUS"
-        },
-        {
-          name: "TGL_DAFTAR",
-          align: "left",
-          label: "TGL. DAFTAR",
-          field: "TGL_DAFTAR"
+          label: "JENIS",
+          field: "JENIS"
         },
         {
           name: "ACTION",
@@ -187,30 +187,35 @@ export default {
       pagination: {
         sortBy: "desc",
         descending: false,
-        rowsPerPage: 5
+        rowsPerPage: 3
       },
       rows: [],
       visibles: false,
-      pengguna: []
+      perangkat: []
     };
   },
   created() {
     this.getData();
   },
   methods: {
-    getData: async function () {
-      this.$q.loading.show();
-      await this.$axios
-        .get(`pengguna/getAll`)
-        .finally(() => this.$q.loading.hide())
-        .then((response) => {
-          if (!this.$parseResponse(response.data)) {
-            this.rows = response.data.data;
-            this.pengguna = response.data.data;
-          }
-        })
-        .catch(() => this.$commonErrorNotif());
-    },
+    deletedata(DATA) {
+      this.deletenotif = true
+      this.GUID = DATA.GUID
+      // console.log(this.GUID)
+      // 
+      },
+      deletedialogdata() {
+        this.$axios
+      .delete(`/perangkat/${this.GUID}`)
+      .finally(() => this.$q.loading.hide())
+      .then((response) => {
+        if (!this.$parseResponse(response.data)) {
+          this.getData()
+        }
+      })
+      .catch(() => this.$commonErrorNotif());
+      
+      },
+    }
   }
-};
 </script>
