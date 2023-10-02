@@ -184,7 +184,7 @@
                 @click="this.editData(props.row)"
                 size="sm"
                 icon="edit"
-                ><q-tooltip>edit data warung</q-tooltip></q-btn
+                ><q-tooltip>edit data Instansi</q-tooltip></q-btn
               >
               <q-btn
                 round
@@ -193,13 +193,30 @@
                 color="blue-10"
                 size="sm"
                 icon="delete"
-                ><q-tooltip>hapus data warung</q-tooltip></q-btn
+                ><q-tooltip>hapus data Instansi</q-tooltip></q-btn
               >
             </q-td>
           </q-tr>
         </template>
       </q-table>
     </q-card>
+
+    <q-dialog v-model="deletenotif" persistent transition-show="scale" transition-hide="scale">
+      <q-card class="bg-teal text-white" style="width: 300px">
+        <q-card-section>
+          <div class="text-h6">HAPUS DATA </div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          Yakin ingin menghapus data ini
+        </q-card-section>
+
+        <q-card-actions align="right" class="bg-white text-teal">
+          <q-btn @click="this.deletedialogdata(this.GUID)" flat label="OK" v-close-popup />
+          <!-- <q-btn flat label="CANCEL" v-close-popup /> -->
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -211,6 +228,7 @@ export default {
   components: {},
   data() {
     return {
+      deletenotif: false,
       port: "http://localhost:5072/",
       options: {
         status
@@ -261,7 +279,7 @@ export default {
         {
           name: "ACTION",
           align: "center",
-          label: "#",
+          label: "ACTION",
           field: "ACTION"
         }
       ],
@@ -291,7 +309,25 @@ export default {
           }
         })
         .catch(() => this.$commonErrorNotif());
-    }
+    },
+    delete(DATA) {
+      this.deletenotif = true
+      this.GUID = DATA.GUID
+      // console.log(this.GUID)
+      // 
+      },
+      deletedialogdata() {
+        this.$axios
+      .delete(`/instansi/${this.GUID}`)
+      .finally(() => this.$q.loading.hide())
+      .then((response) => {
+        if (!this.$parseResponse(response.data)) {
+          this.getData()
+        }
+      })
+      .catch(() => this.$commonErrorNotif());
+      
+      },
   }
 };
 </script>

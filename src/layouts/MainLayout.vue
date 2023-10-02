@@ -72,7 +72,7 @@
           <div v-for="(d, i) in this.listLayanan" :key="i">
             <q-expansion-item
               expand-separator
-              v-if="d.KODE_LAYANAN == '51nn5'"
+              v-if="d.KODE_LAYANAN == 'q7w2e'"
             >
               <template v-slot:header>
                 <q-item-section avatar>
@@ -86,7 +86,7 @@
                   />
                 </q-item-section>
 
-                <q-item-section class="text-dark">Absensi RFID</q-item-section>
+                <q-item-section class="text-dark">TEST</q-item-section>
               </template>
 
               <q-item clickable v-ripple :to="{ name: 'layanan' }">
@@ -107,7 +107,7 @@
 
             <q-expansion-item
               expand-separator
-              v-if="d.KODE_LAYANAN == 'yx9re'"
+              v-if="d.KODE_LAYANAN == 'qhyom'"
             >
               <template v-slot:header>
                 <q-item-section avatar>
@@ -122,7 +122,7 @@
                 </q-item-section>
 
                 <q-item-section class="text-dark"
-                  >Absensi Selfie</q-item-section
+                  >Absensi</q-item-section
                 >
               </template>
 
