@@ -65,9 +65,11 @@
         </q-card-section>
 
         <q-card-section horizontal class="q-pa-sm bg-grey-3">
-          <q-item-label caption class="flex"> <q-icon name="event" class="q-mr-sm"></q-icon> {{ $parseDate(d.CREATED_AT).fullDate }} </q-item-label>
+          <q-item-label caption class="flex">
+            <q-icon name="event" class="q-mr-sm"></q-icon>
+            {{ $parseDate(d.CREATED_AT).fullDate }}
+          </q-item-label>
         </q-card-section>
-
       </q-card>
     </div>
 
@@ -110,7 +112,7 @@
                 @click="this.editData(props.row)"
                 size="sm"
                 icon="edit"
-                ><q-tooltip>edit data warung</q-tooltip></q-btn
+                ><q-tooltip>edit data Perangkat</q-tooltip></q-btn
               >
               <q-btn
                 round
@@ -119,27 +121,121 @@
                 color="blue-10"
                 size="sm"
                 icon="delete"
-                ><q-tooltip>hapus data warung</q-tooltip></q-btn
+                ><q-tooltip>Hapus Data Perangkat</q-tooltip></q-btn
               >
             </q-td>
           </q-tr>
         </template>
       </q-table>
     </q-card>
+
+    <q-dialog
+      v-model="deletenotif"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card class="bg-teal text-white" style="width: 300px">
+        <q-card-section>
+          <div class="text-h6">HAPUS DATA</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none"> yakin dek? </q-card-section>
+
+        <q-card-actions align="right" class="bg-white text-teal">
+          <q-btn
+            @click="this.deletedialogdata(this.GUID)"
+            flat
+            label="OK"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <q-dialog
+      v-model="editnotif"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card class="bg-teal text-white" style="width: 900px; max-width: 80vw">
+        <q-card-section>
+          <div class="text-h6">EDIT DATA PERANGKAT</div>
+        </q-card-section>
+        <q-form @submit="onEdit">
+          <q-card-section class="q-pt-none">
+            <div class="q-mt-md items-start row q-col-gutter-md">
+              <q-input
+                class="col-4"
+                color="teal"
+                filled
+                outlined
+                v-model="form.NAMA"
+                label="Nama Perangkat"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="category" />
+                </template>
+              </q-input>
+
+              <q-input
+                class="col-4"
+                color="teal"
+                filled
+                outlined
+                v-model="form.MAC_ADDRESS"
+                label="Mac Address Perangkat"
+              >
+                <q-chip label="Gram" />
+                <template v-slot:prepend>
+                  <q-icon name="scale" />
+                </template>
+              </q-input>
+
+              <q-input
+                class="col-4"
+                color="teal"
+                filled
+                outlined
+                v-model="form.JENIS"
+                label="Jenis Perangkat"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="savings" />
+                </template>
+              </q-input>
+            </div>
+          </q-card-section>
+
+          <q-card-actions align="right" class="bg-white text-teal">
+            <q-btn type="submit" flat label="OK" v-close-popup />
+            <q-btn flat label="cancel" v-close-popup />
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
-const status = ["Aktif", "Tidak Aktif"];
+const model = () => {
+  return {
+    NAMA: null,
+    MAC_ADDRESS: null,
+    JENIS: null,
+  };
+};
 
 export default {
   name: "IndexPage",
-  components: {},
   data() {
     return {
-      options: {
-        status
-      },
+      options: {},
+      deletenotif: false,
+      editnotif: false,
+      GUID: null,
+      form: model(),
       columns: [
         {
           name: "ID",
@@ -175,13 +271,13 @@ export default {
           name: "ACTION",
           align: "center",
           label: "#",
-          field: "ACTION"
-        }
+          field: "ACTION",
+        },
       ],
       pagination: {
         sortBy: "desc",
         descending: false,
-        rowsPerPage: 5
+        rowsPerPage: 3,
       },
       rows: [],
       visibles: false,
@@ -206,6 +302,41 @@ export default {
         })
         .catch(() => this.$commonErrorNotif());
     },
-  }
+    editdata(DATA) {
+      this.form.NAMA = DATA.NAMA;
+      this.form.MAC_ADDRESS = DATA.MAC_ADDRESS;
+      this.form.JENIS = DATA.JENIS;
+      this.editnotif = true;
+    },
+    onEdit() {
+      this.onUpdate();
+    },
+
+    // onUpdate() {
+    //   // console.log(this.form)
+    //   this.$axios
+    //     .put(`/perangkat/${this.GUID}`, this.form)
+    //     .finally(() => this.$q.loading.hide())
+    //     .then((response) => {
+    //       if (!this.$parseResponse(response.data)) {
+    //         console.log(response.data);
+    //         this.getData();
+    //       }
+    //     })
+    //     .catch(() => this.$commonErrorNotif());
+    // },
+
+    // getData: async function () {
+    //   await this.$axios
+    //     .get("perangkat/getByStatusAll")
+    //     .finally(() => this.$q.loading.hide())
+    //     .then((response) => {
+    //       if (!this.$parseResponse(response.data)) {
+    //         this.rows = response.data.data;
+    //       }
+    //     })
+    //     .catch(() => this.$commonErrorNotif());
+    // },
+  },
 };
 </script>

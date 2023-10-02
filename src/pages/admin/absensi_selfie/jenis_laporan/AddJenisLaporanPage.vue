@@ -282,10 +282,6 @@ export default {
     this.form.KODE_JENIS_LAPORAN = this.generateRandomId(5);
   },
   methods: {
-    generateRandomId(length) {
-      const randomStr = Math.random().toString(36).substr(2, length);
-      return randomStr;
-    },
     onSubmit() {
       this.onCreate();
     },
