@@ -72,7 +72,7 @@
           <div v-for="(d, i) in this.listLayanan" :key="i">
             <q-expansion-item
               expand-separator
-              v-if="d.KODE_LAYANAN == 'q7w2e'"
+              v-if="d.KODE_LAYANAN == 'S0VFU'"
             >
               <template v-slot:header>
                 <q-item-section avatar>
@@ -107,7 +107,7 @@
 
             <q-expansion-item
               expand-separator
-              v-if="d.KODE_LAYANAN == 'qhyom'"
+              v-if="d.KODE_LAYANAN == 'S0VFU'"
             >
               <template v-slot:header>
                 <q-item-section avatar>

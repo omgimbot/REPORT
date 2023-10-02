@@ -28,7 +28,7 @@
         <div class="items-start">
           <q-input
             standout="bg-positive text-white"
-            v-model="form.KODE_LAYANAN"
+            v-model="form.KODE_PERANGKAT"
             class="text-white col q-pa-sm"
             label="ID"
             dense
@@ -91,11 +91,24 @@
           >
             <template v-slot:prepend>
               <q-icon name="qr_code" class="q-pr-md" /> </template
-          ></q-input>
+              ></q-input>
+
+              <q-input
+                standout="bg-positive text-white"
+                v-model="form.NAMA"
+                class="text-white col-4 q-pa-sm text-capitalize"
+                label="Nama perangkat"
+                dense
+                lazy-rules
+                :rules="defaultRules"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="devices" class="q-pr-md" /> </template
+              ></q-input>
 
           <q-input
             standout="bg-positive text-white"
-            v-model="form.MAC"
+            v-model="form.MAC_ADDRESS"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="MAC Address"
             dense
@@ -108,16 +121,17 @@
 
           <q-input
             standout="bg-positive text-white"
-            v-model="form.PERANGKAT"
+            v-model="form.JENIS"
             class="text-white col-4 q-pa-sm text-capitalize"
-            label="Nama perangkat"
+            label="Jenis Perangkat"
             dense
             lazy-rules
             :rules="defaultRules"
           >
             <template v-slot:prepend>
-              <q-icon name="devices" class="q-pr-md" /> </template
+              <q-icon name="123" class="q-pr-md" /> </template
           ></q-input>
+
         </div>
 
         <q-separator class="q-my-md" color="grey-3" />
@@ -139,8 +153,10 @@
 <script>
 const model = () => {
   return {
-    LAYANAN: null,
-    KODE_LAYANAN: null,
+    NAMA: null,
+    KODE_PERANGKAT: null,
+    JENIS: null,
+    MAC_ADDRESS: null,
     DITAMBAHKAN: null
   };
 };
@@ -155,7 +171,7 @@ export default {
     };
   },
   created() {
-    this.form.KODE_LAYANAN = this.generateRandomId(5);
+    this.form.KODE_PERANGKAT = this.generateRandomId(5);
   },
   methods: {
     generateRandomId(length) {
@@ -169,7 +185,7 @@ export default {
       this.$q.loading.show();
       this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
       await this.$axios
-        .post("layanan/create", this.form)
+        .post("perangkat/create", this.form)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
