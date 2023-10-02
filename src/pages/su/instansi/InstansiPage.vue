@@ -217,11 +217,171 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="editnotif" persistent transition-show="scale" transition-hide="scale">
+      <q-card class="bg-white text-green-7" style="width: 900px; max-width: 80vw;">
+        <q-card-section>
+          <div class="text-h6 text-center">EDIT DATA </div>
+        </q-card-section>
+        <q-form
+              @submit="onEdit"
+              >
+
+        <q-card-section class="q-pt-none">
+
+            <div class="q-mt-md items-start row q-col-gutter-md">
+              <q-input
+            standout="bg-positive text-white"
+            v-model="form.INSTANSI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama instansi"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="group_work" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.ADMINISTRATOR"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama administrator"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="account_circle" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.TELEPON"
+            class="text-white col-4 q-pa-sm"
+            label="Nomor telepon"
+            mask="############"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="phone" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.PASSWORD"
+            class="text-white col-4 q-pa-sm"
+            label="Password"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            :type="isPwd ? 'password' : 'text'"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+            <template v-slot:prepend>
+              <q-icon name="fingerprint" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.ALAMAT"
+            class="text-white col q-pa-sm text-capitalize"
+            label="Alamat lengkap"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="map" class="q-pr-md" /> </template
+          ></q-input>
+        </div>
+
+        <div class="row items-start">
+          <q-item-label
+            style="font-size: 14px"
+            class="text-weight-medium text-blue-grey-10"
+            ><q-badge class="q-px-md q-py-sm" color="positive"
+              >Data Pendukung</q-badge
+            ></q-item-label
+          >
+        </div>
+        <div class="row items-start">
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.DOMISILI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Domisili usaha"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="map" class="q-pr-md" /> </template
+          ></q-input>
+          <q-file
+            standout="bg-positive text-white"
+            bottom-slots
+            dense
+            v-model="form.ICON"
+            label="Logo instansi"
+            accept=".jpg, .png, image/*"
+            counter
+            max-files="1"
+            class="text-white col-4 q-pa-sm text-capitalize"
+          >
+            <template v-slot:prepend>
+              <q-icon name="attachment" class="q-pr-md" />
+            </template>
+            <template v-slot:append>
+              <q-icon
+                v-if="model !== null"
+                name="close"
+                @click.stop.prevent="model = null"
+                class="cursor-pointer"
+              />
+              <q-icon name="search" @click.stop.prevent />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-file>
+                
+              
+                </div>
+
+          </q-card-section>
+          
+          <q-card-actions align="right" class="bg-white text-teal">
+            <q-btn type="submit" flat label="OK" v-close-popup />
+            <q-btn  flat label="cancel" v-close-popup />
+          </q-card-actions>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 const status = ["Aktif", "Tidak Aktif"];
+const model = () => {
+  return {
+    ADMINISTRATOR: null,
+    INSTANSI: null,
+    PASSWORD: null,
+    TELEPON: null,
+    ALAMAT: null,
+    DOMISILI: null,
+    ICON: null
+}
+}
 
 export default {
   name: "IndexPage",
@@ -229,9 +389,13 @@ export default {
   data() {
     return {
       deletenotif: false,
+      editnotif: false,
+      GUID: null,
+      isPwd: true,
+      form: model(),
       port: "http://localhost:5072/",
       options: {
-        status
+        status,
       },
       columns: [
         {
@@ -310,6 +474,7 @@ export default {
         })
         .catch(() => this.$commonErrorNotif());
     },
+
     delete(DATA) {
       this.deletenotif = true
       this.GUID = DATA.GUID
@@ -327,6 +492,37 @@ export default {
       })
       .catch(() => this.$commonErrorNotif());
       
+      },
+
+      editData(DATA) {
+        this.form.ADMINISTRATOR= DATA.ADMINISTRATOR
+        this.form.INSTANSI= DATA.INSTANSI
+        this.form.PASSWORD= DATA.PASSWORD
+        this.form.TELEPON= DATA.TELEPON
+        this.form.ALAMAT= DATA.ALAMAT
+        this.form.DOMISILI= DATA.DOMISILI
+        // this.form.KODE_INSTANSI= DATA.KODE_INSTANSI
+        // this.form.DITAMBAHKAN= DATA.DITAMBAHKAN
+        // this.form.ICON= DATA.ICON
+        this.GUID= DATA.GUID
+        this.editnotif= true
+
+      },
+      onEdit() {
+        this.onUpdate()
+      },
+      onUpdate() {
+        // console.log(this.form)
+        this.$axios
+      .put(`/instansi/${this.GUID}`, this.form)
+      .finally(() => this.$q.loading.hide())
+      .then((response) => {
+        if (!this.$parseResponse(response.data)) {
+          console.log(response.data)
+          this.getData()
+        }
+      })
+      .catch(() => this.$commonErrorNotif());
       },
   }
 };
