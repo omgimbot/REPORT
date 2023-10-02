@@ -1,17 +1,16 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="col">
+    <div class="col q-px-md">
       <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Tambah Perangkat
+        Tambah Jabatan
       </q-item-label>
+      <q-item-label style="font-size: 12px" class="text-blue-10 text-caption"
+        >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
+        penginputan data !</q-item-label
+      >
     </div>
 
-    <q-card class="my-card q-pa-md q-mt-lg" v-if="$q.platform.is.mobile">
-      <q-item-label
-        style="font-size: 14px"
-        class="text-weight-medium text-indigo-10"
-        >Pastikan lakukan pengecekan data terlebih dulu !</q-item-label
-      >
+    <q-card class="my-card q-pa-md" flat v-if="$q.platform.is.mobile">
       <q-form
         @reset="resetField()"
         @submit="onSubmit()"
@@ -21,17 +20,30 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="green-7"
+            ><q-badge class="q-px-md q-py-sm" color="positive"
               >Data Pokok</q-badge
             ></q-item-label
           >
         </div>
         <div class="items-start">
           <q-input
-            standout="bg-green-7 text-white"
-            v-model="form.NAMA"
+            standout="bg-positive text-white"
+            v-model="form.INSTANSI"
             class="text-white col-4 q-pa-sm text-capitalize"
-            label="Nama lengkap"
+            label="Nama instansi"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="group_work" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.ADMINISTRATOR"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama administrator"
             dense
             lazy-rules
             :rules="defaultRules"
@@ -41,7 +53,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-green-7 text-white"
+            standout="bg-positive text-white"
             v-model="form.TELEPON"
             class="text-white col-4 q-pa-sm"
             label="Nomor telepon"
@@ -55,7 +67,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-green-7 text-white"
+            standout="bg-positive text-white"
             v-model="form.PASSWORD"
             class="text-white col-4 q-pa-sm"
             label="Password"
@@ -76,7 +88,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-green-7 text-white"
+            standout="bg-positive text-white"
             v-model="form.ALAMAT"
             class="text-white col q-pa-sm text-capitalize"
             label="Alamat lengkap"
@@ -93,14 +105,14 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="green-7"
+            ><q-badge class="q-px-md q-py-sm" color="positive"
               >Data Pendukung</q-badge
             ></q-item-label
           >
         </div>
         <div class="items-start">
           <q-input
-            standout="bg-green-7 text-white"
+            standout="bg-positive text-white"
             v-model="form.KODE_INSTANSI"
             class="text-white col-4 q-pa-sm"
             label="ID"
@@ -114,7 +126,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-green-7 text-white"
+            standout="bg-positive text-white"
             v-model="form.DOMISILI"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Domisili usaha"
@@ -128,109 +140,43 @@
         </div>
         <q-separator class="q-my-md" color="grey-3" />
         <div class="items-start">
-            <q-btn color="blue-10" type="submit" dense class="q-px-lg"
-              >Add Data</q-btn
-            >
+          <q-btn color="blue-10" type="submit" dense class="q-px-lg fit"
+            >Add Data</q-btn
+          >
         </div>
       </q-form>
     </q-card>
 
-    <q-card class="my-card q-pa-md q-mt-lg" v-else>
-      <q-item-label
-        style="font-size: 14px"
-        class="text-weight-medium text-indigo-10"
-        >Pastikan lakukan pengecekan data terlebih dulu !</q-item-label
-      >
+    <q-card class="my-card q-pa-md" v-else flat>
       <q-form
         @reset="resetField()"
         @submit="onSubmit()"
         class="q-gutter-md q-mt-sm"
       >
+        <div class="items-start">
+          <q-btn
+            color="blue-10"
+            size="sm"
+            flat
+            dense
+            :to="{ name: 'jabatan' }"
+            >Kembali</q-btn
+          >
+          <q-separator class="q-my-md" color="grey-3" />
+        </div>
         <div class="row items-start">
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="green-7"
+            ><q-badge class="q-px-md q-py-sm" color="positive"
               >Data Pokok</q-badge
             ></q-item-label
           >
         </div>
         <div class="row items-start">
           <q-input
-            standout="bg-green-7 text-white"
-            v-model="form.NAMA"
-            class="text-white col-4 q-pa-sm text-capitalize"
-            label="Nama lengkap"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="account_circle" class="q-pr-md" /> </template
-          ></q-input>
-
-          <q-input
-            standout="bg-green-7 text-white"
-            v-model="form.TELEPON"
-            class="text-white col-4 q-pa-sm"
-            label="Nomor telepon"
-            mask="####-####-####"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="phone" class="q-pr-md" /> </template
-          ></q-input>
-
-          <q-input
-            standout="bg-green-7 text-white"
-            v-model="form.PASSWORD"
-            class="text-white col-4 q-pa-sm"
-            label="Password"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-            :type="isPwd ? 'password' : 'text'"
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-            <template v-slot:prepend>
-              <q-icon name="fingerprint" class="q-pr-md" /> </template
-          ></q-input>
-
-          <q-input
-            standout="bg-green-7 text-white"
-            v-model="form.ALAMAT"
-            class="text-white col q-pa-sm text-capitalize"
-            label="Alamat lengkap"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="map" class="q-pr-md" /> </template
-          ></q-input>
-        </div>
-
-        <div class="row items-start">
-          <q-item-label
-            style="font-size: 14px"
-            class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="green-7"
-              >Data Pendukung</q-badge
-            ></q-item-label
-          >
-        </div>
-        <div class="row items-start">
-          <q-input
-            standout="bg-green-7 text-white"
-            v-model="form.KODE_INSTANSI"
+            standout="bg-positive text-white"
+            v-model="form.KODE_JABATAN"
             class="text-white col-4 q-pa-sm"
             label="ID"
             dense
@@ -243,16 +189,16 @@
           ></q-input>
 
           <q-input
-            standout="bg-green-7 text-white"
-            v-model="form.DOMISILI"
+            standout="bg-positive text-white"
+            v-model="form.JABATAN"
             class="text-white col-4 q-pa-sm text-capitalize"
-            label="Domisili usaha"
+            label="Jabatan"
             dense
             lazy-rules
             :rules="defaultRules"
           >
             <template v-slot:prepend>
-              <q-icon name="map" class="q-pr-md" /> </template
+              <q-icon name="groups" class="q-pr-md" /> </template
           ></q-input>
         </div>
         <q-separator class="q-my-md" color="grey-3" />
@@ -261,7 +207,7 @@
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
           >
-            <q-btn color="blue-10" type="submit" dense class="q-px-lg"
+            <q-btn color="blue-10" type="submit" dense size="sm" class="q-px-lg"
               >Add Data</q-btn
             >
           </q-item-label>
@@ -272,16 +218,13 @@
 </template>
 
 <script>
+import { route } from 'quasar/wrappers';
 const model = () => {
   return {
-    NAMA: null,
-    PASSWORD: null,
-    TELEPON: null,
-    ALAMAT: null,
-    DOMISILI: null,
+    KODE_JABATAN: null,
+    JABATAN: null,
     KODE_INSTANSI: null,
-    STATUS: 1,
-    ROLE: 1,
+    KODE_LAYANAN: "yx9re",
     DITAMBAHKAN: null
   };
 };
@@ -292,11 +235,12 @@ export default {
     return {
       form: model(),
       isPwd: true,
-      dataUser: this.$q.localStorage.getItem("data")
+      dataUser: this.$q.localStorage.getItem("data"),
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"]
     };
   },
   created() {
-    this.form.KODE_INSTANSI = this.generateRandomId(5);
+    this.form.KODE_JABATAN = this.generateRandomId(5);
   },
   methods: {
     generateRandomId(length) {
@@ -308,14 +252,15 @@ export default {
     },
     async onCreate() {
       this.$q.loading.show();
-      this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
+      this.form.DITAMBAHKAN = this.dataUser.user.ADMINISTRATOR;
+      this.form.KODE_INSTANSI = this.dataUser.user.KODE_INSTANSI;
       await this.$axios
-        .post("pengguna/create", this.form)
+        .post("jabatan/create", this.form)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            this.$router.go(0);
+            this.$router.push({ name: 'jabatan' })
           }
         })
         .catch((err) => {

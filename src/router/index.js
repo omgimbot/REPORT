@@ -56,6 +56,18 @@ export default route(function (/* { store, ssrContext } */) {
       }
     }
 
+    if (to.matched.some((record) => record.meta.admin)) {
+      if (noSession) {
+        next({
+          name: auth,
+        });
+      } else {
+        if (dataUser.user.ROLE === "1") {
+          next();
+        }
+      }
+    }
+
     if (to.matched.some((record) => record.meta.guest)) {
       next();
     } else {
@@ -63,7 +75,7 @@ export default route(function (/* { store, ssrContext } */) {
         next();
       } else {
         const roleUser = dataUser.user.ROLE;
-        
+
         if (roleUser === "0") {
           next({
             name: superadmin,

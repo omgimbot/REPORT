@@ -1,27 +1,27 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="col">
+    <div class="col q-px-md">
       <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Perangkat
+        Pengguna
       </q-item-label>
     </div>
 
-    <q-card class="my-card q-pa-md q-mt-lg q-mb-lg">
+    <q-card class="my-card q-pa-md" flat>
       <div class="row q-gutter-sm">
         <div class="col">
           <q-card class="my-card" flat>
             <div class="col">
               <q-item-label
                 style="font-size: 14px"
-                class="text-weight-medium text-indigo-10"
+                class="text-weight-medium text-indigo-10 q-mb-md"
                 >Apa yang ingin anda cari ?</q-item-label
               >
-              <div class="row q-col-gutter-sm">
+              <div class="row q-gutter-sm">
                 <q-input
-                  standout="bg-green-7"
+                  standout="bg-positive"
                   v-model="PASSWORD"
-                  placeholder="Cari perangkat berdasarkan..."
-                  class="q-mt-sm col"
+                  placeholder="Cari berdasarkan..."
+                  class="col q-mt-sm"
                   flat
                   dense
                 >
@@ -29,9 +29,7 @@
                     <q-icon name="search" />
                   </template>
                 </q-input>
-                <div align="right">
-                  <q-btn color="blue-10" class="q-mt-sm">Search</q-btn>
-                </div>
+                <q-btn color="blue-10" class="q-mt-sm">Cari data</q-btn>
               </div>
             </div>
           </q-card>
@@ -40,7 +38,14 @@
     </q-card>
 
     <div v-if="$q.platform.is.mobile">
-      <q-card v-ripple class="my-card q-mt-sm" flat bordered v-for="(d, i) in this.pengguna" :key="i">
+      <q-card
+        v-ripple
+        class="my-card q-mt-sm"
+        flat
+        bordered
+        v-for="(d, i) in this.instansi"
+        :key="i"
+      >
         <q-item>
           <q-item-section avatar>
             <q-avatar>
@@ -49,7 +54,13 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>{{ d.NAMA }} <q-badge class="text-uppercase">{{ d.KODE_INSTANSI }}</q-badge> <q-badge :color="d.STATUS == 0 ? 'blue-10' : 'green-7'" :label="d.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"></q-badge>
+            <q-item-label
+              >{{ d.INSTANSI }}
+              <q-badge class="text-uppercase">{{ d.KODE_INSTANSI }}</q-badge>
+              <q-badge
+                :color="d.STATUS == 0 ? 'blue-10' : 'positive'"
+                :label="d.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"
+              ></q-badge>
             </q-item-label>
             <q-item-label caption> {{ d.TELEPON }} </q-item-label>
           </q-item-section>
@@ -62,45 +73,39 @@
         </q-card-section>
 
         <q-card-section horizontal class="q-pa-sm bg-grey-3">
-          <q-item-label caption class="flex"> <q-icon name="event" class="q-mr-sm"></q-icon> {{ $parseDate(d.CREATED_AT).fullDate }} </q-item-label>
+          <q-item-label caption class="flex">
+            <q-icon name="event" class="q-mr-sm"></q-icon>
+            {{ $parseDate(d.CREATED_AT).fullDate }}
+          </q-item-label>
         </q-card-section>
-
       </q-card>
     </div>
 
-    <q-card class="my-card q-pa-md q-mt-lg" v-else>
+    <q-card class="my-card q-pa-md" flat v-else>
       <q-table :rows="rows" :columns="columns" :pagination="pagination">
-        <template v-slot:header="props">
-          <q-tr :props="props">
-            <q-th
-              v-for="col in props.cols"
-              :key="col.name"
-              :props="props"
-              class="text-blue-10"
-            >
-              {{ col.label }}
-            </q-th>
-          </q-tr>
-        </template>
         <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="ID" :props="props" class="text-uppercase">
-              <q-badge color="green-7">{{ props.row.KODE_INSTANSI }}</q-badge>
+              <q-badge color="positive">{{ props.row.KODE_PENGGUNA }}</q-badge>
             </q-td>
-            <q-td key="NAMA" :props="props" class="text-capitalize">
-              {{ props.row.NAMA }}
+            <q-td key="PENGGUNA" :props="props" class="text-capitalize">
+              {{ props.row.PENGGUNA }}
             </q-td>
             <q-td key="TELEPON" :props="props" class="text-capitalize">
               {{ props.row.TELEPON }}
             </q-td>
-            <q-td key="DOMISILI" :props="props" class="text-capitalize">
-              {{ props.row.DOMISILI }}
+            <q-td key="JABATAN" :props="props" class="text-capitalize">
+              {{ props.row.JABATAN[0].JABATAN }}
             </q-td>
             <q-td key="STATUS" :props="props" class="text-capitalize">
-              <q-badge :color="props.row.STATUS == 0 ? 'blue-10' : 'green-7'" :label="props.row.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"></q-badge>
+              <q-badge
+                :color="props.row.STATUS == 0 ? 'blue-10' : 'positive'"
+                :label="props.row.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"
+              ></q-badge>
             </q-td>
             <q-td key="TGL_DAFTAR" :props="props" class="text-capitalize">
               {{ $parseDate(props.row.CREATED_AT).fullDate }}
+              <div><q-badge class="text-lowercase" color="brown-12" style="font-size: 10px">di post oleh : {{ props.row.DITAMBAHKAN }}</q-badge></div>
             </q-td>
             <q-td key="ACTION" :props="props" class="text-capitalize">
               <q-btn
@@ -148,33 +153,33 @@ export default {
           field: "ID"
         },
         {
-          name: "NAMA",
+          name: "PENGGUNA",
           align: "left",
-          label: "NAMA LENGKAP",
-          field: "NAMA"
+          label: "Nama lengkap",
+          field: "PENGGUNA"
         },
         {
           name: "TELEPON",
           align: "left",
-          label: "TELEPON",
+          label: "Telepon",
           field: "TELEPON"
         },
         {
-          name: "DOMISILI",
+          name: "JABATAN",
           align: "left",
-          label: "DOMISILI",
-          field: "DOMISILI"
+          label: "Jabatan",
+          field: "JABATAN"
         },
         {
           name: "STATUS",
           align: "left",
-          label: "STATUS",
+          label: "Status",
           field: "STATUS"
         },
         {
           name: "TGL_DAFTAR",
           align: "left",
-          label: "TGL. DAFTAR",
+          label: "Tgl. daftar",
           field: "TGL_DAFTAR"
         },
         {
@@ -191,7 +196,7 @@ export default {
       },
       rows: [],
       visibles: false,
-      pengguna: []
+      dataUser: this.$q.localStorage.getItem("data"),
     };
   },
   created() {
@@ -201,16 +206,15 @@ export default {
     getData: async function () {
       this.$q.loading.show();
       await this.$axios
-        .get(`pengguna/getAll`)
+        .get(`pengguna/getByInstansi/${this.dataUser.user.KODE_INSTANSI}`)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.rows = response.data.data;
-            this.pengguna = response.data.data;
           }
         })
         .catch(() => this.$commonErrorNotif());
-    },
+    }
   }
 };
 </script>

@@ -15,135 +15,52 @@
             </q-card-section>
 
             <q-card-section class="q-pt-sm">
-              <q-tabs
-                v-model="tab"
-                align="left"
-                narrow-indicator
-                inline-label
-                dense
-                indicator-color="transparent"
-                class="q-mb-lg rounded-borders"
-              >
-                <q-tab class="text-white bg-blue-10 q-mr-xs" name="mails"
-                  ><q-btn
-                    class="btn-fixed-width"
-                    color="white"
-                    dense
-                    size="sm"
-                    flat
-                    label="GUEST"
-                    icon="account_circle"
-                /></q-tab>
-                <q-tab class="text-white bg-blue-10 q-ml-xs" name="alarms">
-                  <q-btn
-                    class="btn-fixed-width"
-                    color="white"
-                    dense
-                    size="sm"
-                    flat
-                    label="Administrator"
-                    icon="admin_panel_settings"
-                /></q-tab>
-              </q-tabs>
-
-              <div class="q-gutter-sm">
-                <q-card>
-                  <q-tab-panels
-                    v-model="tab"
-                    animated
-                    transition-prev="fade"
-                    transition-next="fade"
-                    class="text-caption"
+              <q-form @submit="onSubmitAdmin()">
+                <div class="q-gutter-sm">
+                  <q-item-label class="text-weight-bold text-blue-10"
+                    >Telepon</q-item-label
                   >
-                    <q-tab-panel name="mails">
-                      <q-form @submit="onSubmitGuest()">
-                        <div class="q-gutter-sm">
-                          <q-item-label class="text-weight-bold text-grey-6"
-                            >Telepon</q-item-label
-                          >
-                          <q-input
-                            outlined
-                            v-model="form.TELEPON"
-                            placeholder="Nomor telepon"
-                            mask="#############"
-                            dense
-                          />
-                          <q-item-label class="text-weight-bold text-grey-6"
-                            >Password</q-item-label
-                          >
-                          <q-input
-                            outlined
-                            v-model="form.PASSWORD"
-                            placeholder="Password"
-                            :type="isPwd ? 'password' : 'text'"
-                            dense
-                          >
-                            <template v-slot:append>
-                              <q-icon
-                                :name="isPwd ? 'visibility_off' : 'visibility'"
-                                class="cursor-pointer"
-                                @click="isPwd = !isPwd"
-                              /> </template
-                          ></q-input>
-                          <q-btn
-                            class="text-white q-mt-lg bg-blue-10 q-px-xl q-py-sm"
-                            size="sm"
-                            type="submit"
-                            >Sign In</q-btn
-                          >
-                        </div>
-                      </q-form>
-                    </q-tab-panel>
-
-                    <q-tab-panel name="alarms">
-                      <q-form @submit="onSubmitAdmin()">
-                        <div class="q-gutter-sm">
-                          <q-item-label class="text-weight-bold text-grey-6"
-                            >Telepon</q-item-label
-                          >
-                          <q-input
-                            outlined
-                            v-model="form.TELEPON"
-                            placeholder="Nomor telepon"
-                            mask="#############"
-                            dense
-                          />
-                          <q-item-label class="text-weight-bold text-grey-6"
-                            >Password</q-item-label
-                          >
-                          <q-input
-                            outlined
-                            v-model="form.PASSWORD"
-                            placeholder="Password"
-                            :type="isPwd ? 'password' : 'text'"
-                            dense
-                          >
-                            <template v-slot:append>
-                              <q-icon
-                                :name="isPwd ? 'visibility_off' : 'visibility'"
-                                class="cursor-pointer"
-                                @click="isPwd = !isPwd"
-                              /> </template
-                          ></q-input>
-                          <q-btn
-                            class="text-white q-mt-lg bg-blue-10 q-px-xl q-py-sm"
-                            size="sm"
-                            type="submit"
-                            >Sign In</q-btn
-                          >
-                        </div>
-                      </q-form>
-                    </q-tab-panel>
-                  </q-tab-panels>
-                </q-card>
-              </div>
+                  <q-input
+                    outlined
+                    v-model="form.TELEPON"
+                    placeholder="Nomor telepon"
+                    mask="#############"
+                    dense
+                  />
+                  <q-item-label class="text-weight-bold text-blue-10"
+                    >Password</q-item-label
+                  >
+                  <q-input
+                    outlined
+                    v-model="form.PASSWORD"
+                    placeholder="Password"
+                    :type="isPwd ? 'password' : 'text'"
+                    dense
+                  >
+                    <template v-slot:append>
+                      <q-icon
+                        :name="isPwd ? 'visibility_off' : 'visibility'"
+                        class="cursor-pointer"
+                        @click="isPwd = !isPwd"
+                      /> </template
+                  ></q-input>
+                  <div class="col">
+                    <q-btn
+                      class="text-white fit q-mt-lg bg-positive q-px-xl q-py-sm"
+                      size="sm"
+                      type="submit"
+                      >Sign In</q-btn
+                    >
+                  </div>
+                </div>
+              </q-form>
             </q-card-section>
             <q-card-section class="q-pt-sm">
               <div
                 class="text-caption rounded-borders q-pa-sm"
                 style="background: rgba(0, 0, 0, 0.2)"
               >
-                <q-badge color="blue-8">
+                <q-badge color="blue-10">
                   <q-icon name="campaign" color="white" />
                 </q-badge>
                 Silahkan hubungi developer layanan terhadap data yang digunakan
@@ -156,22 +73,21 @@
     </div>
 
     <div class="row flex flex-center" v-else>
-      <div class="col">
+      <div class="col-8">
         <q-card class="q-pa-sm row">
           <q-card class="col q-pa-sm">
-            <q-card-section>
-              <div class="text-h6 text-weight-bold">Sign In</div>
-            </q-card-section>
             <q-card-section class="q-pt-none">
+              <div class="text-h6 text-weight-bold">Sign In</div>
               <div class="text-caption">
-                Pastikan menjaga akun yang anda miliki demi masalah keamanan data.
+                Pastikan menjaga akun yang anda miliki demi masalah keamanan
+                data.
               </div>
             </q-card-section>
 
             <q-card-section class="q-pt-sm">
               <q-form @submit="onSubmitAdmin()">
                 <div class="q-gutter-sm">
-                  <q-item-label class="text-weight-bold text-grey-6"
+                  <q-item-label class="text-weight-bold text-blue-10"
                     >Telepon</q-item-label
                   >
                   <q-input
@@ -181,7 +97,7 @@
                     mask="#############"
                     dense
                   />
-                  <q-item-label class="text-weight-bold text-grey-6"
+                  <q-item-label class="text-weight-bold text-blue-10"
                     >Password</q-item-label
                   >
                   <q-input
@@ -199,14 +115,28 @@
                       /> </template
                   ></q-input>
 
-                  <q-btn
-                    class="text-white q-mt-lg bg-green-7 q-px-xl q-py-sm"
-                    size="sm"
-                    type="submit"
-                    >Sign In</q-btn
-                  >
+                  <div class="col">
+                    <q-btn
+                      class="text-white fit q-mt-lg bg-positive q-px-xl q-py-sm"
+                      size="sm"
+                      type="submit"
+                      >Sign In</q-btn
+                    >
+                  </div>
                 </div>
               </q-form>
+            </q-card-section>
+            <q-card-section class="q-pt-sm">
+              <div
+                class="text-caption rounded-borders q-pa-sm"
+                style="background: rgba(0, 0, 0, 0.2)"
+              >
+                <q-badge color="blue-10">
+                  <q-icon name="campaign" color="white" />
+                </q-badge>
+                Silahkan hubungi developer layanan terhadap data yang digunakan
+                untuk mengkases layanan jika terjadi kesalahan.
+              </div>
             </q-card-section>
           </q-card>
         </q-card>
@@ -234,7 +164,7 @@ export default {
     onSubmitAdmin() {
       this.$q.loading.show();
       this.$axios
-        .post("/pengguna/login", {
+        .post("/superadmin/login", {
           TELEPON: this.form.TELEPON,
           PASSWORD: this.form.PASSWORD
         })

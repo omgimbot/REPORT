@@ -8,17 +8,9 @@
           round
           icon="menu"
           aria-label="Menu"
-          color="green-7"
+          color="positive"
           @click="drawer = !drawer"
         />
-
-        <q-space />
-
-        <div>
-          <q-avatar @click="drawerRight = !drawerRight" clickable v-ripple>
-            <img src="https://cdn.quasar.dev/img/avatar.png" />
-          </q-avatar>
-        </div>
       </q-toolbar>
     </q-header>
 
@@ -28,7 +20,7 @@
           <q-card
             class="q-pa-sm text-white"
             style="
-              background-image: url('https://cdn.quasar.dev/img/parallax2.jpg');
+              background-image: url('images/banner/header.jpg');
               background-repeat: no-repeat;
               background-size: cover;
             "
@@ -41,9 +33,9 @@
                 </q-avatar>
               </q-item-section>
               <q-item-section>
-                <q-item-label>Mary</q-item-label>
+                <q-item-label class="text-white text-weight-bold">META REKSA DIGITAL</q-item-label>
                 <q-item-label caption class="text-white"
-                  ><q-badge color="green-7"
+                  ><q-badge color="positive"
                     >admin@gmail.com</q-badge
                   ></q-item-label
                 >
@@ -60,7 +52,7 @@
               <q-avatar
                 rounded
                 color="white"
-                text-color="green-7"
+                text-color="positive"
                 class="shadow-1"
                 icon="dashboard"
                 size="md"
@@ -78,28 +70,38 @@
                 <q-avatar
                   rounded
                   color="white"
-                  text-color="green-7"
+                  text-color="positive"
                   class="shadow-1"
-                  icon="people"
+                  icon="group_work"
                   size="md"
                 />
               </q-item-section>
 
-              <q-item-section class="text-dark">Pengguna</q-item-section>
+              <q-item-section class="text-dark">Instansi</q-item-section>
             </template>
 
-            <q-item clickable :to="{ name: 'pengguna' }" v-ripple>
+            <q-item
+              clickable
+              :to="{ name: 'instansi' }"
+              v-ripple
+              class="bg-white"
+            >
               <q-item-section avatar> </q-item-section>
 
-              <q-item-section class="text-green-7 text-weight-medium">
-                Semua Pengguna
+              <q-item-section class="text-positive">
+                Semua Instansi
               </q-item-section>
             </q-item>
-            <q-item clickable :to="{ name: 'add_pengguna' }" v-ripple>
+            <q-item
+              clickable
+              :to="{ name: 'add_instansi' }"
+              v-ripple
+              class="bg-white"
+            >
               <q-item-section avatar></q-item-section>
 
-              <q-item-section class="text-green-7 text-weight-medium">
-                Daftarkan Pengguna
+              <q-item-section class="text-positive">
+                Daftarkan Instansi
               </q-item-section>
             </q-item>
           </q-expansion-item>
@@ -110,7 +112,49 @@
                 <q-avatar
                   rounded
                   color="white"
-                  text-color="green-7"
+                  text-color="positive"
+                  class="shadow-1"
+                  icon="dns"
+                  size="md"
+                />
+              </q-item-section>
+
+              <q-item-section class="text-dark">Layanan</q-item-section>
+            </template>
+
+            <q-item
+              clickable
+              v-ripple
+              :to="{ name: 'layanan' }"
+              class="bg-white"
+            >
+              <q-item-section avatar> </q-item-section>
+
+              <q-item-section class="text-positive">
+                Semua Layanan
+              </q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              v-ripple
+              :to="{ name: 'add_layanan' }"
+              class="bg-white"
+            >
+              <q-item-section avatar></q-item-section>
+
+              <q-item-section class="text-positive">
+                Daftarkan Layanan
+              </q-item-section>
+            </q-item>
+          </q-expansion-item>
+
+          <q-expansion-item expand-separator>
+            <template v-slot:header>
+              <q-item-section avatar>
+                <q-avatar
+                  rounded
+                  color="white"
+                  text-color="positive"
                   class="shadow-1"
                   icon="devices"
                   size="md"
@@ -120,17 +164,27 @@
               <q-item-section class="text-dark">Perangkat</q-item-section>
             </template>
 
-            <q-item clickable v-ripple :to="{ name: 'perangkat' }">
+            <q-item
+              clickable
+              v-ripple
+              :to="{ name: 'perangkat' }"
+              class="bg-white"
+            >
               <q-item-section avatar> </q-item-section>
 
-              <q-item-section class="text-green-7 text-weight-medium">
+              <q-item-section class="text-positive">
                 Semua Perangkat
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple :to="{ name: 'add_perangkat' }">
+            <q-item
+              clickable
+              v-ripple
+              :to="{ name: 'add_perangkat' }"
+              class="bg-white"
+            >
               <q-item-section avatar></q-item-section>
 
-              <q-item-section class="text-green-7 text-weight-medium">
+              <q-item-section class="text-positive">
                 Daftarkan Perangkat
               </q-item-section>
             </q-item>
@@ -143,7 +197,7 @@
               <q-avatar
                 rounded
                 color="white"
-                text-color="green-7"
+                text-color="positive"
                 class="shadow-1"
                 icon="power_settings_new"
                 size="md"
@@ -160,7 +214,7 @@
               <q-avatar
                 rounded
                 color="white"
-                text-color="green-7"
+                text-color="positive"
                 class="shadow-1"
                 icon="bluetooth"
                 size="md"
@@ -177,7 +231,7 @@
               <q-avatar
                 rounded
                 color="white"
-                text-color="green-7"
+                text-color="positive"
                 class="shadow-1"
                 icon="bluetooth"
                 size="md"
@@ -189,52 +243,6 @@
             >
           </q-item> -->
         </q-list>
-      </q-list>
-    </q-drawer>
-
-    <q-drawer v-model="drawerRight" class="bg-grey-2" side="right">
-      <q-list>
-        <q-list padding>
-          <q-item-label header class="text-weight-bold">Setting</q-item-label>
-
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-avatar
-                rounded
-                color="white"
-                text-color="green-7"
-                class="shadow-1"
-                icon="account_circle"
-                size="md"
-                v-ripple
-              >
-              </q-avatar>
-            </q-item-section>
-
-            <q-item-section class="text-dark">Profile</q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-avatar
-                rounded
-                color="white"
-                text-color="green-7"
-                class="shadow-1"
-                icon="help"
-                size="md"
-                v-ripple
-              >
-              </q-avatar>
-            </q-item-section>
-
-            <q-item-section class="text-dark">About app</q-item-section>
-          </q-item>
-        </q-list>
-        <q-separator />
-        <q-item-label caption class="text-caption text-grey-6 flex flex-center q-mt-md"
-          >Copyright &copy; 2023, PSTI.</q-item-label
-        >
       </q-list>
     </q-drawer>
 
@@ -251,7 +259,6 @@ export default {
   data() {
     return {
       drawer: false,
-      drawerRight: false
     };
   },
   methods: {

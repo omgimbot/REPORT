@@ -362,7 +362,7 @@ export default {
     onSubmitAdmin() {
       this.$q.loading.show();
       this.$axios
-        .post("/pengguna/login", {
+        .post("/instansi/login", {
           TELEPON: this.form.TELEPON,
           PASSWORD: this.form.PASSWORD
         })
