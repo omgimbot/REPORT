@@ -266,7 +266,7 @@ export default {
       this.$q
         .dialog({
           title: "Informasi",
-          message: "Apakah Anda Yakin ingin keluar dari aplikasi ini ?",
+          message: "Apakah Anda Yakin ingin keluar dari halaman superadmin ini ?",
           cancel: true,
           persistent: true
         })

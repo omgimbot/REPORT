@@ -146,7 +146,7 @@
                           caption
                           style="font-size: 25px"
                           class="text-weight-bold q-mb-xs text-uppercase text-white"
-                          >1000</q-item-label
+                          >9999999999</q-item-label
                         >
                       </q-item-section>
                     </q-item>
