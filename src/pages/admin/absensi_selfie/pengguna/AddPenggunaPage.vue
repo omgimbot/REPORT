@@ -334,7 +334,7 @@ const model = () => {
   return {
     KODE_INSTANSI: null,
     KODE_PENGGUNA: null,
-    KODE_LAYANAN: "yx9re",
+    KODE_LAYANAN: "la696",
     PENGGUNA: null,
     TELEPON: null,
     PASSWORD: null,
