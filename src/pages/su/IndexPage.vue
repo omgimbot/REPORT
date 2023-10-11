@@ -6,7 +6,10 @@
       </q-item-label>
     </div>
 
-    <q-card class="my-card q-pa-md q-mt-lg q-mb-lg" v-if="$q.platform.is.mobile">
+    <q-card
+      class="my-card q-pa-md q-mt-lg q-mb-lg"
+      v-if="$q.platform.is.mobile"
+    >
       <div class="row q-gutter-sm">
         <div class="col">
           <q-card class="my-card" flat>
@@ -16,8 +19,7 @@
                 class="text-weight-medium text-indigo-10"
                 >Selamat datang di DEMETER</q-item-label
               >
-              <q-item-label
-                class="text-caption text-grey"
+              <q-item-label class="text-caption text-grey"
                 >Kelola semua data yang dibutuhkan untuk berjalannya
                 layanan.</q-item-label
               >
@@ -114,6 +116,8 @@
               </div>
             </div>
           </q-card>
+
+          <!-- <LineChart /> -->
         </div>
       </div>
     </q-card>
@@ -230,13 +234,20 @@
         </div>
       </div>
     </q-card>
+
+    <q-card>
+      <LineChart />
+    </q-card>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import LineChart from "src/components/apexchart/LineChart.vue";
 
-export default defineComponent({
-  name: "IndexPage"
-});
+export default {
+  name: "IndexPage",
+  components: {
+    LineChart,
+  },
+};
 </script>
