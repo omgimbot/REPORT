@@ -236,18 +236,18 @@
     </q-card>
 
     <q-card>
-      <LineChart />
+      <!-- <LineChart /> -->
     </q-card>
   </q-page>
 </template>
 
 <script>
-import LineChart from "src/components/apexchart/LineChart.vue";
+// import LineChart from "src/components/apexchart/LineChart.vue";
 
 export default {
   name: "IndexPage",
   components: {
-    LineChart,
+    // LineChart,
   },
 };
 </script>

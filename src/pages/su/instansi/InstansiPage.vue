@@ -256,7 +256,7 @@
               <q-icon name="account_circle" class="q-pr-md" /> </template
           ></q-input>
 
-          <q-input
+          <!-- <q-input
             standout="bg-positive text-white"
             v-model="form.TELEPON"
             class="text-white col-4 q-pa-sm"
@@ -268,9 +268,9 @@
           >
             <template v-slot:prepend>
               <q-icon name="phone" class="q-pr-md" /> </template
-          ></q-input>
+          ></q-input> -->
 
-          <q-input
+          <!-- <q-input
             standout="bg-positive text-white"
             v-model="form.PASSWORD"
             class="text-white col-4 q-pa-sm"
@@ -289,7 +289,7 @@
             </template>
             <template v-slot:prepend>
               <q-icon name="fingerprint" class="q-pr-md" /> </template
-          ></q-input>
+          ></q-input> -->
 
           <q-input
             standout="bg-positive text-white"
@@ -327,7 +327,7 @@
             <template v-slot:prepend>
               <q-icon name="map" class="q-pr-md" /> </template
           ></q-input>
-          <q-file
+          <!-- <q-file
             standout="bg-positive text-white"
             bottom-slots
             dense
@@ -353,6 +353,33 @@
 
             <template v-slot:hint> Field hint </template>
           </q-file>
+          <q-select
+            standout="bg-positive text-white"
+            v-model="form.LAYANAN"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Layanan"
+            option-label="LAYANAN"
+            key="LAYANAN"
+            :options="options.layanan"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            multiple
+            use-chips
+          >
+            <template v-slot:prepend>
+              <q-icon name="grid_view" class="q-pr-md" />
+            </template>
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps">
+                <q-item-section>
+                  <q-item-label class="text-capitalize"
+                    >{{ scope.opt.LAYANAN }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select> -->
                 
               
                 </div>
@@ -371,6 +398,8 @@
 
 <script>
 const status = ["Aktif", "Tidak Aktif"];
+import { ListService } from "./../../../helper/services/ListService";
+let { layanan } = [];
 const model = () => {
   return {
     ADMINISTRATOR: null,
@@ -379,7 +408,9 @@ const model = () => {
     TELEPON: null,
     ALAMAT: null,
     DOMISILI: null,
-    ICON: null
+    ICON: null,
+    DITAMBAHKAN: null,
+    LAYANAN: [],
 }
 }
 
@@ -396,6 +427,7 @@ export default {
       port: "http://localhost:5072/",
       options: {
         status,
+        layanan,
       },
       columns: [
         {
@@ -454,12 +486,13 @@ export default {
       },
       rows: [],
       visibles: false,
-      instansi: []
+      instansi: [],
     };
   },
   created() {
     this.getData();
   },
+  
   methods: {
     getData: async function () {
       this.$q.loading.show();
@@ -475,7 +508,15 @@ export default {
         .catch(() => this.$commonErrorNotif());
     },
 
-    delete(DATA) {
+    getList() {
+      ListService.getListLayanan()
+        .then((res) => {
+          this.options.layanan = res.data.data;
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+
+    delete() {
       this.deletenotif = true
       this.GUID = DATA.GUID
       // console.log(this.GUID)
@@ -494,31 +535,50 @@ export default {
       
       },
 
-      editData(DATA) {
-        this.form.ADMINISTRATOR= DATA.ADMINISTRATOR
-        this.form.INSTANSI= DATA.INSTANSI
-        this.form.PASSWORD= DATA.PASSWORD
-        this.form.TELEPON= DATA.TELEPON
-        this.form.ALAMAT= DATA.ALAMAT
-        this.form.DOMISILI= DATA.DOMISILI
-        // this.form.KODE_INSTANSI= DATA.KODE_INSTANSI
-        // this.form.DITAMBAHKAN= DATA.DITAMBAHKAN
-        // this.form.ICON= DATA.ICON
-        this.GUID= DATA.GUID
-        this.editnotif= true
-
+      editData(EDITDATA) {
+        this.editnotif = true;
+        this.form.INSTANSI = EDITDATA.INSTANSI;
+        this.form.ADMINISTRATOR = EDITDATA.ADMINISTRATOR;
+        this.form.ALAMAT = EDITDATA.ALAMAT;
+        this.form.DOMISILI = EDITDATA.DOMISILI;
+        this.GUID = EDITDATA.GUID;
+        // this.form.ICON = EDITDATA.ICON;
+        // this.form.LAYANAN = EDITDATA.LAYANAN;
+        // this.form.TELEPON = EDITDATA.TELEPON;
+        // this.form.TELEPON = EDITDATA.TELEPON;
+      //   this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
+      // this.$q.loading.show();
+      //   if (!this.form.ICON) {
+      //   return;
       },
+
+      // const formData = new FormData();
+
+      // formData.append("ICON", this.form.ICON);
+      // formData.append("ADMINISTRATOR", this.form.ADMINISTRATOR);
+      // formData.append("INSTANSI", this.form.INSTANSI);
+      // formData.append("PASSWORD", this.form.PASSWORD);
+      // formData.append("TELEPON", this.form.TELEPON);
+      // formData.append("ALAMAT", this.form.ALAMAT);
+      // formData.append("DOMISILI", this.form.DOMISILI);
+      // // formData.append("KODE_INSTANSI", this.form.KODE_INSTANSI);
+      // // formData.append("STATUS", this.form.STATUS);
+      // // formData.append("ROLE", this.form.ROLE);
+      // formData.append("DITAMBAHKAN", this.form.DITAMBAHKAN);
+      // formData.append("LAYANAN", JSON.stringify(this.form.LAYANAN));
+
       onEdit() {
         this.onUpdate()
       },
       onUpdate() {
         // console.log(this.form)
         this.$axios
-      .put(`/instansi/${this.GUID}`, this.form)
+      .put(`/instansi/update/${this.GUID}`, this.form)
       .finally(() => this.$q.loading.hide())
       .then((response) => {
         if (!this.$parseResponse(response.data)) {
           console.log(response.data)
+          this.editnotif = false;
           this.getData()
         }
       })
