@@ -9,8 +9,9 @@
 
 <script>
 import LineChart from "vue3-apexcharts";
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent ({
   name: "ApexLine",
   components: {
     LineChart,
@@ -44,5 +45,5 @@ export default {
       ],
     };
   },
-};
+});
 </script>

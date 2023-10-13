@@ -11,5 +11,6 @@
     "javascriptreact",
     "typescript",
     "vue"
-  ]
+  ],
+  "vue.codeActions.enabled": false
 }

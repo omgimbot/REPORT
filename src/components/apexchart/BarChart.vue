@@ -1,5 +1,5 @@
 <template>
-    <BarChart height="300" type="bar" :options="options" :series="series"></BarChart>
+    <BarChart height="300" width="400" type="bar" :options="options" :series="series"></BarChart>
 </template>
 <script>
 import BarChart from 'vue3-apexcharts'
@@ -13,13 +13,16 @@ export default {
     return {
       options: {
         title: {
-          text: 'CHART',
-          align: 'left'
+          text: 'Data Instansi',
+          align: 'left',
+          style: {
+            color: '#109010'
+          }
         },
         chart: {
           id: 'apex-bar'
         },
-        colors: ['#304FFE', '#ef6445', '#304FF1'],
+        colors: ['#109010', '#109010', '#109010'],
         xaxis: {
           categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
         },

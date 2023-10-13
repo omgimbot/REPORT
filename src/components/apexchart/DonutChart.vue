@@ -1,5 +1,5 @@
 <template>
-  <DonutChart  height="300" type="donut" :options="options" :series="series"></DonutChart>
+  <DonutChart  height="300" width="400" type="donut" :options="options" :series="series"></DonutChart>
 </template>
 <script>
 import DonutChart from 'vue3-apexcharts'
@@ -13,10 +13,13 @@ export default {
     return {
       options: {
         title: {
-          text: 'ApexDonut',
-          align: 'left'
+          text: 'Data Instansi',
+          align: 'left',
+          style: {
+            color: '#109010'
+          }
         },
-        colors: ['blue', 'brown', 'red'],
+        colors: ['green', 'green', 'green'],
         markers: {
           size: 4,
           hover: {

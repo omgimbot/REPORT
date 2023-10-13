@@ -20,7 +20,7 @@
           <q-card
             class="q-pa-sm text-white"
             style="
-              background-image: url('images/banner/header.jpg');
+              background-image: url('images/banner/headerbg.jpg');
               background-repeat: no-repeat;
               background-size: cover;
             "
@@ -28,15 +28,15 @@
             <q-item>
               <q-item-section side>
                 <q-avatar rounded size="48px">
-                  <img src="https://cdn.quasar.dev/img/avatar.png" />
+                  <img src="images/demeter.jpg" />
                   <q-badge floating color="light-green"></q-badge>
                 </q-avatar>
               </q-item-section>
               <q-item-section>
-                <q-item-label class="text-white text-weight-bold">META REKSA DIGITAL</q-item-label>
+                <q-item-label class="text-white text-weight-bold">DEMETER</q-item-label>
                 <q-item-label caption class="text-white"
-                  ><q-badge color="positive"
-                    >admin@gmail.com</q-badge
+                  ><q-badge color="green-9"
+                    >superadmin@gmail.com</q-badge
                   ></q-item-label
                 >
               </q-item-section>
