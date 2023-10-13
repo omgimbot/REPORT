@@ -91,20 +91,20 @@
           >
             <template v-slot:prepend>
               <q-icon name="qr_code" class="q-pr-md" /> </template
-              ></q-input>
+          ></q-input>
 
-              <q-input
-                standout="bg-positive text-white"
-                v-model="form.NAMA"
-                class="text-white col-4 q-pa-sm text-capitalize"
-                label="Nama perangkat"
-                dense
-                lazy-rules
-                :rules="defaultRules"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="devices" class="q-pr-md" /> </template
-              ></q-input>
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.NAMA"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama perangkat"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="devices" class="q-pr-md" /> </template
+          ></q-input>
 
           <q-input
             standout="bg-positive text-white"
@@ -131,7 +131,6 @@
             <template v-slot:prepend>
               <q-icon name="123" class="q-pr-md" /> </template
           ></q-input>
-
         </div>
 
         <q-separator class="q-my-md" color="grey-3" />
@@ -151,23 +150,28 @@
 </template>
 
 <script>
+import { useQuasar, QSpinnerFacebook } from "quasar";
 const model = () => {
   return {
     NAMA: null,
     KODE_PERANGKAT: null,
     JENIS: null,
     MAC_ADDRESS: null,
-    DITAMBAHKAN: null
+    DITAMBAHKAN: null,
   };
 };
 
 export default {
   name: "IndexPage",
+
+  setup() {
+    const $q = useQuasar();
+  },
   data() {
     return {
       form: model(),
       isPwd: true,
-      dataUser: this.$q.localStorage.getItem("data")
+      dataUser: this.$q.localStorage.getItem("data"),
     };
   },
   created() {
@@ -181,8 +185,15 @@ export default {
     onSubmit() {
       this.onCreate();
     },
+
     async onCreate() {
-      this.$q.loading.show();
+      this.$q.loading.show({
+        spinner: QSpinnerFacebook,
+        spinnerColor: "green",
+        spinnerSize: 100,
+        backgroundColor: "black",
+      });
+
       this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
       await this.$axios
         .post("perangkat/create", this.form)
@@ -196,7 +207,7 @@ export default {
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    }
-  }
+    },
+  },
 };
 </script>

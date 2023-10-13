@@ -20,7 +20,7 @@
           <q-card
             class="q-pa-sm text-white"
             style="
-              background-image: url('images/banner/header.jpg');
+              background-image: url('images/banner/headerbg.jpg');
               background-repeat: no-repeat;
               background-size: cover;
             "
@@ -28,17 +28,22 @@
             <q-item>
               <q-item-section side>
                 <q-avatar rounded size="48px">
-                  <img crossorigin="anonymous" :src="
-                    this.dataUser.user.ICON == undefined || this.dataUser.user.ICON === '-'
-                      ? 'https://cdn.quasar.dev/img/avatar.png'
-                      : `${port}${this.dataUser.user.ICON}`
-                  "/>
+                  <img
+                    crossorigin="anonymous"
+                    :src="
+                      this.dataUser.user.ICON == undefined ||
+                      this.dataUser.user.ICON === '-'
+                        ? 'https://cdn.quasar.dev/img/avatar.png'
+                        : `${port}${this.dataUser.user.ICON}`
+                    "
+                  />
                 </q-avatar>
               </q-item-section>
               <q-item-section>
-                <q-item-label class="text-white text-weight-bold text-capitalize">{{
-                    this.dataUser.user.ADMINISTRATOR
-                  }}</q-item-label>
+                <q-item-label
+                  class="text-white text-weight-bold text-capitalize"
+                  >{{ this.dataUser.user.ADMINISTRATOR }}</q-item-label
+                >
                 <q-item-label caption class="text-white text-capitalize"
                   ><q-badge color="positive">{{
                     this.dataUser.user.INSTANSI
@@ -70,10 +75,7 @@
           </q-item>
 
           <div v-for="(d, i) in this.listLayanan" :key="i">
-            <q-expansion-item
-              expand-separator
-              v-if="d.KODE_LAYANAN == 'la696'"
-            >
+            <q-expansion-item expand-separator v-if="d.KODE_LAYANAN == 'la696'">
               <template v-slot:header>
                 <q-item-section avatar>
                   <q-avatar
@@ -105,10 +107,7 @@
               </q-item>
             </q-expansion-item>
 
-            <q-expansion-item
-              expand-separator
-              v-if="d.KODE_LAYANAN == 'la696'"
-            >
+            <q-expansion-item expand-separator v-if="d.KODE_LAYANAN == 'la696'">
               <template v-slot:header>
                 <q-item-section avatar>
                   <q-avatar
@@ -121,12 +120,15 @@
                   />
                 </q-item-section>
 
-                <q-item-section class="text-dark"
-                  >Absensi</q-item-section
-                >
+                <q-item-section class="text-dark">Absensi</q-item-section>
               </template>
 
-              <q-item clickable v-ripple :to="{ name: 'perangkat' }" class="bg-white">
+              <q-item
+                clickable
+                v-ripple
+                :to="{ name: 'perangkat' }"
+                class="bg-white"
+              >
                 <q-item-section avatar> </q-item-section>
 
                 <q-item-section class="text-positive text-weight-medium">
@@ -134,7 +136,12 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-ripple :to="{ name: 'pengguna' }" class="bg-white">
+              <q-item
+                clickable
+                v-ripple
+                :to="{ name: 'pengguna' }"
+                class="bg-white"
+              >
                 <q-item-section avatar> </q-item-section>
 
                 <q-item-section class="text-positive text-weight-medium">
@@ -142,7 +149,12 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-ripple :to="{ name: 'add_pengguna' }" class="bg-white">
+              <q-item
+                clickable
+                v-ripple
+                :to="{ name: 'add_pengguna' }"
+                class="bg-white"
+              >
                 <q-item-section avatar></q-item-section>
 
                 <q-item-section class="text-positive text-weight-medium">
@@ -150,7 +162,12 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-ripple :to="{ name: 'type' }" class="bg-white">
+              <q-item
+                clickable
+                v-ripple
+                :to="{ name: 'type' }"
+                class="bg-white"
+              >
                 <q-item-section avatar></q-item-section>
 
                 <q-item-section class="text-positive text-weight-medium">
@@ -158,7 +175,12 @@
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-ripple :to="{ name: 'jabatan' }" class="bg-white">
+              <q-item
+                clickable
+                v-ripple
+                :to="{ name: 'jabatan' }"
+                class="bg-white"
+              >
                 <q-item-section avatar></q-item-section>
 
                 <q-item-section class="text-positive text-weight-medium">
@@ -239,7 +261,7 @@ export default {
       port: "http://localhost:5072/",
       drawer: false,
       dataUser: this.$q.localStorage.getItem("data"),
-      arrayLayanan: []
+      arrayLayanan: [],
     };
   },
   created() {
@@ -255,13 +277,13 @@ export default {
           title: "Informasi",
           message: "Apakah Anda Yakin ingin keluar dari aplikasi ini ?",
           cancel: true,
-          persistent: true
+          persistent: true,
         })
         .onOk(() => {
           this.$q.localStorage.clear();
           this.$router.push({ name: "auth" });
         });
-    }
-  }
+    },
+  },
 };
 </script>

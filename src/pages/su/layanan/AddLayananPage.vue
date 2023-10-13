@@ -195,22 +195,26 @@
 </template>
 
 <script>
+import { useQuasar, QSpinnerFacebook } from "quasar";
 
 const model = () => {
   return {
     LAYANAN: null,
     KODE_LAYANAN: null,
-    DITAMBAHKAN: null
+    DITAMBAHKAN: null,
   };
 };
 
 export default {
   name: "IndexPage",
+  setup() {
+    const $q = useQuasar();
+  },
   data() {
     return {
       form: model(),
       isPwd: true,
-      dataUser: this.$q.localStorage.getItem("data")
+      dataUser: this.$q.localStorage.getItem("data"),
     };
   },
   created() {
@@ -225,7 +229,12 @@ export default {
       this.onCreate();
     },
     async onCreate() {
-      this.$q.loading.show();
+      this.$q.loading.show({
+        spinner: QSpinnerFacebook,
+        spinnerColor: "green",
+        spinnerSize: 100,
+        backgroundColor: "black",
+      });
       this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
       await this.$axios
         .post("layanan/create", this.form)
@@ -239,7 +248,7 @@ export default {
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -396,6 +396,7 @@
 import { ListService } from "./../../../helper/services/ListService";
 let { layanan } = [];
 const jenis_instansi = ["Pendidikan", "Pemerintahan", "Perusahaan", "Lainnya"];
+import { useQuasar, QSpinnerFacebook } from "quasar";
 
 const model = () => {
   return {
@@ -411,22 +412,25 @@ const model = () => {
     DITAMBAHKAN: null,
     LAYANAN: [],
     JENIS_INSTANSI: null,
-    ICON: null
+    ICON: null,
   };
 };
 
 export default {
   name: "IndexPage",
+  setup() {
+    const $q = useQuasar();
+  },
   data() {
     return {
       form: model(),
       options: {
         layanan,
-        jenis_instansi
+        jenis_instansi,
       },
       isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
-      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"]
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
     };
   },
   created() {
@@ -464,7 +468,12 @@ export default {
     },
     async onCreate() {
       this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
-      this.$q.loading.show();
+      this.$q.loading.show({
+        spinner: QSpinnerFacebook,
+        spinnerColor: "green",
+        spinnerSize: 100,
+        backgroundColor: "black",
+      });
 
       if (!this.form.ICON) {
         return;
@@ -498,7 +507,7 @@ export default {
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    }
-  }
+    },
+  },
 };
 </script>
