@@ -99,6 +99,9 @@ module.exports = configure(function (ctx) {
         loadingBar: {
           color: "green",
         },
+        loading: {
+          spinnerColor: "green",
+        }
       },
 
       // iconSet: 'material-icons', // Quasar icon set
