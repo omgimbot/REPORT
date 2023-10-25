@@ -170,7 +170,6 @@ export default {
   data() {
     return {
       form: model(),
-      isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
     };
   },

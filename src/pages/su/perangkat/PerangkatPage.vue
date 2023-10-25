@@ -83,11 +83,17 @@
         </template>
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td key="ID" :props="props" class="text-uppercase">
-              <q-badge color="positive">{{ props.row.KODE_LAYANAN }}</q-badge>
+            <q-td key="KODE_PERANGKAT" :props="props" class="text-uppercase">
+              <q-badge color="positive">{{ props.row.KODE_PERANGKAT }}</q-badge>
             </q-td>
-            <q-td key="LAYANAN" :props="props" class="text-capitalize">
-              {{ props.row.LAYANAN }}
+            <q-td key="NAMA" :props="props" class="text-capitalize">
+              {{ props.row.NAMA }}
+            </q-td>
+            <q-td key="JENIS" :props="props" class="text-capitalize">
+              {{ props.row.JENIS }}
+            </q-td>
+            <q-td key="MAC_ADDRESS" :props="props" class="text-capitalize">
+              {{ props.row.MAC_ADDRESS }}
             </q-td>
             <q-td key="TGL_DAFTAR" :props="props" class="text-capitalize">
               {{ $parseDate(props.row.CREATED_AT).fullDate }}
@@ -124,54 +130,148 @@
         </template>
       </q-table>
     </q-card>
+
+    <q-dialog
+      v-model="editnotif"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card
+        class="bg-white text-green-7"
+        style="width: 900px; max-width: 80vw"
+      >
+        <q-card-section>
+          <div class="text-h6 text-center">EDIT DATA</div>
+        </q-card-section>
+        <q-form @submit="onEdit">
+          <div class="row items-start">
+            <q-input
+              standout="bg-positive text-white"
+              v-model="form.KODE_PERANGKAT"
+              class="text-white col-4 q-pa-sm"
+              label="ID"
+              dense
+              readonly
+              lazy-rules
+              :rules="defaultRules"
+            >
+              <template v-slot:prepend>
+                <q-icon name="qr_code" class="q-pr-md" /> </template
+            ></q-input>
+
+            <q-input
+              standout="bg-positive text-white"
+              v-model="form.NAMA"
+              class="text-white col-4 q-pa-sm text-capitalize"
+              label="Nama perangkat"
+              dense
+              lazy-rules
+              :rules="defaultRules"
+            >
+              <template v-slot:prepend>
+                <q-icon name="devices" class="q-pr-md" /> </template
+            ></q-input>
+
+            <q-input
+              standout="bg-positive text-white"
+              v-model="form.MAC_ADDRESS"
+              class="text-white col-4 q-pa-sm text-capitalize"
+              label="MAC Address"
+              dense
+              lazy-rules
+              :rules="defaultRules"
+            >
+              <template v-slot:prepend>
+                <q-icon name="123" class="q-pr-md" /> </template
+            ></q-input>
+
+            <q-input
+              standout="bg-positive text-white"
+              v-model="form.JENIS"
+              class="text-white col-4 q-pa-sm text-capitalize"
+              label="Jenis Perangkat"
+              dense
+              lazy-rules
+              :rules="defaultRules"
+            >
+              <template v-slot:prepend>
+                <q-icon name="123" class="q-pr-md" /> </template
+            ></q-input>
+          </div>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
 const status = ["Aktif", "Tidak Aktif"];
+const model = () => {
+  return {
+    KODE_PERANGKAT: null,
+    NAMA: null,
+    MAC_ADDRESS: null,
+    JENIS: null,
+    DITAMBAHKAN: null,
+  };
+};
 
 export default {
   name: "IndexPage",
   components: {},
   data() {
     return {
+      deletenotif: false,
+      editnotif: false,
       options: {
-        status
+        status,
       },
       columns: [
         {
-          name: "ID",
+          name: "KODE_PERANGKAT",
           align: "left",
-          label: "ID",
-          field: "ID"
+          label: "Kode Perangkat",
+          field: "KODE_PERANGKAT",
         },
         {
-          name: "LAYANAN",
+          name: "NAMA",
           align: "left",
-          label: "Layanan",
-          field: "LAYANAN"
+          label: "Nama Perangkat",
+          field: "NAMA",
+        },
+        {
+          name: "JENIS",
+          align: "left",
+          label: "Jenis Perangkat",
+          field: "JENIS",
+        },
+        {
+          name: "MAC_ADDRESS",
+          align: "left",
+          label: "Mac Address",
+          field: "MAC_ADDRESS",
         },
         {
           name: "TGL_DAFTAR",
           align: "left",
           label: "Tgl. daftar",
-          field: "TGL_DAFTAR"
+          field: "TGL_DAFTAR",
         },
         {
           name: "ACTION",
           align: "center",
-          label: "#",
-          field: "ACTION"
-        }
+          label: "Action",
+          field: "ACTION",
+        },
       ],
       pagination: {
         sortBy: "desc",
         descending: false,
-        rowsPerPage: 5
+        rowsPerPage: 5,
       },
       rows: [],
       visibles: false,
-      layanan: []
     };
   },
   created() {
@@ -181,16 +281,42 @@ export default {
     getData: async function () {
       this.$q.loading.show();
       await this.$axios
-        .get(`layanan/getAll`)
+        .get(`perangkat/getAll`)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.rows = response.data.data;
-            this.layanan = response.data.data;
+            this.perangkat = response.data.data;
           }
         })
         .catch(() => this.$commonErrorNotif());
-    }
-  }
+    },
+
+    editData(EDITDATA) {
+      this.editnotif = true;
+      this.NAMA = EDITDATA.NAMA;
+      this.KODE_PERANGKAT = EDITDATA.KODE_PERANGKAT;
+      this.JENIS = EDITDATA.JENIS;
+      this.MAC_ADDRESS = EDITDATA.MAC_ADDRESS;
+    },
+
+    onEdit() {
+      this.onUpdate();
+    },
+    onUpdate() {
+      // console.log(this.form)
+      this.$axios
+        .put(`/perangkat/update/${this.GUID}`, this.form)
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            console.log(response.data);
+            this.editnotif = false;
+            this.getData();
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+  },
 };
 </script>
