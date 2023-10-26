@@ -17,7 +17,7 @@
           <div class="row q-gutter-sm">
             <q-input
               standout="bg-positive"
-              v-model="PASSWORD"
+              v-model="search"
               placeholder="Cari berdasarkan..."
               class="col q-mt-sm"
               flat
