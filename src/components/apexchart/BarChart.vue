@@ -1,44 +1,52 @@
 <template>
-    <BarChart height="300" width="400" type="bar" :options="options" :series="series"></BarChart>
+  <BarChart
+    height="300"
+    width="400"
+    type="bar"
+    :options="options"
+    :series="series"
+  ></BarChart>
 </template>
 <script>
-import BarChart from 'vue3-apexcharts'
+import BarChart from "vue3-apexcharts";
 
 export default {
-  name: 'ApexBar',
+  name: "ApexBar",
   components: {
-    BarChart
+    BarChart,
   },
-  data () {
+  data() {
     return {
       options: {
         title: {
-          text: 'Data Instansi',
-          align: 'left',
+          text: "Data Instansi",
+          align: "left",
           style: {
-            color: '#109010'
-          }
+            color: "#109010",
+          },
         },
         chart: {
-          id: 'apex-bar'
+          id: "apex-bar",
         },
-        colors: ['#109010', '#109010', '#109010'],
+        colors: ["#065036", "#26a69a", "#26a69a"],
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
         },
         plotOptions: {
           bar: {
             horizontal: true,
-            columnWidth: '55%',
-            endingShape: 'rounded'
-          }
-        }
+            columnWidth: "55%",
+            endingShape: "rounded",
+          },
+        },
       },
-      series: [{
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
-      }]
-    }
-  }
-}
+      series: [
+        {
+          name: "series-1",
+          data: [30, 40, 45, 50, 49, 60, 70, 91],
+        },
+      ],
+    };
+  },
+};
 </script>
