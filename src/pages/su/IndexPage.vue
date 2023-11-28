@@ -123,6 +123,9 @@
     </q-card>
 
     <q-card class="my-card q-pa-md q-mt-lg q-mb-lg" v-else>
+      <q-card class="q-pa-md">
+        <lottie style="width: 150px" :options="defaultOptions" />
+      </q-card>
       <div class="row q-gutter-sm">
         <div class="col">
           <q-card class="my-card" flat>
@@ -239,6 +242,7 @@
       <BarChart class="q-mr-xl" />
       <DonutChart />
     </q-card>
+
     <!-- <ChartLine /> -->
   </q-page>
 </template>
@@ -246,13 +250,40 @@
 <script>
 import BarChart from "src/components/apexchart/BarChart.vue";
 import DonutChart from "src/components/apexchart/DonutChart.vue";
+import Lottie from "src/components/lottie.vue";
+import * as animationData from "assets/animation.json";
+
 // import ChartLine from "src/components/apexchart/ChartLine.vue";
 export default {
   name: "IndexPage",
   components: {
     BarChart,
     DonutChart,
+    lottie: Lottie,
     // ChartLine,
+  },
+  data() {
+    return {
+      defaultOptions: { animationData: animationData.default },
+      animationSpeed: 2,
+    };
+  },
+  methods: {
+    handleAnimation: function (anim) {
+      this.anim = anim;
+    },
+    stop: function () {
+      this.anim.stop();
+    },
+    play: function () {
+      this.anim.play();
+    },
+    pause: function () {
+      this.anim.pause();
+    },
+    onSpeedChange: function () {
+      this.anim.setSpeed(this.animationSpeed);
+    },
   },
 };
 </script>

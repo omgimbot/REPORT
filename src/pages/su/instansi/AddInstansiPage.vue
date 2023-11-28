@@ -501,7 +501,7 @@ export default {
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            this.$router.go(0);
+            this.$router.push("/instansi");
           }
         })
         .catch((err) => {

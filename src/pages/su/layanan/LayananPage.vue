@@ -9,20 +9,11 @@
     <q-card class="my-card q-pa-md" flat>
       <div class="row q-gutter-sm">
         <div class="col">
-          <q-item-label
-            style="font-size: 14px"
-            class="text-weight-medium text-indigo-10 q-mb-md"
-            >Apa yang ingin anda cari ?</q-item-label
-          >
+          <q-item-label style="font-size: 14px" class="text-weight-medium text-indigo-10 q-mb-md">Apa yang ingin anda cari
+            ?</q-item-label>
           <div class="row q-gutter-sm">
-            <q-input
-              standout="bg-positive"
-              v-model="PASSWORD"
-              placeholder="Cari berdasarkan..."
-              class="col q-mt-sm"
-              flat
-              dense
-            >
+            <q-input standout="bg-positive" v-model="PASSWORD" placeholder="Cari berdasarkan..." class="col q-mt-sm" flat
+              dense>
               <template v-slot:prepend>
                 <q-icon name="search" />
               </template>
@@ -34,14 +25,7 @@
     </q-card>
 
     <div v-if="$q.platform.is.mobile">
-      <q-card
-        v-ripple
-        class="my-card q-mt-sm"
-        flat
-        bordered
-        v-for="(d, i) in this.layanan"
-        :key="i"
-      >
+      <q-card v-ripple class="my-card q-mt-sm" flat bordered v-for="(d, i) in this.layanan" :key="i">
         <q-item>
           <q-item-section avatar>
             <q-avatar>
@@ -50,13 +34,10 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label
-              >{{ d.LAYANAN }}
+            <q-item-label>{{ d.LAYANAN }}
               <q-badge class="text-uppercase">{{ d.KODE_LAYANAN }}</q-badge>
-              <q-badge
-                :color="d.STATUS == 0 ? 'blue-10' : 'positive'"
-                :label="d.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"
-              ></q-badge>
+              <q-badge :color="d.STATUS == 0 ? 'blue-10' : 'positive'"
+                :label="d.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"></q-badge>
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -85,33 +66,15 @@
             <q-td key="TGL_DAFTAR" :props="props" class="text-capitalize">
               {{ $parseDate(props.row.CREATED_AT).fullDate }}
               <div>
-                <q-badge
-                  class="text-lowercase"
-                  color="brown-12"
-                  style="font-size: 10px"
-                  >di post oleh : {{ props.row.DITAMBAHKAN }}</q-badge
-                >
+                <q-badge class="text-lowercase" color="brown-12" style="font-size: 10px">di post oleh : {{
+                  props.row.DITAMBAHKAN }}</q-badge>
               </div>
             </q-td>
             <q-td key="ACTION" :props="props" class="text-capitalize">
-              <q-btn
-                round
-                flat
-                color="blue-10"
-                @click="this.editData(props.row)"
-                size="sm"
-                icon="edit"
-                ><q-tooltip>edit data layanan</q-tooltip></q-btn
-              >
-              <q-btn
-                round
-                flat
-                @click="this.delete(props.row)"
-                color="blue-10"
-                size="sm"
-                icon="delete"
-                ><q-tooltip>hapus data layanan</q-tooltip></q-btn
-              >
+              <q-btn round flat color="blue-10" @click="this.editData(props.row)" size="sm" icon="edit"><q-tooltip>edit
+                  data layanan</q-tooltip></q-btn>
+              <q-btn round flat @click="this.delete(props.row)" color="blue-10" size="sm" icon="delete"><q-tooltip>hapus
+                  data layanan</q-tooltip></q-btn>
             </q-td>
           </q-tr>
         </template>
@@ -129,15 +92,38 @@
 
         <q-card-actions align="right" class="bg-white text-teal">
           <q-btn @click="this.deletedialogdata(this.GUID)" flat label="OK" v-close-popup />
+          <q-btn flat label="CANCEL" v-close-popup />
           <!-- <q-btn flat label="CANCEL" v-close-popup /> -->
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+
+    <q-dialog v-model="editnotif" persistent transition-show="scale" transition-hide="scale">
+    
+      <q-card class="q-pa-md">
+        <div class="text-weight-bold">EDIT DATA</div>
+        <q-form @submit="onEdit">
+          <q-input standout="bg-positive text-white" v-model="form.LAYANAN"
+            class="text-white col-4 q-pa-sm text-capitalize" label="Nama layanan" dense lazy-rules :rules="defaultRules">
+            <template v-slot:prepend>
+              <q-icon name="devices" class="q-pr-md" /> </template></q-input>
+
+          <q-card-actions align="right" class="bg-white text-teal">
+            <q-btn type="submit" flat label="OK" v-close-popup />
+            <q-btn flat label="cancel" v-close-popup />
+          </q-card-actions>
+        </q-form></q-card></q-dialog>
   </q-page>
 </template>
 
 <script>
 const status = ["Aktif", "Tidak Aktif"];
+const model = () => {
+  return {
+    LAYANAN: null,
+  }
+}
 
 export default {
   name: "IndexPage",
@@ -148,7 +134,9 @@ export default {
         status
       },
       deletenotif: false,
+      editnotif: false,
       GUID: null,
+      form: model(),
       columns: [
         {
           name: "ID",
@@ -171,7 +159,7 @@ export default {
         {
           name: "ACTION",
           align: "center",
-          label: "#",
+          label: "Action",
           field: "ACTION"
         }
       ],
@@ -207,19 +195,43 @@ export default {
       this.GUID = DATA.GUID
       // console.log(this.GUID)
       //
-      },
-      deletedialogdata() {
-        this.$axios
-      .delete(`/layanan/${this.GUID}`)
-      .finally(() => this.$q.loading.hide())
-      .then((response) => {
-        if (!this.$parseResponse(response.data)) {
-          this.getData()
-        }
-      })
-      .catch(() => this.$commonErrorNotif());
+    },
+    deletedialogdata() {
+      this.$axios
+        .delete(`/layanan/${this.GUID}`)
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            this.getData()
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
 
-      },
+    },
+    editData(EDITDATA) {
+      this.editnotif = true;
+      this.form.LAYANAN = EDITDATA.LAYANAN;
+      this.GUID = EDITDATA.GUID;
+    },
+
+    onEdit() {
+      this.onUpdate()
+    },
+    onUpdate() {
+      // console.log(this.form)
+      this.$axios
+        .put(`/layanan/update/${this.GUID}`, this.form)
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            console.log(response.data)
+            this.editnotif = false;
+            this.getData()
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+
   }
-};
+}
 </script>

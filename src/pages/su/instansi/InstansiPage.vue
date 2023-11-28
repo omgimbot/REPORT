@@ -144,7 +144,9 @@
                 />
               </q-avatar>
               <div>
-                <q-badge color="positive">{{ props.row.KODE_INSTANSI }}</q-badge>
+                <q-badge color="positive">{{
+                  props.row.KODE_INSTANSI
+                }}</q-badge>
               </div>
             </q-td>
             <q-td key="INSTANSI" :props="props" class="text-capitalize">
@@ -201,10 +203,15 @@
       </q-table>
     </q-card>
 
-    <q-dialog v-model="deletenotif" persistent transition-show="scale" transition-hide="scale">
+    <q-dialog
+      v-model="deletenotif"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
       <q-card class="bg-teal text-white" style="width: 300px">
         <q-card-section>
-          <div class="text-h6">HAPUS DATA </div>
+          <div class="text-h6">HAPUS DATA</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -212,51 +219,60 @@
         </q-card-section>
 
         <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn @click="this.deletedialogdata(this.GUID)" flat label="OK" v-close-popup />
+          <q-btn
+            @click="this.deletedialogdata(this.GUID)"
+            flat
+            label="OK"
+            v-close-popup
+          />
           <!-- <q-btn flat label="CANCEL" v-close-popup /> -->
         </q-card-actions>
       </q-card>
     </q-dialog>
 
-    <q-dialog v-model="editnotif" persistent transition-show="scale" transition-hide="scale">
-      <q-card class="bg-white text-green-7" style="width: 900px; max-width: 80vw;">
+    <q-dialog
+      v-model="editnotif"
+      persistent
+      transition-show="scale"
+      transition-hide="scale"
+    >
+      <q-card
+        class="bg-white text-green-7"
+        style="width: 900px; max-width: 80vw"
+      >
         <q-card-section>
-          <div class="text-h6 text-center">EDIT DATA </div>
+          <div class="text-h6 text-center">EDIT DATA</div>
         </q-card-section>
-        <q-form
-              @submit="onEdit"
-              >
-
-        <q-card-section class="q-pt-none">
-
+        <q-form @submit="onEdit">
+          <q-card-section class="q-pt-none">
             <div class="q-mt-md items-start row q-col-gutter-md">
               <q-input
-            standout="bg-positive text-white"
-            v-model="form.INSTANSI"
-            class="text-white col-4 q-pa-sm text-capitalize"
-            label="Nama instansi"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="group_work" class="q-pr-md" /> </template
-          ></q-input>
+                standout="bg-positive text-white"
+                v-model="form.INSTANSI"
+                class="text-white col-4 q-pa-sm text-capitalize"
+                label="Nama instansi"
+                dense
+                lazy-rules
+                :rules="defaultRules"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="group_work" class="q-pr-md" /> </template
+              ></q-input>
 
-          <q-input
-            standout="bg-positive text-white"
-            v-model="form.ADMINISTRATOR"
-            class="text-white col-4 q-pa-sm text-capitalize"
-            label="Nama administrator"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="account_circle" class="q-pr-md" /> </template
-          ></q-input>
+              <q-input
+                standout="bg-positive text-white"
+                v-model="form.ADMINISTRATOR"
+                class="text-white col-4 q-pa-sm text-capitalize"
+                label="Nama administrator"
+                dense
+                lazy-rules
+                :rules="defaultRules"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="account_circle" class="q-pr-md" /> </template
+              ></q-input>
 
-          <!-- <q-input
+              <!-- <q-input
             standout="bg-positive text-white"
             v-model="form.TELEPON"
             class="text-white col-4 q-pa-sm"
@@ -270,7 +286,7 @@
               <q-icon name="phone" class="q-pr-md" /> </template
           ></q-input> -->
 
-          <!-- <q-input
+              <!-- <q-input
             standout="bg-positive text-white"
             v-model="form.PASSWORD"
             class="text-white col-4 q-pa-sm"
@@ -291,43 +307,43 @@
               <q-icon name="fingerprint" class="q-pr-md" /> </template
           ></q-input> -->
 
-          <q-input
-            standout="bg-positive text-white"
-            v-model="form.ALAMAT"
-            class="text-white col q-pa-sm text-capitalize"
-            label="Alamat lengkap"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="map" class="q-pr-md" /> </template
-          ></q-input>
-        </div>
+              <q-input
+                standout="bg-positive text-white"
+                v-model="form.ALAMAT"
+                class="text-white col q-pa-sm text-capitalize"
+                label="Alamat lengkap"
+                dense
+                lazy-rules
+                :rules="defaultRules"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="map" class="q-pr-md" /> </template
+              ></q-input>
+            </div>
 
-        <div class="row items-start">
-          <q-item-label
-            style="font-size: 14px"
-            class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
-              >Data Pendukung</q-badge
-            ></q-item-label
-          >
-        </div>
-        <div class="row items-start">
-          <q-input
-            standout="bg-positive text-white"
-            v-model="form.DOMISILI"
-            class="text-white col-4 q-pa-sm text-capitalize"
-            label="Domisili usaha"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="map" class="q-pr-md" /> </template
-          ></q-input>
-          <!-- <q-file
+            <div class="row items-start">
+              <q-item-label
+                style="font-size: 14px"
+                class="text-weight-medium text-blue-grey-10"
+                ><q-badge class="q-px-md q-py-sm" color="positive"
+                  >Data Pendukung</q-badge
+                ></q-item-label
+              >
+            </div>
+            <div class="row items-start">
+              <q-input
+                standout="bg-positive text-white"
+                v-model="form.DOMISILI"
+                class="text-white col-4 q-pa-sm text-capitalize"
+                label="Domisili usaha"
+                dense
+                lazy-rules
+                :rules="defaultRules"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="map" class="q-pr-md" /> </template
+              ></q-input>
+              <!-- <q-file
             standout="bg-positive text-white"
             bottom-slots
             dense
@@ -380,15 +396,12 @@
               </q-item>
             </template>
           </q-select> -->
-                
-              
-                </div>
-
+            </div>
           </q-card-section>
-          
+
           <q-card-actions align="right" class="bg-white text-teal">
             <q-btn type="submit" flat label="OK" v-close-popup />
-            <q-btn  flat label="cancel" v-close-popup />
+            <q-btn flat label="cancel" v-close-popup />
           </q-card-actions>
         </q-form>
       </q-card>
@@ -411,8 +424,8 @@ const model = () => {
     ICON: null,
     DITAMBAHKAN: null,
     LAYANAN: [],
-}
-}
+  };
+};
 
 export default {
   name: "IndexPage",
@@ -433,56 +446,56 @@ export default {
         {
           name: "PHOTO",
           align: "left",
-          label: "",
-          field: "PHOTO"
+          label: "Avatar",
+          field: "PHOTO",
         },
         {
           name: "INSTANSI",
           align: "left",
           label: "Instansi",
-          field: "INSTANSI"
+          field: "INSTANSI",
         },
         {
           name: "ADMINISTRATOR",
           align: "left",
           label: "Administrator",
-          field: "ADMINISTRATOR"
+          field: "ADMINISTRATOR",
         },
         {
           name: "TELEPON",
           align: "left",
           label: "Telepon",
-          field: "TELEPON"
+          field: "TELEPON",
         },
         {
           name: "DOMISILI",
           align: "left",
           label: "Domisili usaha",
-          field: "DOMISILI"
+          field: "DOMISILI",
         },
         {
           name: "STATUS",
           align: "left",
           label: "Status",
-          field: "STATUS"
+          field: "STATUS",
         },
         {
           name: "TGL_DAFTAR",
           align: "left",
           label: "Tgl. daftar",
-          field: "TGL_DAFTAR"
+          field: "TGL_DAFTAR",
         },
         {
           name: "ACTION",
           align: "center",
-          label: "ACTION",
-          field: "ACTION"
-        }
+          label: "Action",
+          field: "ACTION",
+        },
       ],
       pagination: {
         sortBy: "desc",
         descending: false,
-        rowsPerPage: 5
+        rowsPerPage: 5,
       },
       rows: [],
       visibles: false,
@@ -492,7 +505,7 @@ export default {
   created() {
     this.getData();
   },
-  
+
   methods: {
     getData: async function () {
       this.$q.loading.show();
@@ -517,73 +530,72 @@ export default {
     },
 
     delete() {
-      this.deletenotif = true
-      this.GUID = DATA.GUID
+      this.deletenotif = true;
+      this.GUID = DATA.GUID;
       // console.log(this.GUID)
-      // 
-      },
-      deletedialogdata() {
-        this.$axios
-      .delete(`/instansi/${this.GUID}`)
-      .finally(() => this.$q.loading.hide())
-      .then((response) => {
-        if (!this.$parseResponse(response.data)) {
-          this.getData()
-        }
-      })
-      .catch(() => this.$commonErrorNotif());
-      
-      },
+      //
+    },
+    deletedialogdata() {
+      this.$axios
+        .delete(`/instansi/${this.GUID}`)
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            this.getData();
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
 
-      editData(EDITDATA) {
-        this.editnotif = true;
-        this.form.INSTANSI = EDITDATA.INSTANSI;
-        this.form.ADMINISTRATOR = EDITDATA.ADMINISTRATOR;
-        this.form.ALAMAT = EDITDATA.ALAMAT;
-        this.form.DOMISILI = EDITDATA.DOMISILI;
-        this.GUID = EDITDATA.GUID;
-        // this.form.ICON = EDITDATA.ICON;
-        // this.form.LAYANAN = EDITDATA.LAYANAN;
-        // this.form.TELEPON = EDITDATA.TELEPON;
-        // this.form.TELEPON = EDITDATA.TELEPON;
+    editData(EDITDATA) {
+      this.editnotif = true;
+      this.form.INSTANSI = EDITDATA.INSTANSI;
+      this.form.ADMINISTRATOR = EDITDATA.ADMINISTRATOR;
+      this.form.ALAMAT = EDITDATA.ALAMAT;
+      this.form.DOMISILI = EDITDATA.DOMISILI;
+      this.GUID = EDITDATA.GUID;
+      // this.form.ICON = EDITDATA.ICON;
+      // this.form.LAYANAN = EDITDATA.LAYANAN;
+      // this.form.TELEPON = EDITDATA.TELEPON;
+      // this.form.TELEPON = EDITDATA.TELEPON;
       //   this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
       // this.$q.loading.show();
       //   if (!this.form.ICON) {
       //   return;
-      },
+    },
 
-      // const formData = new FormData();
+    // const formData = new FormData();
 
-      // formData.append("ICON", this.form.ICON);
-      // formData.append("ADMINISTRATOR", this.form.ADMINISTRATOR);
-      // formData.append("INSTANSI", this.form.INSTANSI);
-      // formData.append("PASSWORD", this.form.PASSWORD);
-      // formData.append("TELEPON", this.form.TELEPON);
-      // formData.append("ALAMAT", this.form.ALAMAT);
-      // formData.append("DOMISILI", this.form.DOMISILI);
-      // // formData.append("KODE_INSTANSI", this.form.KODE_INSTANSI);
-      // // formData.append("STATUS", this.form.STATUS);
-      // // formData.append("ROLE", this.form.ROLE);
-      // formData.append("DITAMBAHKAN", this.form.DITAMBAHKAN);
-      // formData.append("LAYANAN", JSON.stringify(this.form.LAYANAN));
+    // formData.append("ICON", this.form.ICON);
+    // formData.append("ADMINISTRATOR", this.form.ADMINISTRATOR);
+    // formData.append("INSTANSI", this.form.INSTANSI);
+    // formData.append("PASSWORD", this.form.PASSWORD);
+    // formData.append("TELEPON", this.form.TELEPON);
+    // formData.append("ALAMAT", this.form.ALAMAT);
+    // formData.append("DOMISILI", this.form.DOMISILI);
+    // // formData.append("KODE_INSTANSI", this.form.KODE_INSTANSI);
+    // // formData.append("STATUS", this.form.STATUS);
+    // // formData.append("ROLE", this.form.ROLE);
+    // formData.append("DITAMBAHKAN", this.form.DITAMBAHKAN);
+    // formData.append("LAYANAN", JSON.stringify(this.form.LAYANAN));
 
-      onEdit() {
-        this.onUpdate()
-      },
-      onUpdate() {
-        // console.log(this.form)
-        this.$axios
-      .put(`/instansi/update/${this.GUID}`, this.form)
-      .finally(() => this.$q.loading.hide())
-      .then((response) => {
-        if (!this.$parseResponse(response.data)) {
-          console.log(response.data)
-          this.editnotif = false;
-          this.getData()
-        }
-      })
-      .catch(() => this.$commonErrorNotif());
-      },
-  }
+    onEdit() {
+      this.onUpdate();
+    },
+    onUpdate() {
+      // console.log(this.form)
+      this.$axios
+        .put(`/instansi/update/${this.GUID}`, this.form)
+        .finally(() => this.$q.loading.hide())
+        .then((response) => {
+          if (!this.$parseResponse(response.data)) {
+            console.log(response.data);
+            this.editnotif = false;
+            this.getData();
+          }
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+  },
 };
 </script>
