@@ -54,11 +54,10 @@
             <q-item-section avatar>
               <q-avatar
                 rounded
-                color="white"
-                text-color="positive"
-                class="shadow-1"
+                color="transparent"
+                text-color="white"
                 icon="dashboard"
-                size="md"
+                size="xl"
                 v-ripple
               >
               </q-avatar>
@@ -72,11 +71,10 @@
               <q-item-section avatar>
                 <q-avatar
                   rounded
-                  color="white"
-                  text-color="positive"
-                  class="shadow-1"
+                  color="transparent"
+                  text-color="white"
                   icon="group_work"
-                  size="md"
+                  size="xl"
                 />
               </q-item-section>
 
@@ -114,11 +112,10 @@
               <q-item-section avatar>
                 <q-avatar
                   rounded
-                  color="white"
-                  text-color="positive"
-                  class="shadow-1"
+                  color="transparent"
+                  text-color="white"
                   icon="dns"
-                  size="md"
+                  size="xl"
                 />
               </q-item-section>
 
@@ -156,11 +153,10 @@
               <q-item-section avatar>
                 <q-avatar
                   rounded
-                  color="white"
-                  text-color="positive"
-                  class="shadow-1"
+                  color="transparent"
+                  text-color="white"
                   icon="devices"
-                  size="md"
+                  size="xl"
                 />
               </q-item-section>
 
@@ -193,6 +189,38 @@
             </q-item>
           </q-expansion-item>
 
+          <q-item clickable v-ripple :to="{ name: 'guru' }">
+            <q-item-section avatar>
+              <q-avatar
+                rounded
+                color="transparent"
+                text-color="white"
+                icon="people"
+                size="xl"
+                v-ripple
+              >
+              </q-avatar>
+            </q-item-section>
+
+            <q-item-section class="text-white">Semua Guru</q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple :to="{ name: 'siswa' }">
+            <q-item-section avatar>
+              <q-avatar
+                rounded
+                color="transparent"
+                text-color="white"
+                icon="people"
+                size="xl"
+                v-ripple
+              >
+              </q-avatar>
+            </q-item-section>
+
+            <q-item-section class="text-white">Semua Siswa</q-item-section>
+          </q-item>
+
           <!-- <q-item-label header class="text-weight-bold text-accent"
             >Extras</q-item-label
           > -->
@@ -201,11 +229,10 @@
             <q-item-section avatar>
               <q-avatar
                 rounded
-                color="white"
-                text-color="positive"
-                class="shadow-1"
+                color="transparent"
+                text-color="white"
                 icon="power_settings_new"
-                size="md"
+                size="xl"
                 v-ripple
               >
               </q-avatar>
