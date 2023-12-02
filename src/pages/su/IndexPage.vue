@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md bg-accent">
     <div class="col">
       <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
         Dashboard

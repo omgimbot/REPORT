@@ -97,10 +97,10 @@ module.exports = configure(function (ctx) {
     framework: {
       config: {
         loadingBar: {
-          color: "green",
+          color: "primary",
         },
         loading: {
-          spinnerColor: "green",
+          spinnerColor: "primary",
         },
       },
 

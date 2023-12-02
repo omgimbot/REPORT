@@ -46,7 +46,7 @@
         </q-item>
 
         <q-list padding>
-          <q-item-label header class="text-weight-bold text-accent"
+          <q-item-label header class="text-accent text-center q-mt-md q-mb-md"
             >Main Menu</q-item-label
           >
 
