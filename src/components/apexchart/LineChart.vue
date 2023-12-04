@@ -9,9 +9,9 @@
 
 <script>
 import LineChart from "vue3-apexcharts";
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
-export default defineComponent ({
+export default defineComponent({
   name: "ApexLine",
   components: {
     LineChart,

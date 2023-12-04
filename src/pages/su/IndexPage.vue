@@ -1,12 +1,6 @@
 <template>
   <q-page class="q-pa-md bg-accent">
-    <div class="col">
-      <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Dashboard
-      </q-item-label>
-    </div>
-
-    <q-card
+    <!-- <q-card
       class="my-card q-pa-md q-mt-lg q-mb-lg"
       v-if="$q.platform.is.mobile"
     >
@@ -117,22 +111,19 @@
             </div>
           </q-card>
 
-          <!-- <LineChart /> -->
-        </div>
+           <LineChart /> -->
+    <!-- </div>
       </div>
-    </q-card>
+    </q-card> -->
 
-    <q-card class="my-card q-pa-md q-mt-lg q-mb-lg" v-else>
-      <q-card class="q-pa-md">
-        <lottie style="width: 150px" :options="defaultOptions" />
-      </q-card>
+    <q-card class="my-card q-pa-md q-mb-lg no-shadow">
       <div class="row q-gutter-sm">
         <div class="col">
           <q-card class="my-card" flat>
             <div class="col">
               <q-item-label
                 style="font-size: 18px"
-                class="text-weight-medium text-indigo-9"
+                class="text-weight-medium text-info"
                 >Selamat datang di DEMETER</q-item-label
               >
               <q-item-label
@@ -143,25 +134,7 @@
               >
               <div class="row q-gutter-sm q-mt-md items-start">
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
-                    <q-item clickable v-ripple>
-                      <q-item-section>
-                        <q-item-label caption class="text-caption text-white"
-                          >Total pengguna</q-item-label
-                        >
-                        <q-item-label
-                          caption
-                          style="font-size: 25px"
-                          class="text-weight-bold q-mb-xs text-uppercase text-white"
-                          >9999999999</q-item-label
-                        >
-                      </q-item-section>
-                    </q-item>
-                  </q-card>
-                </div>
-
-                <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-primary" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -179,7 +152,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-primary" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -197,7 +170,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-primary" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -215,7 +188,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-primary" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -237,11 +210,18 @@
         </div>
       </div>
     </q-card>
-
-    <q-card class="q-pa-md row">
-      <BarChart class="q-mr-xl" />
-      <DonutChart />
-    </q-card>
+    <div>
+      <div class="row q-gutter-md q-mb-md">
+        <q-card class="col no-shadow q-pa-md"><BarChart /></q-card>
+        <q-card class="col no-shadow q-pa-md"><BarChart /></q-card>
+        <q-card class="col no-shadow q-pa-md"><BarChart /></q-card>
+      </div>
+      <div class="row q-gutter-md">
+        <q-card class="col no-shadow q-pa-md"><DonutChart /></q-card>
+        <q-card class="col no-shadow q-pa-md"><DonutChart /></q-card>
+        <q-card class="col no-shadow q-pa-md"><DonutChart /></q-card>
+      </div>
+    </div>
 
     <!-- <ChartLine /> -->
   </q-page>
@@ -250,7 +230,8 @@
 <script>
 import BarChart from "src/components/apexchart/BarChart.vue";
 import DonutChart from "src/components/apexchart/DonutChart.vue";
-import Lottie from "src/components/lottie.vue";
+// import LineChart from "src/components/apexchart/LineChart.vue";
+// import Lottie from "src/components/lottie.vue";
 import * as animationData from "assets/animation.json";
 
 // import ChartLine from "src/components/apexchart/ChartLine.vue";
@@ -259,7 +240,8 @@ export default {
   components: {
     BarChart,
     DonutChart,
-    lottie: Lottie,
+    // LineChart,
+    // lottie: Lottie,
     // ChartLine,
   },
   data() {

@@ -1,7 +1,7 @@
 <template>
   <DonutChart
     height="300"
-    width="400"
+    width="350"
     type="donut"
     :options="options"
     :series="series"
@@ -22,7 +22,7 @@ export default {
           text: "Data Instansi",
           align: "left",
           style: {
-            color: "#109010",
+            color: "#322828",
           },
         },
         colors: ["#26a69a", "#1c6148", "#065036"],

@@ -5,7 +5,7 @@ const routes = [
     meta: { superadmin: true },
     children: [
       {
-        path: "dashboard",
+        path: "",
         name: "superadmin",
         component: () => import("src/pages/su/IndexPage.vue"),
       },

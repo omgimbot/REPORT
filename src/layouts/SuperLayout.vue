@@ -1,19 +1,26 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-toolbar>
+    <q-toolbar class="q-pa-sm">
       <q-space />
-      <q-btn
-        flat
-        dense
-        round
-        icon="menu"
-        aria-label="Menu"
-        color="positive"
-        @click="drawer = !drawer"
-      />
+      <div class="q-mr-sm text-weight-bold">Superadmin</div>
+      <q-item>
+        <q-avatar rounded size="40px" style="border-radius: 50px">
+          <img src="images/demeter.jpg" />
+          <q-badge floating color="green"></q-badge>
+        </q-avatar>
+      </q-item>
     </q-toolbar>
 
-    <q-drawer v-model="drawer" show-if-above class="bg-primary" :width="250">
+    <q-toolbar class="q-sm">
+      <div style="margin-left: 18%" class="row">
+        <div class="title">Welcome back,</div>
+        <div class="typing-text" id="typing-text">Superadmin</div>
+      </div>
+      <q-space />
+      <lottie style="width: 800px" :options="defaultOptions" />
+    </q-toolbar>
+
+    <q-drawer show-if-above class="bg-primary" :width="250">
       <q-list>
         <q-item header class="logo flex flex-center">
           <!-- <q-card
@@ -46,7 +53,7 @@
         </q-item>
 
         <q-list padding>
-          <q-item-label header class="text-accent text-center q-mt-md q-mb-md"
+          <q-item-label header class="text-accent q-mt-md"
             >Main Menu</q-item-label
           >
 
@@ -224,7 +231,7 @@
           <!-- <q-item-label header class="text-weight-bold text-accent"
             >Extras</q-item-label
           > -->
-
+          <q-item-label header class="text-accent q-mt-md">Extras</q-item-label>
           <q-item clickable v-ripple @click="logout()">
             <q-item-section avatar>
               <q-avatar
@@ -285,12 +292,18 @@
 </template>
 
 <script>
+import Lottie from "src/components/lottie.vue";
+import * as animationData from "assets/farmer.json";
 export default {
   name: "MainLayout",
-  components: {},
+  components: {
+    lottie: Lottie,
+  },
   data() {
     return {
       drawer: false,
+      defaultOptions: { animationData: animationData.default },
+      animationSpeed: 2,
     };
   },
   methods: {
@@ -308,6 +321,21 @@ export default {
           this.$router.push({ name: "auth" });
         });
     },
+    handleAnimation: function (anim) {
+      this.anim = anim;
+    },
+    stop: function () {
+      this.anim.stop();
+    },
+    play: function () {
+      this.anim.play();
+    },
+    pause: function () {
+      this.anim.pause();
+    },
+    onSpeedChange: function () {
+      this.anim.setSpeed(this.animationSpeed);
+    },
   },
 };
 </script>
@@ -319,5 +347,35 @@ export default {
   background-size: 60%;
   margin-top: 5%;
   background-position: center;
+}
+
+.title {
+  font-family: "Arial", sans-serif;
+  font-size: 20 px;
+}
+
+.typing-text {
+  font-family: "Arial", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  border-right: 2px solid #333;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1s steps(30) forwards, blink 0.5s infinite step-end;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 46%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
 </style>
