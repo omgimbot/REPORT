@@ -1,22 +1,30 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="col q-px-md">
-      <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Perangkat
-      </q-item-label>
-    </div>
-
+  <q-page class="q-pa-md bg-accent">
+    <q-card class="no-shadow q-pa-md q-mb-md">
+      <div class="col">
+        <q-item-label
+          style="font-size: 20px"
+          class="text-weight-bold text-dark"
+        >
+          Daftar Perangkat
+        </q-item-label>
+        <q-item-label style="font-size: 12px" class="text-primary text-caption"
+          >Superadmin dapat melihat semua perangkat yang sudah terdaftar
+          disini</q-item-label
+        >
+      </div></q-card
+    >
     <q-card class="my-card q-pa-md" flat>
       <div class="row q-gutter-sm">
         <div class="col">
           <q-item-label
             style="font-size: 14px"
-            class="text-weight-medium text-indigo-10 q-mb-md"
+            class="text-weight-medium text-primary q-mb-md"
             >Apa yang ingin anda cari ?</q-item-label
           >
           <div class="row q-gutter-sm">
             <q-input
-              standout="bg-positive"
+              standout="bg-primary"
               v-model="search"
               placeholder="Cari berdasarkan..."
               class="col q-mt-sm"
@@ -27,7 +35,7 @@
                 <q-icon name="search" />
               </template>
             </q-input>
-            <q-btn color="blue-10" class="q-mt-sm">Cari data</q-btn>
+            <q-btn color="brown-8" class="q-mt-sm">Cari data</q-btn>
           </div>
         </div>
       </div>

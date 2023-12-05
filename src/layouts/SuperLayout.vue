@@ -4,24 +4,19 @@
     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
   />
   <q-layout view="lHh Lpr lFf">
-    <q-toolbar class="q-pa-sm" glossy>
+    <q-toolbar class="q-pa-sm">
+      <div style="margin-left: 15%" class="row">
+        <div class="title">Welcome back,</div>
+        <div class="typing-text" id="typing-text">Superadmin</div>
+      </div>
       <q-space />
-      <div class="q-mr-sm text-weight-bold">Superadmin</div>
+      <div class="text-weight-bold">Superadmin</div>
       <q-item>
         <q-avatar rounded size="40px" style="border-radius: 50px">
           <img src="images/demeter.jpg" />
           <q-badge floating color="green"></q-badge>
         </q-avatar>
       </q-item>
-    </q-toolbar>
-
-    <q-toolbar class="q-sm">
-      <div style="margin-left: 15%" class="row">
-        <div class="title">Welcome back,</div>
-        <div class="typing-text" id="typing-text">Superadmin</div>
-      </div>
-      <q-space />
-      <!-- <lottie style="width: 800px" :options="defaultOptions" /> -->
     </q-toolbar>
 
     <q-drawer show-if-above class="bg-primary" :width="250">
@@ -354,13 +349,13 @@ export default {
 
 .title {
   font-family: "Arial", sans-serif;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .typing-text {
   font-family: "Arial", sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   border-right: 2px solid #333;
   white-space: nowrap;
   overflow: hidden;
@@ -377,8 +372,8 @@ export default {
 }
 
 @keyframes blink {
-  50% {
-    border-color: transparent;
+  46% {
+    border-right-color: transparent;
   }
 }
 </style>
