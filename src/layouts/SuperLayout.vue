@@ -1,6 +1,10 @@
 <template>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+  />
   <q-layout view="lHh Lpr lFf">
-    <q-toolbar class="q-pa-sm">
+    <q-toolbar class="q-pa-sm" glossy>
       <q-space />
       <div class="q-mr-sm text-weight-bold">Superadmin</div>
       <q-item>
@@ -12,12 +16,12 @@
     </q-toolbar>
 
     <q-toolbar class="q-sm">
-      <div style="margin-left: 18%" class="row">
+      <div style="margin-left: 15%" class="row">
         <div class="title">Welcome back,</div>
         <div class="typing-text" id="typing-text">Superadmin</div>
       </div>
       <q-space />
-      <lottie style="width: 800px" :options="defaultOptions" />
+      <!-- <lottie style="width: 800px" :options="defaultOptions" /> -->
     </q-toolbar>
 
     <q-drawer show-if-above class="bg-primary" :width="250">
@@ -247,7 +251,6 @@
 
             <q-item-section class="text-white">Log Out</q-item-section>
           </q-item>
-
           <!-- <q-item clickable v-ripple>
             <q-item-section avatar>
               <q-avatar
@@ -297,7 +300,7 @@ import * as animationData from "assets/farmer.json";
 export default {
   name: "MainLayout",
   components: {
-    lottie: Lottie,
+    // lottie: Lottie,
   },
   data() {
     return {
@@ -351,7 +354,7 @@ export default {
 
 .title {
   font-family: "Arial", sans-serif;
-  font-size: 20 px;
+  font-size: 20px;
 }
 
 .typing-text {

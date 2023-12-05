@@ -1,14 +1,22 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md bg-accent">
     <div v-if="$q.platform.is.mobile">
-      <div class="col">
-        <q-item-label
-          style="font-size: 20px"
-          class="text-weight-bold text-dark"
-        >
-          Instansi
-        </q-item-label>
-      </div>
+      <q-card class="no-shadow q-pa-md q-mb-md">
+        <div class="col q-px-md">
+          <q-item-label
+            style="font-size: 20px"
+            class="text-weight-bold text-dark"
+          >
+            Daftar Instansi
+          </q-item-label>
+          <q-item-label
+            style="font-size: 12px"
+            class="text-primary text-caption"
+            >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
+            penginputan data !</q-item-label
+          >
+        </div></q-card
+      >
 
       <q-card class="my-card q-mt-sm" flat>
         <div class="row q-gutter-sm">
@@ -43,14 +51,22 @@
     </div>
 
     <div v-else>
-      <div class="col q-px-md">
-        <q-item-label
-          style="font-size: 20px"
-          class="text-weight-bold text-dark"
-        >
-          Instansi
-        </q-item-label>
-      </div>
+      <q-card class="no-shadow q-pa-md q-mb-md">
+        <div class="col">
+          <q-item-label
+            style="font-size: 20px"
+            class="text-weight-bold text-dark"
+          >
+            Daftar Instansi
+          </q-item-label>
+          <q-item-label
+            style="font-size: 12px"
+            class="text-primary text-caption"
+            >Superadmin dapat melihat para Instansi yang sudah terdaftar
+            disini</q-item-label
+          >
+        </div></q-card
+      >
 
       <q-card class="my-card q-pa-md" flat>
         <div class="row q-gutter-sm">
@@ -59,12 +75,12 @@
               <div class="col">
                 <q-item-label
                   style="font-size: 14px"
-                  class="text-weight-medium text-indigo-10 q-mb-md"
+                  class="text-weight-medium text-primary q-mb-md"
                   >Apa yang ingin anda cari ?</q-item-label
                 >
                 <div class="row q-gutter-sm">
                   <q-input
-                    standout="bg-positive"
+                    standout="bg-primary"
                     v-model="PASSWORD"
                     placeholder="Cari berdasarkan..."
                     class="col q-mt-sm"
@@ -75,7 +91,7 @@
                       <q-icon name="search" />
                     </template>
                   </q-input>
-                  <q-btn color="blue-10" class="q-mt-sm">Cari data</q-btn>
+                  <q-btn color="brown-8" class="q-mt-sm">Cari data</q-btn>
                 </div>
               </div>
             </q-card>
@@ -182,7 +198,7 @@
               <q-btn
                 round
                 flat
-                color="blue-10"
+                color="primary"
                 @click="this.editData(props.row)"
                 size="sm"
                 icon="edit"
@@ -192,7 +208,7 @@
                 round
                 flat
                 @click="this.delete(props.row)"
-                color="blue-10"
+                color="primary"
                 size="sm"
                 icon="delete"
                 ><q-tooltip>hapus data Instansi</q-tooltip></q-btn

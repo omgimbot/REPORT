@@ -123,7 +123,7 @@
             <div class="col">
               <q-item-label
                 style="font-size: 18px"
-                class="text-weight-medium text-info"
+                class="text-weight-medium text-brown-8"
                 >Selamat datang di DEMETER</q-item-label
               >
               <q-item-label
@@ -230,6 +230,7 @@
 <script>
 import BarChart from "src/components/apexchart/BarChart.vue";
 import DonutChart from "src/components/apexchart/DonutChart.vue";
+// import PieChart from "src/components/PieChart.vue";
 // import LineChart from "src/components/apexchart/LineChart.vue";
 // import Lottie from "src/components/lottie.vue";
 import * as animationData from "assets/animation.json";
@@ -240,6 +241,7 @@ export default {
   components: {
     BarChart,
     DonutChart,
+    // PieChart
     // LineChart,
     // lottie: Lottie,
     // ChartLine,

@@ -87,7 +87,7 @@
             <q-card-section class="q-pt-sm">
               <q-form @submit="onSubmitAdmin()">
                 <div class="q-gutter-sm">
-                  <q-item-label class="text-weight-bold text-blue-10"
+                  <q-item-label class="text-weight-bold text-primary"
                     >Telepon</q-item-label
                   >
                   <q-input
@@ -97,7 +97,7 @@
                     mask="#############"
                     dense
                   />
-                  <q-item-label class="text-weight-bold text-blue-10"
+                  <q-item-label class="text-weight-bold text-primary"
                     >Password</q-item-label
                   >
                   <q-input
@@ -117,7 +117,7 @@
 
                   <div class="col">
                     <q-btn
-                      class="text-white fit q-mt-lg bg-positive q-px-xl q-py-sm"
+                      class="text-white fit q-mt-lg bg-primary q-px-xl q-py-sm"
                       size="sm"
                       type="submit"
                       >Sign In</q-btn
@@ -154,10 +154,10 @@ export default {
       visible: false,
       form: {
         TELEPON: null,
-        PASSWORD: null
+        PASSWORD: null,
       },
       isPwd: true,
-      dense: false
+      dense: false,
     };
   },
   methods: {
@@ -166,7 +166,7 @@ export default {
       this.$axios
         .post("/superadmin/login", {
           TELEPON: this.form.TELEPON,
-          PASSWORD: this.form.PASSWORD
+          PASSWORD: this.form.PASSWORD,
         })
         .finally(() => this.$q.loading.hide())
         .then((res) => {
@@ -184,7 +184,7 @@ export default {
           }
         })
         .catch((err) => this.$errorServer(err));
-    }
-  }
+    },
+  },
 };
 </script>

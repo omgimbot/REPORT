@@ -1,14 +1,19 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="col q-px-md">
-      <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Tambah Instansi
-      </q-item-label>
-      <q-item-label style="font-size: 12px" class="text-blue-10 text-caption"
-        >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
-        penginputan data !</q-item-label
-      >
-    </div>
+  <q-page class="q-pa-md bg-accent">
+    <q-card class="no-shadow q-pa-md q-mb-md">
+      <div class="col q-px-md">
+        <q-item-label
+          style="font-size: 20px"
+          class="text-weight-bold text-dark"
+        >
+          Tambah Instansi
+        </q-item-label>
+        <q-item-label style="font-size: 12px" class="text-primary text-caption"
+          >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
+          penginputan data !</q-item-label
+        >
+      </div></q-card
+    >
 
     <q-card class="my-card q-pa-md" flat v-if="$q.platform.is.mobile">
       <q-form
@@ -184,7 +189,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pokok</q-badge
             ></q-item-label
           >
@@ -283,7 +288,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pendukung</q-badge
             ></q-item-label
           >
@@ -382,7 +387,7 @@
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
           >
-            <q-btn color="blue-10" type="submit" dense size="sm" class="q-px-lg"
+            <q-btn color="brown-8" type="submit" dense size="sm" class="q-px-lg"
               >Add Data</q-btn
             >
           </q-item-label>
