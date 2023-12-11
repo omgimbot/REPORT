@@ -52,9 +52,7 @@
         </q-item>
 
         <q-list padding>
-          <q-item-label header class="text-accent q-mt-md"
-            >Main Menu</q-item-label
-          >
+          <q-item-label header class="text-weight-bold">Main Menu</q-item-label>
 
           <q-item clickable v-ripple :to="{ name: 'superadmin' }">
             <q-item-section avatar>

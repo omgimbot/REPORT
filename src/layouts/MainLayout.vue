@@ -1,31 +1,41 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header class="bg-white">
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          color="positive"
-          @click="drawer = !drawer"
-        />
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer v-model="drawer" show-if-above class="bg-grey-2">
-      <q-list>
-        <q-item-label header>
-          <q-card
-            class="q-pa-sm text-white"
-            style="
-              background-image: url('images/banner/headerbg.jpg');
-              background-repeat: no-repeat;
-              background-size: cover;
+    <q-toolbar>
+      <div style="margin-left: 15%" class="row">
+        <div class="title">Welcome back,</div>
+        <div class="typing-text" id="typing-text">
+          Admin
+          {{ this.dataUser.user.ADMINISTRATOR }}
+        </div>
+      </div>
+      <q-space />
+      <div class="usn">
+        <div class="text-weight-bold user">
+          {{ this.dataUser.user.ADMINISTRATOR }}
+        </div>
+        <div class="instansi">
+          {{ this.dataUser.user.INSTANSI }}
+        </div>
+      </div>
+      <q-item>
+        <q-avatar rounded size="40px" style="border-radius: 50px">
+          <img
+            :src="
+              this.dataUser.user.ICON == undefined ||
+              this.dataUser.user.ICON === '-'
+                ? 'https://cdn.quasar.dev/img/avatar.png'
+                : `${port}${this.dataUser.user.ICON}`
             "
-          >
-            <q-item>
+          />
+          <q-badge floating color="green"></q-badge>
+        </q-avatar>
+      </q-item>
+    </q-toolbar>
+
+    <q-drawer v-model="drawer" show-if-above class="bg-primary" :width="250">
+      <q-list>
+        <q-item header class="logo flex flex-center">
+          <!-- <q-item>
               <q-item-section side>
                 <q-avatar rounded size="48px">
                   <img
@@ -50,101 +60,102 @@
                   }}</q-badge></q-item-label
                 >
               </q-item-section>
-            </q-item>
-          </q-card>
-        </q-item-label>
+            </q-item> -->
+        </q-item>
 
         <q-list padding>
-          <q-item-label header class="text-weight-bold">Main Menu</q-item-label>
+          <q-item-label header class="text-weight-bold text-white"
+            >Main Menu</q-item-label
+          >
 
           <q-item clickable v-ripple :to="{ name: 'superadmin' }">
             <q-item-section avatar>
               <q-avatar
                 rounded
-                color="white"
-                text-color="positive"
-                class="shadow-1"
+                color="transparent"
+                text-color="white"
                 icon="dashboard"
-                size="md"
+                size="xl"
                 v-ripple
               >
               </q-avatar>
             </q-item-section>
 
-            <q-item-section class="text-dark">Dashboard</q-item-section>
+            <q-item-section class="text-white">Dashboard</q-item-section>
           </q-item>
 
           <div v-for="(d, i) in this.listLayanan" :key="i">
-            <q-expansion-item expand-separator v-if="d.KODE_LAYANAN == 'la696'">
+            <q-expansion-item expand-separator v-if="d.KODE_LAYANAN == '1d657'">
               <template v-slot:header>
                 <q-item-section avatar>
                   <q-avatar
                     rounded
-                    color="white"
-                    text-color="positive"
-                    class="shadow-1"
+                    color="transparent"
+                    text-color="white"
                     icon="badge"
-                    size="md"
+                    size="xl"
                   />
                 </q-item-section>
 
-                <q-item-section class="text-dark">TEST</q-item-section>
+                <q-item-section class="text-white">Other</q-item-section>
               </template>
 
-              <q-item clickable v-ripple :to="{ name: 'layanan' }">
+              <q-item
+                clickable
+                v-ripple
+                :to="{ name: 'layanan' }"
+                class="bg-primary"
+              >
                 <q-item-section avatar> </q-item-section>
 
-                <q-item-section class="text-positive text-weight-medium">
+                <q-item-section class="text-white">
                   Semua Layanan
                 </q-item-section>
               </q-item>
               <q-item clickable v-ripple :to="{ name: 'add_layanan' }">
                 <q-item-section avatar></q-item-section>
 
-                <q-item-section class="text-positive text-weight-medium">
+                <q-item-section class="text-white">
                   Daftarkan Layanan
                 </q-item-section>
               </q-item>
             </q-expansion-item>
 
-            <q-expansion-item expand-separator v-if="d.KODE_LAYANAN == 'la696'">
+            <q-expansion-item expand-separator v-if="d.KODE_LAYANAN == '1d657'">
               <template v-slot:header>
                 <q-item-section avatar>
                   <q-avatar
                     rounded
-                    color="white"
-                    text-color="positive"
-                    class="shadow-1"
+                    color="transparent"
+                    text-color="white"
                     icon="face_retouching_natural"
-                    size="md"
+                    size="xl"
                   />
                 </q-item-section>
 
-                <q-item-section class="text-dark">Absensi</q-item-section>
+                <q-item-section class="text-white">Absensi</q-item-section>
               </template>
 
               <q-item
                 clickable
                 v-ripple
                 :to="{ name: 'perangkat' }"
-                class="bg-white"
+                class="bg-primary"
               >
                 <q-item-section avatar> </q-item-section>
 
-                <q-item-section class="text-positive text-weight-medium">
-                  Laporan
-                </q-item-section>
+                <q-item-section class="text-white"> Laporan </q-item-section>
               </q-item>
 
               <q-item
                 clickable
                 v-ripple
                 :to="{ name: 'pengguna' }"
-                class="bg-white"
+                class="bg-primary"
               >
                 <q-item-section avatar> </q-item-section>
 
-                <q-item-section class="text-positive text-weight-medium">
+                <q-item-section class="text-white">
                   Semua Pengguna
                 </q-item-section>
               </q-item>
@@ -153,11 +164,11 @@
                 clickable
                 v-ripple
                 :to="{ name: 'add_pengguna' }"
-                class="bg-white"
+                class="bg-primary"
               >
                 <q-item-section avatar></q-item-section>
 
-                <q-item-section class="text-positive text-weight-medium">
+                <q-item-section class="text-white">
                   Daftarkan Pengguna
                 </q-item-section>
               </q-item>
@@ -166,11 +177,11 @@
                 clickable
                 v-ripple
                 :to="{ name: 'type' }"
-                class="bg-white"
+                class="bg-primary"
               >
                 <q-item-section avatar></q-item-section>
 
-                <q-item-section class="text-positive text-weight-medium">
+                <q-item-section class="text-white">
                   Jenis Laporan
                 </q-item-section>
               </q-item>
@@ -179,13 +190,11 @@
                 clickable
                 v-ripple
                 :to="{ name: 'jabatan' }"
-                class="bg-white"
+                class="bg-primary"
               >
                 <q-item-section avatar></q-item-section>
 
-                <q-item-section class="text-positive text-weight-medium">
-                  Jabatan
-                </q-item-section>
+                <q-item-section class="text-white"> Jabatan </q-item-section>
               </q-item>
             </q-expansion-item>
           </div>
@@ -196,17 +205,16 @@
             <q-item-section avatar>
               <q-avatar
                 rounded
-                color="white"
-                text-color="positive"
-                class="shadow-1"
+                color="transparent"
+                text-color="white"
                 icon="power_settings_new"
-                size="md"
+                size="xl"
                 v-ripple
               >
               </q-avatar>
             </q-item-section>
 
-            <q-item-section class="text-dark">Log Out</q-item-section>
+            <q-item-section class="text-white">Log Out</q-item-section>
           </q-item>
 
           <!-- <q-item clickable v-ripple>
@@ -287,3 +295,48 @@ export default {
   },
 };
 </script>
+
+<style>
+.typing-text {
+  font-family: "Arial", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  border-right: 1px solid #333;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1s steps(30) forwards, blink 0.5s infinite step-end;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 55%;
+  }
+}
+
+@keyframes blink {
+  46% {
+    border-right-color: transparent;
+  }
+}
+.logo {
+  background-image: url("/images/logodemeter.png");
+  background-repeat: no-repeat;
+  background-size: 60%;
+  margin-top: 5%;
+  background-position: center;
+}
+
+.usn {
+  margin-left: 25%;
+}
+.user {
+  font-size: 20px;
+}
+.instansi {
+  font-size: 10px;
+  text-align: right;
+}
+</style>

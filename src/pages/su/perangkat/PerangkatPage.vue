@@ -25,17 +25,18 @@
           <div class="row q-gutter-sm">
             <q-input
               standout="bg-primary"
-              v-model="search"
+              v-model="filter"
               placeholder="Cari berdasarkan..."
               class="col q-mt-sm"
               flat
               dense
             >
-              <template v-slot:prepend>
-                <q-icon name="search" />
+              <template v-slot:append>
+                <q-badge class="q-pa-sm" color="brown-8">
+                  <q-icon name="search" />
+                </q-badge>
               </template>
             </q-input>
-            <q-btn color="brown-8" class="q-mt-sm">Cari data</q-btn>
           </div>
         </div>
       </div>
@@ -81,7 +82,12 @@
     </div>
 
     <q-card class="my-card q-pa-md" flat v-else>
-      <q-table :rows="rows" :columns="columns" :pagination="pagination">
+      <q-table
+        :rows="rows"
+        :columns="columns"
+        :pagination="pagination"
+        :filter="filter"
+      >
         <template v-slot:header="props">
           <q-tr :props="props">
             <q-th v-for="col in props.cols" :key="col.name" :props="props">
@@ -230,6 +236,7 @@ export default {
   components: {},
   data() {
     return {
+      filter: null,
       deletenotif: false,
       editnotif: false,
       options: {

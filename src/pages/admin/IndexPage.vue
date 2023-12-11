@@ -1,12 +1,9 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="col">
-      <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Dashboard
-      </q-item-label>
-    </div>
-
-    <q-card class="my-card q-pa-md q-mt-lg q-mb-lg" v-if="$q.platform.is.mobile">
+  <q-page class="q-pa-md bg-accent">
+    <q-card
+      class="my-card q-pa-md q-mt-md q-mb-md"
+      v-if="$q.platform.is.mobile"
+    >
       <div class="row q-gutter-sm">
         <div class="col">
           <q-card class="my-card" flat>
@@ -16,14 +13,13 @@
                 class="text-weight-medium text-indigo-10"
                 >Selamat datang di DEMETER</q-item-label
               >
-              <q-item-label
-                class="text-caption text-grey"
+              <q-item-label class="text-caption text-grey"
                 >Kelola semua data yang dibutuhkan untuk berjalannya
                 layanan.</q-item-label
               >
               <div class="q-gutter-sm q-mt-md items-start">
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -41,7 +37,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -59,7 +55,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -77,7 +73,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -123,9 +119,7 @@
         <div class="col">
           <q-card class="my-card" flat>
             <div class="col">
-              <q-item-label
-                style="font-size: 18px"
-                class="text-weight-medium text-indigo-10"
+              <q-item-label style="font-size: 18px" class="text-weight-medium"
                 >Selamat datang di DEMETER</q-item-label
               >
               <q-item-label
@@ -136,7 +130,7 @@
               >
               <div class="row q-gutter-sm q-mt-md items-start">
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -154,7 +148,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -172,7 +166,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -190,7 +184,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -208,7 +202,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-positive" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -237,6 +231,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "IndexPage"
+  name: "IndexPage",
 });
 </script>

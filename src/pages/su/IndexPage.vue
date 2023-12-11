@@ -121,9 +121,7 @@
         <div class="col">
           <q-card class="my-card" flat>
             <div class="col">
-              <q-item-label
-                style="font-size: 18px"
-                class="text-weight-medium text-brown-8"
+              <q-item-label style="font-size: 18px" class="text-weight-medium"
                 >Selamat datang di DEMETER</q-item-label
               >
               <q-item-label
@@ -134,7 +132,7 @@
               >
               <div class="row q-gutter-sm q-mt-md items-start">
                 <div class="col">
-                  <q-card class="my-card bg-primary" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -152,7 +150,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-primary" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -170,7 +168,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-primary" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -188,7 +186,7 @@
                 </div>
 
                 <div class="col">
-                  <q-card class="my-card bg-primary" flat>
+                  <q-card class="my-card bg-brown-8" flat>
                     <q-item clickable v-ripple>
                       <q-item-section>
                         <q-item-label caption class="text-caption text-white"
@@ -224,6 +222,9 @@
     </div>
 
     <!-- <ChartLine /> -->
+    <q-page-container>
+      <router-view />
+    </q-page-container>
   </q-page>
 </template>
 
