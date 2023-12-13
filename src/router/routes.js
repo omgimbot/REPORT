@@ -61,7 +61,7 @@ const routes = [
       },
       {
         path: "add",
-        name: "add_type",
+        name: "add_types",
         component: () =>
           import(
             "src/pages/admin/absensi_selfie/jenis_laporan/AddJenisLaporanPage.vue"

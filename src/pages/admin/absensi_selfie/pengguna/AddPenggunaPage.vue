@@ -1,14 +1,19 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="col q-px-md">
-      <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Tambah Pengguna
-      </q-item-label>
-      <q-item-label style="font-size: 12px" class="text-blue-10 text-caption"
-        >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
-        penginputan data !</q-item-label
-      >
-    </div>
+  <q-page class="q-pa-md bg-accent">
+    <q-card class="no-shadow q-pa-md q-mb-md">
+      <div class="col">
+        <q-item-label
+          style="font-size: 20px"
+          class="text-weight-bold text-dark"
+        >
+          Tambah Pengguna
+        </q-item-label>
+        <q-item-label style="font-size: 12px" class="text-caption text-primary"
+          >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
+          penginputan data !</q-item-label
+        >
+      </div>
+    </q-card>
 
     <q-card class="my-card q-pa-md" flat v-if="$q.platform.is.mobile">
       <q-form
@@ -157,7 +162,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pokok</q-badge
             ></q-item-label
           >
@@ -242,7 +247,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pendukung</q-badge
             ></q-item-label
           >
@@ -316,7 +321,7 @@
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
           >
-            <q-btn color="blue-10" type="submit" dense size="sm" class="q-px-lg"
+            <q-btn color="brown-8" type="submit" dense size="sm" class="q-px-lg"
               >Add Data</q-btn
             >
           </q-item-label>
@@ -344,7 +349,7 @@ const model = () => {
     DITAMBAHKAN: null,
     JABATAN: [],
     JENIS_KELAMIN: null,
-    KELAS: null
+    KELAS: null,
   };
 };
 
@@ -355,11 +360,11 @@ export default {
       form: model(),
       options: {
         jenis_kelamin: ["Laki - Laki", "Perempuan"],
-        jabatan
+        jabatan,
       },
       isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
-      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"]
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
     };
   },
   created() {
@@ -395,13 +400,13 @@ export default {
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            this.$router.push({ name: 'pengguna' })
+            this.$router.push({ name: "pengguna" });
           }
         })
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    }
-  }
+    },
+  },
 };
 </script>

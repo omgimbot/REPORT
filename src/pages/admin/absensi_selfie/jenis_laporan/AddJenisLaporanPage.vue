@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="q-pa-md bg-accent">
     <div class="col q-px-md">
       <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
         Tambah Jenis Laporan
@@ -154,12 +154,7 @@
         class="q-gutter-md q-mt-sm"
       >
         <div class="items-start">
-          <q-btn
-            color="blue-10"
-            size="sm"
-            flat
-            dense
-            :to="{ name: 'type' }"
+          <q-btn color="blue-10" size="sm" flat dense :to="{ name: 'type' }"
             >Kembali</q-btn
           >
           <q-separator class="q-my-md" color="grey-3" />
@@ -263,8 +258,8 @@ const model = () => {
     FROM: null,
     TO: null,
     KODE_INSTANSI: null,
-    KODE_LAYANAN: "yx9re",
-    DITAMBAHKAN: null
+    KODE_LAYANAN: "1d657",
+    DITAMBAHKAN: null,
   };
 };
 
@@ -275,12 +270,12 @@ export default {
       form: model(),
       isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
-      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"]
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
     };
   },
-  created() {
-    this.form.KODE_JENIS_LAPORAN = this.generateRandomId(5);
-  },
+  // created() {
+  //   this.form.KODE_JENIS_LAPORAN = this.generateRandomId(5);
+  // },
   methods: {
     onSubmit() {
       this.onCreate();
@@ -295,13 +290,13 @@ export default {
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            this.$router.push({ name: 'type' })
+            this.$router.push({ name: "type" });
           }
         })
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    }
-  }
+    },
+  },
 };
 </script>

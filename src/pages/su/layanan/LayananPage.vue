@@ -210,7 +210,6 @@ export default {
       deletenotif: false,
       editnotif: false,
       GUID: null,
-      form: model(),
       columns: [
         {
           name: "ID",

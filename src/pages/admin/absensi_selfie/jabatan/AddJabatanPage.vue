@@ -1,14 +1,19 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="col q-px-md">
-      <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Tambah Jabatan
-      </q-item-label>
-      <q-item-label style="font-size: 12px" class="text-blue-10 text-caption"
-        >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
-        penginputan data !</q-item-label
-      >
-    </div>
+  <q-page class="q-pa-md bg-accent">
+    <q-card class="no-shadow q-pa-md q-mb-md">
+      <div class="col">
+        <q-item-label
+          style="font-size: 20px"
+          class="text-weight-bold text-dark"
+        >
+          Tambah Jabatan
+        </q-item-label>
+        <q-item-label style="font-size: 12px" class="text-caption text-primary"
+          >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
+          penginputan data !</q-item-label
+        >
+      </div>
+    </q-card>
 
     <q-card class="my-card q-pa-md" flat v-if="$q.platform.is.mobile">
       <q-form
@@ -20,7 +25,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pokok</q-badge
             ></q-item-label
           >
@@ -154,12 +159,7 @@
         class="q-gutter-md q-mt-sm"
       >
         <div class="items-start">
-          <q-btn
-            color="blue-10"
-            size="sm"
-            flat
-            dense
-            :to="{ name: 'jabatan' }"
+          <q-btn color="brown-8" size="sm" flat dense :to="{ name: 'jabatan' }"
             >Kembali</q-btn
           >
           <q-separator class="q-my-md" color="grey-3" />
@@ -168,7 +168,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pokok</q-badge
             ></q-item-label
           >
@@ -207,7 +207,7 @@
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
           >
-            <q-btn color="blue-10" type="submit" dense size="sm" class="q-px-lg"
+            <q-btn color="brown-8" type="submit" dense size="sm" class="q-px-lg"
               >Add Data</q-btn
             >
           </q-item-label>
@@ -218,14 +218,14 @@
 </template>
 
 <script>
-import { route } from 'quasar/wrappers';
+import { route } from "quasar/wrappers";
 const model = () => {
   return {
     KODE_JABATAN: null,
     JABATAN: null,
     KODE_INSTANSI: null,
-    KODE_LAYANAN: "yx9re",
-    DITAMBAHKAN: null
+    KODE_LAYANAN: "1d657",
+    DITAMBAHKAN: null,
   };
 };
 
@@ -236,7 +236,7 @@ export default {
       form: model(),
       isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
-      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"]
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
     };
   },
   created() {
@@ -260,13 +260,13 @@ export default {
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            this.$router.push({ name: 'jabatan' })
+            this.$router.push({ name: "jabatan" });
           }
         })
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -20,6 +20,7 @@
       <q-item>
         <q-avatar rounded size="40px" style="border-radius: 50px">
           <img
+            crossorigin="anonymous"
             :src="
               this.dataUser.user.ICON == undefined ||
               this.dataUser.user.ICON === '-'
