@@ -1,5 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf"
+  <q-layout
+    view="lHh Lpr lFf"
     style="
       background: linear-gradient(
           200deg,
@@ -9,7 +10,8 @@
         url('images/banner/bg_access.jpg');
       background-size: cover;
       background-repeat: no-repeat;
-    ">
+    "
+  >
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -17,16 +19,13 @@
 </template>
 
 <script>
-
 export default {
-  name: 'MainLayout',
+  name: "MainLayout",
 
-  components: {
+  components: {},
+
+  setup() {
+    return {};
   },
-
-  setup () {
-    return {
-    }
-  }
-}
+};
 </script>

@@ -294,19 +294,19 @@
                   <q-icon name="account_circle" class="q-pr-md" /> </template
               ></q-input>
 
-              <!-- <q-input
-            standout="bg-positive text-white"
-            v-model="form.TELEPON"
-            class="text-white col-4 q-pa-sm"
-            label="Nomor telepon"
-            mask="############"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="phone" class="q-pr-md" /> </template
-          ></q-input> -->
+              <q-input
+                standout="bg-positive text-white"
+                v-model="form.TELEPON"
+                class="text-white col-4 q-pa-sm"
+                label="Nomor telepon"
+                mask="############"
+                dense
+                lazy-rules
+                :rules="defaultRules"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="phone" class="q-pr-md" /> </template
+              ></q-input>
 
               <!-- <q-input
             standout="bg-positive text-white"
@@ -454,17 +454,7 @@ export default {
   components: {},
   data() {
     return {
-      filter: {
-        ADMINISTRATOR: null,
-        INSTANSI: null,
-        PASSWORD: null,
-        TELEPON: null,
-        ALAMAT: null,
-        DOMISILI: null,
-        ICON: null,
-        DITAMBAHKAN: null,
-        LAYANAN: [],
-      },
+      filter: null,
       deletenotif: false,
       editnotif: false,
       GUID: null,

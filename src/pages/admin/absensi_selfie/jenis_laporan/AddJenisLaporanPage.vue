@@ -1,14 +1,19 @@
 <template>
   <q-page class="q-pa-md bg-accent">
-    <div class="col q-px-md">
-      <q-item-label style="font-size: 20px" class="text-weight-bold text-dark">
-        Tambah Jenis Laporan
-      </q-item-label>
-      <q-item-label style="font-size: 12px" class="text-blue-10 text-caption"
-        >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
-        penginputan data !</q-item-label
-      >
-    </div>
+    <q-card class="no-shadow q-pa-md q-mb-md">
+      <div class="col">
+        <q-item-label
+          style="font-size: 20px"
+          class="text-weight-bold text-dark"
+        >
+          Tambah Jenis Laporan
+        </q-item-label>
+        <q-item-label style="font-size: 12px" class="text-caption text-primary"
+          >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
+          penginputan data !</q-item-label
+        >
+      </div>
+    </q-card>
 
     <q-card class="my-card q-pa-md" flat v-if="$q.platform.is.mobile">
       <q-form
@@ -154,7 +159,7 @@
         class="q-gutter-md q-mt-sm"
       >
         <div class="items-start">
-          <q-btn color="blue-10" size="sm" flat dense :to="{ name: 'type' }"
+          <q-btn color="brown-8" size="sm" flat dense :to="{ name: 'type' }"
             >Kembali</q-btn
           >
           <q-separator class="q-my-md" color="grey-3" />
@@ -163,7 +168,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pokok</q-badge
             ></q-item-label
           >
@@ -200,7 +205,7 @@
           <q-item-label
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
-            ><q-badge class="q-px-md q-py-sm" color="positive"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
               >Data Pendukung</q-badge
             ></q-item-label
           >
@@ -240,7 +245,7 @@
             style="font-size: 14px"
             class="text-weight-medium text-blue-grey-10"
           >
-            <q-btn color="blue-10" type="submit" dense size="sm" class="q-px-lg"
+            <q-btn color="brown-8" type="submit" dense size="sm" class="q-px-lg"
               >Add Data</q-btn
             >
           </q-item-label>
@@ -273,10 +278,14 @@ export default {
       defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
     };
   },
-  // created() {
-  //   this.form.KODE_JENIS_LAPORAN = this.generateRandomId(5);
-  // },
+  created() {
+    this.form.KODE_JENIS_LAPORAN = this.generateRandomId(5);
+  },
   methods: {
+    generateRandomId(length) {
+      const randomStr = Math.random().toString(36).substr(2, length);
+      return randomStr;
+    },
     onSubmit() {
       this.onCreate();
     },

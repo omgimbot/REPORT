@@ -8,12 +8,12 @@
         <div class="col">
           <q-card class="my-card" flat>
             <div class="col">
-              <q-item-label
-                style="font-size: 14px"
-                class="text-weight-medium text-indigo-10"
+              <q-item-label style="font-size: 18px" class="text-weight-medium"
                 >Selamat datang di DEMETER</q-item-label
               >
-              <q-item-label class="text-caption text-grey"
+              <q-item-label
+                style="font-size: 13px"
+                class="text-caption text-grey"
                 >Kelola semua data yang dibutuhkan untuk berjalannya
                 layanan.</q-item-label
               >
