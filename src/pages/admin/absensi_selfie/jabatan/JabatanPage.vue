@@ -212,6 +212,7 @@ const status = ["Aktif", "Tidak Aktif"];
 const model = () => {
   return {
     JABATAN: null,
+    GUID: null,
   };
 };
 
@@ -223,6 +224,7 @@ export default {
       filter: null,
       deletenotif: false,
       editnotif: false,
+      GUID: null,
       options: {
         status,
       },
@@ -270,12 +272,11 @@ export default {
     getData: async function () {
       this.$q.loading.show();
       await this.$axios
-        .get(`jabatan/getByInstansi/${this.dataUser.user.KODE_INSTANSI}`)
+        .get(`jabatan/getByInstansi/${this.dataUser.user.KODE_PENGUNA}`)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.rows = response.data.data;
-            this.instansi = response.data.data;
           }
         })
         .catch(() => this.$commonErrorNotif());

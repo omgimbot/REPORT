@@ -44,7 +44,7 @@
             </div>
             <div>
               <q-btn
-                color="brown- "
+                color="brown-8"
                 class="q-mt-md"
                 size="sm"
                 :to="{ name: 'add_types' }"

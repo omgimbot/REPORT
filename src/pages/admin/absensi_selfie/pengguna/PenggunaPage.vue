@@ -261,6 +261,7 @@ export default {
       editnotif: false,
       filter: null,
       GUID: null,
+      KODE_PENGGUNA: null,
       options: {
         status,
       },
@@ -321,6 +322,7 @@ export default {
       },
       rows: [],
       visibles: false,
+      instansi: [],
       dataUser: this.$q.localStorage.getItem("data"),
     };
   },
@@ -343,10 +345,11 @@ export default {
     delete(DATA) {
       this.deletenotif = true;
       this.GUID = DATA.GUID;
+      this.KODE_PENGGUNA = DATA.KODE_PENGGUNA;
     },
     deletedialogdata() {
       this.$axios
-        .delete(`/pengguna/${this.GUID}`)
+        .delete(`/pengguna/${this.KODE_PENGGUNA}`)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
@@ -357,7 +360,10 @@ export default {
     },
     editData(EDITDATA) {
       this.editnotif = true;
-      this.GUID = EDITDATA.GUID;
+      this.form.ALAMAT = EDITDATA.ALAMAT;
+      this.form.KELAS = EDITDATA.KELAS;
+      this.form.PENGGUNA = EDITDATA.PENGGUNA;
+      this.KODE_PENGGUNA = EDITDATA.KODE_PENGGUNA;
     },
 
     onEdit() {
@@ -366,7 +372,7 @@ export default {
     onUpdate() {
       // console.log(this.form)
       this.$axios
-        .put(`/pengguna/update/${this.GUID}`, this.form)
+        .put(`/pengguna/update/${this.KODE_PENGGUNA}`, this.form)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
