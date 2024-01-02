@@ -150,6 +150,16 @@
                 Daftarkan Layanan
               </q-item-section>
             </q-item>
+            <q-item
+              clickable
+              v-ripple
+              :to="{ name: 'rfid' }"
+              class="bg-primary"
+            >
+              <q-item-section avatar> </q-item-section>
+
+              <q-item-section class="text-white"> Kartu rfid </q-item-section>
+            </q-item>
           </q-expansion-item>
 
           <q-expansion-item expand-separator>

@@ -156,7 +156,7 @@
         </div>
         <div class="row items-start">
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.KODE_LAYANAN"
             class="text-white col-4 q-pa-sm"
             label="ID"
@@ -170,7 +170,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.LAYANAN"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Nama layanan"

@@ -25,6 +25,11 @@ const routes = [
         component: () => import("src/pages/su/layanan/LayananPage.vue"),
       },
       {
+        path: "rfid",
+        name: "rfid",
+        component: () => import("src/pages/su/layanan/KartuRfid.vue"),
+      },
+      {
         path: "add",
         name: "add_layanan",
         component: () => import("src/pages/su/layanan/AddLayananPage.vue"),

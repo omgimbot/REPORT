@@ -196,7 +196,7 @@
         </div>
         <div class="row items-start">
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.KODE_INSTANSI"
             class="text-white col-4 q-pa-sm"
             label="ID"
@@ -210,7 +210,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.INSTANSI"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Nama instansi"
@@ -223,7 +223,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.ADMINISTRATOR"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Nama administrator"
@@ -236,7 +236,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.TELEPON"
             class="text-white col-4 q-pa-sm"
             label="Nomor telepon"
@@ -250,7 +250,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.PASSWORD"
             class="text-white col-4 q-pa-sm"
             label="Password"
@@ -271,7 +271,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.ALAMAT"
             class="text-white col q-pa-sm text-capitalize"
             label="Alamat lengkap"
@@ -295,7 +295,7 @@
         </div>
         <div class="row items-start">
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.DOMISILI"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Domisili usaha"
@@ -307,7 +307,7 @@
               <q-icon name="map" class="q-pr-md" /> </template
           ></q-input>
           <q-select
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.LAYANAN"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Layanan"
@@ -334,7 +334,7 @@
             </template>
           </q-select>
           <q-select
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.JENIS_INSTANSI"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Jenis instansi"
@@ -355,7 +355,7 @@
             </template>
           </q-select>
           <q-file
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             bottom-slots
             dense
             v-model="form.ICON"

@@ -85,7 +85,7 @@
         </div>
         <div class="row items-start">
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.KODE_PERANGKAT"
             class="text-white col-4 q-pa-sm"
             label="ID"
@@ -99,7 +99,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.NAMA"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Nama perangkat"
@@ -112,7 +112,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.MAC_ADDRESS"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="MAC Address"
@@ -125,7 +125,7 @@
           ></q-input>
 
           <q-input
-            standout="bg-positive text-white"
+            standout="bg-primary text-white"
             v-model="form.JENIS"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Jenis Perangkat"
