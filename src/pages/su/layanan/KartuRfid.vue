@@ -84,22 +84,26 @@
 
     <q-card class="my-card q-pa-md" flat v-else>
       <q-table
+        flat
+        bordered
         :rows="rows"
         :columns="columns"
         :pagination="pagination"
         :filter="filter"
+        :selected-rows-label="getSelectedString"
+        selection="multiple"
+        v-model:selected="selected"
       >
         <template v-slot:body="props">
           <q-tr :props="props">
-            <q-td key="CHECKBOX" :props="props" class="text-uppercase">
-              <q-checkbox v-model="props.row.CHECKBOX" />
+            <q-td key="CHECKBOX" :props="props" class="text-capitalize">
+              <q-checkbox v-model="props.selected" />
             </q-td>
-            <q-td key="ID" :props="props" class="text-uppercase">
-              <q-badge color="positive">{{ props.row.KODE_LAYANAN }}</q-badge>
+            <q-td key="INSTANSI" :props="props" class="text-capitalize">
+              {{ props.row.INSTANSI }}
             </q-td>
-
-            <q-td key="LAYANAN" :props="props" class="text-capitalize">
-              {{ props.row.LAYANAN }}
+            <q-td key="ADMINISTRATOR" :props="props" class="text-capitalize">
+              {{ props.row.ADMINISTRATOR }}
             </q-td>
             <q-td key="TGL_DAFTAR" :props="props" class="text-capitalize">
               {{ $parseDate(props.row.CREATED_AT).fullDate }}
@@ -112,126 +116,51 @@
                 >
               </div>
             </q-td>
-            <q-td key="ACTION" :props="props" class="text-capitalize">
-              <q-btn
-                round
-                flat
-                color="blue-10"
-                @click="this.editData(props.row)"
-                size="sm"
-                icon="edit"
-                ><q-tooltip>edit data layanan</q-tooltip></q-btn
-              >
-              <q-btn
-                round
-                flat
-                @click="this.delete(props.row)"
-                color="blue-10"
-                size="sm"
-                icon="delete"
-                ><q-tooltip>hapus data layanan</q-tooltip></q-btn
-              >
-            </q-td>
           </q-tr>
         </template>
       </q-table>
     </q-card>
-    <q-dialog
-      v-model="deletenotif"
-      persistent
-      transition-show="scale"
-      transition-hide="scale"
-    >
-      <q-card class="bg-teal text-white" style="width: 300px">
-        <q-card-section>
-          <div class="text-h6">HAPUS DATA</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          Yakin ingin menghapus data ini
-        </q-card-section>
-
-        <q-card-actions align="right" class="bg-white text-teal">
-          <q-btn
-            @click="this.deletedialogdata(this.GUID)"
-            flat
-            label="OK"
-            v-close-popup
-          />
-          <q-btn flat label="CANCEL" v-close-popup />
-          <!-- <q-btn flat label="CANCEL" v-close-popup /> -->
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
-    <q-dialog
-      v-model="editnotif"
-      persistent
-      transition-show="scale"
-      transition-hide="scale"
-    >
-      <q-card class="q-pa-md">
-        <div class="text-weight-bold">EDIT DATA</div>
-        <q-form @submit="onEdit">
-          <q-input
-            standout="bg-positive text-white"
-            v-model="form.LAYANAN"
-            class="text-white col-4 q-pa-sm text-capitalize"
-            label="Nama layanan"
-            dense
-            lazy-rules
-            :rules="defaultRules"
-          >
-            <template v-slot:prepend>
-              <q-icon name="devices" class="q-pr-md" /> </template
-          ></q-input>
-
-          <q-card-actions align="right" class="bg-white text-teal">
-            <q-btn type="submit" flat label="OK" v-close-popup />
-            <q-btn flat label="cancel" v-close-popup />
-          </q-card-actions> </q-form></q-card
-    ></q-dialog>
+    <div class="q-mt-md">Selected: {{ JSON.stringify(selected) }}</div>
   </q-page>
 </template>
 
 <script>
-const status = ["Aktif", "Tidak Aktif"];
+// const status = ["Aktif", "Tidak Aktif"];
+
 const model = () => {
   return {
-    LAYANAN: null,
+    ADMINISTRATOR: null,
+    INSTANSI: null,
   };
 };
 
 export default {
-  name: "IndexPage",
-  components: {},
   data() {
     return {
       filter: null,
-      options: {
-        status,
-      },
       deletenotif: false,
+      form: model(),
+      selected: [],
       editnotif: false,
       GUID: null,
       columns: [
         {
-          name: "CHECKBOX", // Nama kolom baru
+          name: "checkbox",
+          label: "",
           align: "left",
-          label: "", // Kosong karena hanya checkbox
-          field: "CHECKBOX", // Field fiktif untuk checkbox
+          field: "CHECKBOX",
         },
         {
-          name: "ID",
+          name: "INSTANSI",
           align: "left",
-          label: "ID",
-          field: "ID",
+          label: "Instansi",
+          field: "INSTANSI",
         },
         {
-          name: "LAYANAN",
+          name: "ADMINISTRATOR",
           align: "left",
-          label: "Layanan",
-          field: "LAYANAN",
+          label: "Administrator",
+          field: "ADMINISTRATOR",
         },
         {
           name: "TGL_DAFTAR",
@@ -239,20 +168,9 @@ export default {
           label: "Tgl. daftar",
           field: "TGL_DAFTAR",
         },
-        {
-          name: "ACTION",
-          align: "center",
-          label: "Action",
-          field: "ACTION",
-        },
       ],
-      pagination: {
-        sortBy: "desc",
-        descending: false,
-        rowsPerPage: 5,
-      },
+      pagination: {},
       rows: [],
-      visibles: false,
       layanan: [],
     };
   },
@@ -263,7 +181,7 @@ export default {
     getData: async function () {
       // ...
       await this.$axios
-        .get(`layanan/getAll`)
+        .get(`instansi/getAll`)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
@@ -286,7 +204,7 @@ export default {
     },
     deletedialogdata() {
       this.$axios
-        .delete(`/layanan/${this.GUID}`)
+        .delete(`/instansi/${this.GUID}`)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
