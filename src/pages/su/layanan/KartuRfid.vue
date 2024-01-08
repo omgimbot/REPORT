@@ -1,240 +1,519 @@
 <template>
   <q-page class="q-pa-md bg-accent">
     <q-card class="no-shadow q-pa-md q-mb-md">
-      <div class="col">
+      <div class="col q-px-md">
         <q-item-label
           style="font-size: 20px"
           class="text-weight-bold text-dark"
         >
-          Daftar Layanan
+          Tambah Instansi
         </q-item-label>
-        <q-item-label style="font-size: 12px" class="text-caption text-primary"
-          >Superadmin dapat melihat semua layanan yang terdaftar
-          disini</q-item-label
+        <q-item-label style="font-size: 12px" class="text-primary text-caption"
+          >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
+          penginputan data !</q-item-label
         >
-      </div>
-    </q-card>
+      </div></q-card
+    >
 
-    <q-card class="my-card q-pa-md" flat>
-      <div class="row q-gutter-sm">
-        <div class="col">
+    <!-- <q-card class="my-card q-pa-md" flat v-if="$q.platform.is.mobile">
+      <q-form
+        @reset="resetField()"
+        @submit="onSubmit()"
+        class="q-gutter-md q-mt-sm"
+      >
+        <div class="row items-start">
           <q-item-label
             style="font-size: 14px"
-            class="text-weight-medium text-primary q-mb-md"
-            >Apa yang ingin anda cari ?</q-item-label
+            class="text-weight-medium text-blue-grey-10"
+            ><q-badge class="q-px-md q-py-sm" color="positive"
+              >Data Pokok</q-badge
+            ></q-item-label
           >
-          <div class="row q-gutter-sm">
-            <q-input
-              standout="bg-primary"
-              v-model="filter"
-              placeholder="Cari berdasarkan..."
-              class="col q-mt-sm"
-              flat
-              dense
-            >
-              <template v-slot:append>
-                <q-badge class="q-pa-sm" color="brown-8">
-                  <q-icon name="search" />
-                </q-badge>
-              </template>
-            </q-input>
-          </div>
         </div>
-      </div>
-    </q-card>
+        <div class="items-start">
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.INSTANSI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama instansi"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="group_work" class="q-pr-md" /> </template
+          ></q-input>
 
-    <div v-if="$q.platform.is.mobile">
-      <q-card
-        v-ripple
-        class="my-card q-mt-sm"
-        flat
-        bordered
-        v-for="(d, i) in this.layanan"
-        :key="i"
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.ADMINISTRATOR"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama administrator"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="account_circle" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.TELEPON"
+            class="text-white col-4 q-pa-sm"
+            label="Nomor telepon"
+            mask="####-####-####"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="phone" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.PASSWORD"
+            class="text-white col-4 q-pa-sm"
+            label="Password"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            :type="isPwd ? 'password' : 'text'"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+            <template v-slot:prepend>
+              <q-icon name="fingerprint" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.ALAMAT"
+            class="text-white col q-pa-sm text-capitalize"
+            label="Alamat lengkap"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="map" class="q-pr-md" /> </template
+          ></q-input>
+        </div>
+
+        <div class="row items-start">
+          <q-item-label
+            style="font-size: 14px"
+            class="text-weight-medium text-blue-grey-10"
+            ><q-badge class="q-px-md q-py-sm" color="positive"
+              >Data Pendukung</q-badge
+            ></q-item-label
+          >
+        </div>
+        <div class="items-start">
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.KODE_INSTANSI"
+            class="text-white col-4 q-pa-sm"
+            label="ID"
+            dense
+            readonly
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="qr_code" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            standout="bg-positive text-white"
+            v-model="form.DOMISILI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Domisili usaha"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="map" class="q-pr-md" /> </template
+          ></q-input>
+          <q-select
+            standout="bg-positive text-white"
+            v-model="form.LAYANAN"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Layanan"
+            option-label="LAYANAN"
+            key="LAYANAN"
+            :options="options.layanan"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            multiple
+            use-chips
+          >
+            <template v-slot:prepend>
+              <q-icon name="grid_view" class="q-pr-md" />
+            </template>
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps">
+                <q-item-section>
+                  <q-item-label class="text-capitalize"
+                    >{{ scope.opt.LAYANAN }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
+        </div>
+        <q-separator class="q-my-md" color="grey-3" />
+        <div class="items-start">
+          <q-btn color="blue-10" type="submit" dense class="q-px-lg fit"
+            >Add Data</q-btn
+          >
+        </div>
+      </q-form>
+    </q-card> -->
+
+    <q-card class="my-card q-pa-md" flat>
+      <q-form
+        @reset="resetField()"
+        @submit="onSubmit()"
+        class="q-gutter-md q-mt-sm"
       >
-        <q-item>
-          <q-item-section avatar>
-            <q-avatar>
-              <img src="https://cdn.quasar.dev/img/avatar.png" />
-            </q-avatar>
-          </q-item-section>
+        <div class="row items-start">
+          <q-item-label
+            style="font-size: 14px"
+            class="text-weight-medium text-blue-grey-10"
+            ><q-badge class="q-px-md q-py-sm" color="primary"
+              >Data Pokok</q-badge
+            ></q-item-label
+          >
+        </div>
+        <div class="row items-start">
+          <!-- <q-input
+            standout="bg-primary text-white"
+            v-model="form.KODE_INSTANSI"
+            class="text-white col-4 q-pa-sm"
+            label="ID"
+            dense
+            readonly
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="qr_code" class="q-pr-md" /> </template
+          ></q-input> -->
 
-          <q-item-section>
-            <q-item-label
-              >{{ d.LAYANAN }}
-              <q-badge class="text-uppercase">{{ d.KODE_LAYANAN }}</q-badge>
-              <q-badge
-                :color="d.STATUS == 0 ? 'blue-10' : 'positive'"
-                :label="d.STATUS == 0 ? 'TIDAK AKTIF' : 'AKTIF'"
-              ></q-badge>
-            </q-item-label>
-          </q-item-section>
-        </q-item>
+          <!-- <q-input
+            standout="bg-primary text-white"
+            v-model="form.INSTANSI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama instansi"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="group_work" class="q-pr-md" /> </template
+          ></q-input> -->
 
-        <q-separator />
+          <!-- <q-input
+            standout="bg-primary text-white"
+            v-model="form.ADMINISTRATOR"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama administrator"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="account_circle" class="q-pr-md" /> </template
+          ></q-input> -->
 
-        <q-card-section horizontal class="q-pa-sm bg-grey-3">
-          <q-item-label caption class="flex">
-            <q-icon name="event" class="q-mr-sm"></q-icon>
-            {{ $parseDate(d.CREATED_AT).fullDate }}
+          <!-- <q-input
+            standout="bg-primary text-white"
+            v-model="form.TELEPON"
+            class="text-white col-4 q-pa-sm"
+            label="Nomor telepon"
+            mask="############"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="phone" class="q-pr-md" /> </template
+          ></q-input> -->
+
+          <!-- <q-input
+            standout="bg-primary text-white"
+            v-model="form.PASSWORD"
+            class="text-white col-4 q-pa-sm"
+            label="Password"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            :type="isPwd ? 'password' : 'text'"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+            <template v-slot:prepend>
+              <q-icon name="fingerprint" class="q-pr-md" /> </template
+          ></q-input> -->
+
+          <!-- <q-input
+            standout="bg-primary text-white"
+            v-model="form.ALAMAT"
+            class="text-white col q-pa-sm text-capitalize"
+            label="Alamat lengkap"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="map" class="q-pr-md" /> </template
+          ></q-input> -->
+        </div>
+        <div class="row items-start">
+          <!-- <q-input
+            standout="bg-primary text-white"
+            v-model="form.DOMISILI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Domisili usaha"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="map" class="q-pr-md" /> </template
+          ></q-input> -->
+          <q-select
+            standout="bg-primary text-white"
+            v-model="form.INSTANSI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nama User"
+            option-label="INSTANSI"
+            key="INSTANSI"
+            :options="options.instansi"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            multiple
+            use-chips
+          >
+            <template v-slot:prepend>
+              <q-icon name="grid_view" class="q-pr-md" />
+            </template>
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps">
+                <q-item-section>
+                  <q-item-label class="text-capitalize"
+                    >{{ scope.opt.INSTANSI }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
+          <q-select
+            standout="bg-primary text-white"
+            v-model="form.CODE"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Kartu RFID"
+            option-label="KARTU RFID"
+            key="CODE"
+            :options="options.code"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            multiple
+            use-chips
+          >
+            <template v-slot:prepend>
+              <q-icon name="grid_view" class="q-pr-md" />
+            </template>
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps">
+                <q-item-section>
+                  <q-item-label class="text-capitalize"
+                    >{{ scope.opt.CODE }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
+          <!-- <q-select
+            standout="bg-primary text-white"
+            v-model="form.JENIS_INSTANSI"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Jenis instansi"
+            :options="options.jenis_instansi"
+            dense
+            lazy-rules
+            :rules="defaultRules"
+            use-input
+            @filter="filterJenisInstansi"
+          >
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-grey"> No results </q-item-section>
+              </q-item>
+            </template>
+            <template v-slot:prepend>
+              <q-icon name="supervised_user_circle" class="q-pr-md" />
+            </template>
+          </q-select> -->
+          <!-- <q-file
+            standout="bg-primary text-white"
+            bottom-slots
+            dense
+            v-model="form.ICON"
+            label="Logo instansi"
+            accept=".jpg, .png, image/*"
+            counter
+            max-files="1"
+            class="text-white col-4 q-pa-sm text-capitalize"
+          >
+            <template v-slot:prepend>
+              <q-icon name="attachment" class="q-pr-md" />
+            </template>
+            <template v-slot:append>
+              <q-icon
+                v-if="model !== null"
+                name="close"
+                @click.stop.prevent="model = null"
+                class="cursor-pointer"
+              />
+              <q-icon name="search" @click.stop.prevent />
+            </template>
+
+            <template v-slot:hint> Field hint </template>
+          </q-file> -->
+        </div>
+        <q-separator class="q-my-md" color="grey-3" />
+        <div class="row items-start">
+          <q-item-label
+            style="font-size: 14px"
+            class="text-weight-medium text-blue-grey-10"
+          >
+            <q-btn color="brown-8" type="submit" dense size="sm" class="q-px-lg"
+              >Add Data</q-btn
+            >
           </q-item-label>
-        </q-card-section>
-      </q-card>
-    </div>
-
-    <q-card class="my-card q-pa-md" flat v-else>
-      <q-table
-        flat
-        bordered
-        :rows="rows"
-        :columns="columns"
-        :pagination="pagination"
-        :filter="filter"
-        :selected-rows-label="getSelectedString"
-        selection="multiple"
-        v-model:selected="selected"
-      >
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td key="CHECKBOX" :props="props" class="text-capitalize">
-              <q-checkbox v-model="props.selected" />
-            </q-td>
-            <q-td key="INSTANSI" :props="props" class="text-capitalize">
-              {{ props.row.INSTANSI }}
-            </q-td>
-            <q-td key="ADMINISTRATOR" :props="props" class="text-capitalize">
-              {{ props.row.ADMINISTRATOR }}
-            </q-td>
-            <q-td key="TGL_DAFTAR" :props="props" class="text-capitalize">
-              {{ $parseDate(props.row.CREATED_AT).fullDate }}
-              <div>
-                <q-badge
-                  class="text-lowercase"
-                  color="brown-12"
-                  style="font-size: 10px"
-                  >di post oleh : {{ props.row.DITAMBAHKAN }}</q-badge
-                >
-              </div>
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
+        </div>
+      </q-form>
     </q-card>
-    <div class="q-mt-md">Selected: {{ JSON.stringify(selected) }}</div>
   </q-page>
 </template>
 
 <script>
-// const status = ["Aktif", "Tidak Aktif"];
+import { ListService } from "./../../../helper/services/ListService";
+let { instansi } = [];
+let { code } = [];
+const jenis_instansi = ["Pendidikan", "Pemerintahan", "Perusahaan", "Lainnya"];
+import { useQuasar, QSpinnerFacebook } from "quasar";
 
 const model = () => {
   return {
-    ADMINISTRATOR: null,
-    INSTANSI: null,
+    INSTANSI: [],
+    CODE: [],
+    STATUS: 1,
+    DITAMBAHKAN: null,
+    // LAYANAN: [],
   };
 };
 
 export default {
+  name: "IndexPage",
+  setup() {
+    const $q = useQuasar();
+  },
   data() {
     return {
-      filter: null,
-      deletenotif: false,
       form: model(),
-      selected: [],
-      editnotif: false,
-      GUID: null,
-      columns: [
-        {
-          name: "checkbox",
-          label: "",
-          align: "left",
-          field: "CHECKBOX",
-        },
-        {
-          name: "INSTANSI",
-          align: "left",
-          label: "Instansi",
-          field: "INSTANSI",
-        },
-        {
-          name: "ADMINISTRATOR",
-          align: "left",
-          label: "Administrator",
-          field: "ADMINISTRATOR",
-        },
-        {
-          name: "TGL_DAFTAR",
-          align: "left",
-          label: "Tgl. daftar",
-          field: "TGL_DAFTAR",
-        },
-      ],
-      pagination: {},
-      rows: [],
-      layanan: [],
+      options: {
+        // layanan,
+        code,
+        instansi,
+        jenis_instansi,
+      },
+      isPwd: true,
+      dataUser: this.$q.localStorage.getItem("data"),
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
     };
   },
   created() {
-    this.getData();
+    this.getList();
   },
   methods: {
-    getData: async function () {
-      // ...
+    // filterJenisInstansi(val, update) {
+    //   if (val === "") {
+    //     update(() => {
+    //       this.options.jenis_instansi = jenis_instansi;
+    //     });
+    //     return;
+    //   }
+    //   update(() => {
+    //     const needle = val.toLowerCase();
+    //     this.options.jenis_instansi = jenis_instansi.filter(
+    //       (v) => v.toLowerCase().indexOf(needle) > -1
+    //     );
+    //   });
+    // },
+    getList() {
+      ListService.getListInstansi();
+      ListService.getListRfid()
+        .then((res) => {
+          this.options.code = res.data.data;
+        })
+        .catch(() => this.$commonErrorNotif());
+    },
+    generateRandomId(length) {
+      const randomStr = Math.random().toString(36).substr(2, length);
+      return randomStr;
+    },
+    onSubmit() {
+      this.onCreate();
+    },
+    async onCreate() {
+      this.form.DITAMBAHKAN = this.dataUser.user.NAMA;
+      this.$q.loading.show({
+        spinner: QSpinnerFacebook,
+        spinnerColor: "green",
+        spinnerSize: 100,
+        backgroundColor: "black",
+      });
+
+      if (!this.form.ICON) {
+        return;
+      }
+
+      // const formData = new FormData();
+      formData.append("DITAMBAHKAN", this.form.DITAMBAHKAN);
+      formData.append("INSTANSI", JSON.stringify(this.form.INSTANSI));
+      // formData.append("LAYANAN", JSON.stringify(this.form.LAYANAN));
+      // formData.append("JENIS_INSTANSI", this.form.JENIS_INSTANSI);
+
       await this.$axios
-        .get(`instansi/getAll`)
+        .post("instansi/create", formData)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
-            // Menambahkan properti 'CHECKBOX' pada setiap baris
-            this.rows = response.data.data.map((row) => ({
-              ...row,
-              CHECKBOX: false, // Checkbox tidak dipilih secara default
-            }));
-            this.layanan = response.data.data;
+            this.$successNotif(response.data.message, "positive");
+            this.$router.push("/instansi");
           }
         })
-        .catch(() => this.$commonErrorNotif());
-    },
-
-    delete(DATA) {
-      this.deletenotif = true;
-      this.GUID = DATA.GUID;
-      // console.log(this.GUID)
-      //
-    },
-    deletedialogdata() {
-      this.$axios
-        .delete(`/instansi/${this.GUID}`)
-        .finally(() => this.$q.loading.hide())
-        .then((response) => {
-          if (!this.$parseResponse(response.data)) {
-            this.getData();
-          }
-        })
-        .catch(() => this.$commonErrorNotif());
-    },
-    editData(EDITDATA) {
-      this.editnotif = true;
-      this.form.LAYANAN = EDITDATA.LAYANAN;
-      this.GUID = EDITDATA.GUID;
-    },
-
-    onEdit() {
-      this.onUpdate();
-    },
-    onUpdate() {
-      // console.log(this.form)
-      this.$axios
-        .put(`/layanan/update/${this.GUID}`, this.form)
-        .finally(() => this.$q.loading.hide())
-        .then((response) => {
-          if (!this.$parseResponse(response.data)) {
-            console.log(response.data);
-            this.editnotif = false;
-            this.getData();
-          }
-        })
-        .catch(() => this.$commonErrorNotif());
+        .catch((err) => {
+          this.$commonErrorNotif();
+        });
     },
   },
 };

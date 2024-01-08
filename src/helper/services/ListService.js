@@ -8,6 +8,12 @@ const ListService = {
   getListLayanan() {
     return api.get(`layanan/getAll`);
   },
+  getListInstansi() {
+    return api.get(`instansi/getAll`);
+  },
+  getListRfid() {
+    return api.get(`rfid/getAll`);
+  },
   getListJabatan() {
     return api.get(`jabatan/getByInstansi/${dataInstansi.user.KODE_INSTANSI}`);
   },
