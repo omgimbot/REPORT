@@ -12,7 +12,7 @@ const ListService = {
     return api.get(`instansi/getAll`);
   },
   getListRfid() {
-    return api.get(`rfid/getAll`);
+    return api.get(`card/getAll`);
   },
   getListJabatan() {
     return api.get(`jabatan/getByInstansi/${dataInstansi.user.KODE_INSTANSI}`);

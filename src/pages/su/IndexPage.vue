@@ -142,7 +142,8 @@
                           caption
                           style="font-size: 25px"
                           class="text-weight-bold q-mb-xs text-uppercase text-white"
-                          >1000</q-item-label
+                        >
+                          {{ dataCount }}</q-item-label
                         >
                       </q-item-section>
                     </q-item>
@@ -251,7 +252,12 @@ export default {
     return {
       defaultOptions: { animationData: animationData.default },
       animationSpeed: 2,
+      dataCount: null,
     };
+  },
+  created() {
+    // Pemanggilan API untuk mendapatkan jumlah data
+    this.fetchDataCount();
   },
   methods: {
     handleAnimation: function (anim) {
@@ -268,6 +274,15 @@ export default {
     },
     onSpeedChange: function () {
       this.anim.setSpeed(this.animationSpeed);
+    },
+    async fetchDataCount() {
+      try {
+        // Ganti URL sesuai dengan endpoint server Anda
+        const response = await this.$axios.get("/getCount/");
+        this.dataCount = response.data.count;
+      } catch (error) {
+        console.error("Error fetching data count:", error);
+      }
     },
   },
 };
