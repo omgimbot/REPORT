@@ -134,7 +134,9 @@
       <div class="row q-gutter-sm">
         <div class="col">
           <div class="col">
-            <q-item-label style="font-size: 18px" class="text-weight-medium"
+            <q-item-label
+              style="font-size: 18px"
+              class="text-weight-medium text-white"
               >Selamat datang di DEMETER</q-item-label
             >
             <q-item-label
@@ -145,7 +147,7 @@
             >
             <div class="row q-gutter-sm q-mt-md items-start">
               <div class="col">
-                <q-card class="my-card bg-brown-8" flat>
+                <q-card class="my-card bg-primary" flat>
                   <q-item clickable v-ripple>
                     <q-item-section>
                       <q-item-label caption class="text-caption text-white"
@@ -164,7 +166,7 @@
               </div>
 
               <div class="col">
-                <q-card class="my-card bg-brown-8" flat>
+                <q-card class="my-card bg-primary" flat>
                   <q-item clickable v-ripple>
                     <q-item-section>
                       <q-item-label caption class="text-caption text-white"
@@ -182,7 +184,7 @@
               </div>
 
               <div class="col">
-                <q-card class="my-card bg-brown-8" flat>
+                <q-card class="my-card bg-primary" flat>
                   <q-item clickable v-ripple>
                     <q-item-section>
                       <q-item-label caption class="text-caption text-white"
@@ -200,7 +202,7 @@
               </div>
 
               <div class="col">
-                <q-card class="my-card bg-brown-8" flat>
+                <q-card class="my-card bg-primary" flat>
                   <q-item clickable v-ripple>
                     <q-item-section>
                       <q-item-label caption class="text-caption text-white"
@@ -305,7 +307,6 @@ export default {
   background-size: cover; /* Untuk memastikan gambar mengisi seluruh latar belakang */
   background-position: center; /* Untuk memposisikan gambar di tengah latar belakang */
   background-repeat: no-repeat;
-  backdrop-filter: blur(100px);
 }
 .carddd {
   background: transparent;

@@ -1,7 +1,7 @@
 <template>
   <BarChart
     height="300"
-    width="350"
+    width="320"
     type="bar"
     :options="options"
     :series="series"
@@ -22,13 +22,13 @@ export default {
           text: "Data Instansi",
           align: "left",
           style: {
-            color: "#322828",
+            color: "#fffff2",
           },
         },
         chart: {
           id: "apex-bar",
         },
-        colors: ["#5c3e3e", "#5c3e3e", "#5c3e3e"],
+        colors: ["#065036", "#065036", "#065036"],
         xaxis: {
           categories: [1991, 1992, 1993],
         },

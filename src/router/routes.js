@@ -2,7 +2,7 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/SuperLayout.vue"),
-    meta: { superadmin: true },
+    // meta: { superadmin: true },
     children: [
       {
         path: "",

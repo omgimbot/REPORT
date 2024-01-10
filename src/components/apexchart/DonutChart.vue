@@ -22,10 +22,10 @@ export default {
           text: "Data Instansi",
           align: "left",
           style: {
-            color: "#322828",
+            color: "#fffff2",
           },
         },
-        colors: ["#5c3e3e", "#5c3e3e", "#5c3e3e"],
+        colors: ["#065036", "#065036", "#065036"],
         markers: {
           size: 4,
           hover: {
