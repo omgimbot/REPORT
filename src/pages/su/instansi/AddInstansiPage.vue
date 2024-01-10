@@ -500,6 +500,8 @@ export default {
       formData.append("LAYANAN", JSON.stringify(this.form.LAYANAN));
       formData.append("JENIS_INSTANSI", this.form.JENIS_INSTANSI);
 
+      console.log(formData);
+
       await this.$axios
         .post("instansi/create", formData)
         .finally(() => this.$q.loading.hide())

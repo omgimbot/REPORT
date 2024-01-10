@@ -198,12 +198,15 @@ export default {
         backgroundColor: "black",
       });
 
-      console.log(this.form);
+      const formData = new FormData();
 
-      // formData.append("JENIS_INSTANSI", this.form.JENIS_INSTANSI);
+      formData.append("USER_ID", this.form.USER_ID.GUID);
+      formData.append("CARD_ID", this.form.CARD_ID.UID);
+
+      console.log(formData);
 
       await this.$axios
-        .post("usercard/create", this.form)
+        .post("usercard/create", formData)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
