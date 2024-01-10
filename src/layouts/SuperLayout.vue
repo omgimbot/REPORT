@@ -4,22 +4,7 @@
     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
   />
   <q-layout view="lHh Lpr lFf">
-    <q-toolbar class="q-pa-sm">
-      <div style="margin-left: 15%" class="row">
-        <div class="title">Welcome back,</div>
-        <div class="typing-text" id="typing-text">Superadmin</div>
-      </div>
-      <q-space />
-      <div class="text-weight-bold">Superadmin</div>
-      <q-item>
-        <q-avatar rounded size="40px" style="border-radius: 50px">
-          <img src="images/demeter.jpg" />
-          <q-badge floating color="green"></q-badge>
-        </q-avatar>
-      </q-item>
-    </q-toolbar>
-
-    <q-drawer show-if-above class="bg-primary" :width="250">
+    <q-drawer show-if-above class="bg-primary drawborder" :width="230">
       <q-list>
         <q-item header class="logo flex flex-center">
           <!-- <q-card
@@ -52,7 +37,9 @@
         </q-item>
 
         <q-list padding>
-          <q-item-label header class="text-weight-bold">Main Menu</q-item-label>
+          <q-item-label header class="text-weight-bold text-accent"
+            >Main Menu</q-item-label
+          >
 
           <q-item clickable v-ripple :to="{ name: 'superadmin' }">
             <q-item-section avatar>
@@ -235,9 +222,6 @@
             <q-item-section class="text-white">Semua Siswa</q-item-section>
           </q-item>
 
-          <!-- <q-item-label header class="text-weight-bold text-accent"
-            >Extras</q-item-label
-          > -->
           <q-item-label header class="text-accent q-mt-md">Extras</q-item-label>
           <q-item clickable v-ripple @click="logout()">
             <q-item-section avatar>
@@ -347,11 +331,21 @@ export default {
 </script>
 
 <style>
+.drawborder {
+}
+.tulbarrr {
+  background: transparent;
+  background-color: transparent;
+}
+.bguyy {
+  background-color: transparent;
+}
 .logo {
   background-image: url("/images/logodemeter.png");
   background-repeat: no-repeat;
   background-size: 60%;
   margin-top: 5%;
+  margin-bottom: 5%;
   background-position: center;
 }
 

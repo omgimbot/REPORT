@@ -46,7 +46,7 @@
           ></q-input> -->
           <q-select
             standout="bg-primary text-white"
-            v-model="form.INSTANSI"
+            v-model="form.USER_ID"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Nama User Instansi"
             option-label="INSTANSI"
@@ -72,7 +72,7 @@
           </q-select>
           <q-select
             standout="bg-primary text-white"
-            v-model="form.UID"
+            v-model="form.CARD_ID"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Kartu RFID"
             option-label="UID"
@@ -124,7 +124,8 @@ const model = () => {
   return {
     INSTANSI: [],
     UID: [],
-    // LABEL: null,
+    USER_ID: null,
+    CARD_ID: null,
     // STATUS: 1,
     // DITAMBAHKAN: null,
     // LAYANAN: [],
@@ -199,13 +200,10 @@ export default {
 
       console.log(this.form);
 
-      const formData = new FormData();
-      formData.append("INSTANSI", JSON.stringify(this.form.INSTANSI));
-      formData.append("UID", JSON.stringify(this.form.UID));
       // formData.append("JENIS_INSTANSI", this.form.JENIS_INSTANSI);
 
       await this.$axios
-        .post("combined/create", formData)
+        .post("usercard/create", this.form)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {

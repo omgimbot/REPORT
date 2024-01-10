@@ -25,7 +25,7 @@ export default {
             color: "#322828",
           },
         },
-        colors: ["#065036", "#065036", "#065036"],
+        colors: ["#5c3e3e", "#5c3e3e", "#5c3e3e"],
         markers: {
           size: 4,
           hover: {
