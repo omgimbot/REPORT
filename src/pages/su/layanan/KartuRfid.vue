@@ -1,5 +1,19 @@
 <template>
   <q-page class="q-pa-md bg-accent">
+    <q-toolbar style="margin-top: -1%">
+      <div class="row">
+        <div class="title">Welcome back,</div>
+        <div class="typing-text" id="typing-text">Superadmin</div>
+      </div>
+      <q-space />
+      <div class="text-weight-bold">Superadmin</div>
+      <q-item>
+        <q-avatar rounded size="40px" style="border-radius: 50px">
+          <img src="images/demeter.jpg" />
+          <q-badge floating color="green"></q-badge>
+        </q-avatar>
+      </q-item>
+    </q-toolbar>
     <q-card class="no-shadow q-pa-md q-mb-md">
       <div class="col q-px-md">
         <q-item-label

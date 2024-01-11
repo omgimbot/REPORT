@@ -137,8 +137,8 @@
             <q-item-label
               style="font-size: 18px"
               class="text-weight-medium text-white"
-              >Selamat datang di DEMETER</q-item-label
-            >
+              >Selamat datang di DEMETER Pendidikan:
+            </q-item-label>
             <q-item-label
               style="font-size: 13px"
               class="text-caption text-grey-4"
@@ -158,9 +158,48 @@
                         style="font-size: 25px"
                         class="text-weight-bold q-mb-xs text-uppercase text-white"
                       >
-                        1000</q-item-label
+                        {{ jenisinstansi_Pendidikan }}</q-item-label
                       >
                     </q-item-section>
+                    <lottie style="width: 200px" :options="defaultOptions" />
+                  </q-item>
+                </q-card>
+              </div>
+
+              <div class="col">
+                <q-card class="my-card bg-primary" flat>
+                  <q-item clickable v-ripple>
+                    <q-item-section>
+                      <q-item-label caption class="text-white"
+                        >Total Rfid Card</q-item-label
+                      >
+                      <q-item-label
+                        caption
+                        style="font-size: 25px"
+                        class="text-weight-bold q-mb-xs text-uppercase text-white"
+                        >{{ jenisinstansi_Perusahaan }}</q-item-label
+                      >
+                    </q-item-section>
+                    <lottie style="width: 155px" :options="defaultOptions2" />
+                  </q-item>
+                </q-card>
+              </div>
+
+              <div class="col">
+                <q-card class="my-card bg-primary" flat>
+                  <q-item clickable v-ripple>
+                    <q-item-section>
+                      <q-item-label caption class="text-caption text-white"
+                        >Total pengguna</q-item-label
+                      >
+                      <q-item-label
+                        caption
+                        style="font-size: 25px"
+                        class="text-weight-bold q-mb-xs text-uppercase text-white"
+                        >{{ jenisinstansi }}</q-item-label
+                      >
+                    </q-item-section>
+                    <lottie style="width: 200px" :options="defaultOptions" />
                   </q-item>
                 </q-card>
               </div>
@@ -179,42 +218,7 @@
                         >1000</q-item-label
                       >
                     </q-item-section>
-                  </q-item>
-                </q-card>
-              </div>
-
-              <div class="col">
-                <q-card class="my-card bg-primary" flat>
-                  <q-item clickable v-ripple>
-                    <q-item-section>
-                      <q-item-label caption class="text-caption text-white"
-                        >Total pengguna</q-item-label
-                      >
-                      <q-item-label
-                        caption
-                        style="font-size: 25px"
-                        class="text-weight-bold q-mb-xs text-uppercase text-white"
-                        >1000</q-item-label
-                      >
-                    </q-item-section>
-                  </q-item>
-                </q-card>
-              </div>
-
-              <div class="col">
-                <q-card class="my-card bg-primary" flat>
-                  <q-item clickable v-ripple>
-                    <q-item-section>
-                      <q-item-label caption class="text-caption text-white"
-                        >Total pengguna</q-item-label
-                      >
-                      <q-item-label
-                        caption
-                        style="font-size: 25px"
-                        class="text-weight-bold q-mb-xs text-uppercase text-white"
-                        >1000</q-item-label
-                      >
-                    </q-item-section>
+                    <lottie style="width: 200px" :options="defaultOptions" />
                   </q-item>
                 </q-card>
               </div>
@@ -246,10 +250,17 @@
 <script>
 import BarChart from "src/components/apexchart/BarChart.vue";
 import DonutChart from "src/components/apexchart/DonutChart.vue";
+import {
+  Pendidikan,
+  Perusahaan,
+  Pemerintahan,
+  Lainnya,
+} from "./../../helper/services/Jenis_Instansi";
 // import PieChart from "src/components/PieChart.vue";
 // import LineChart from "src/components/apexchart/LineChart.vue";
-// import Lottie from "src/components/lottie.vue";
-import * as animationData from "assets/animation.json";
+import Lottie from "src/components/lottie.vue";
+import * as animationData from "assets/ADMINN.json";
+import * as animationData2 from "assets/RFID.json";
 
 // import ChartLine from "src/components/apexchart/ChartLine.vue";
 export default {
@@ -259,19 +270,29 @@ export default {
     DonutChart,
     // PieChart
     // LineChart,
-    // lottie: Lottie,
+    lottie: Lottie,
     // ChartLine,
   },
   data() {
     return {
+      jenisinstansi: 0,
+      jenisinstansi_Pendidikan: 0,
+      jenisinstansi_Perusahaan: 0,
+      //batas doang
       defaultOptions: { animationData: animationData.default },
       animationSpeed: 2,
+      defaultOptions2: { animationData: animationData2.default },
+      animationSpeed2: 2,
       dataCount: null,
+      Pendidikan: Pendidikan,
+      Perusahaan: Perusahaan,
+      Pemerintahan: Pemerintahan,
+      Lainnya: Lainnya,
     };
   },
   created() {
     // Pemanggilan API untuk mendapatkan jumlah data
-    this.fetchDataCount();
+    this.getCountInstansi();
   },
   methods: {
     handleAnimation: function (anim) {
@@ -289,14 +310,28 @@ export default {
     onSpeedChange: function () {
       this.anim.setSpeed(this.animationSpeed);
     },
-    async fetchDataCount() {
-      try {
-        // Ganti URL sesuai dengan endpoint server Anda
-        const response = await this.$axios.get("/getCount/");
-        this.dataCount = response.data.count;
-      } catch (error) {
-        console.error("Error fetching data count:", error);
-      }
+    getCountInstansi() {
+      this.$axios
+        .get("instansi/getCountjenisinstansi")
+        .then((res) => {
+          console.log(res.data);
+          if (!this.$parseResponse(res.data)) {
+            const data = res.data.data;
+            var Pendidikan = 0;
+            var Perusahaan = 0;
+            data.map(function (datas) {
+              if (datas._id.toLowerCase() === "pendidikan") {
+                Pendidikan = datas.myCount;
+              } else {
+                Perusahaan = datas.myCount;
+              }
+            });
+            this.jenisinstansi_Pendidikan = Number(Pendidikan);
+            this.jenisinstansi_Perusahaan = Number(Perusahaan);
+            this.jenisinstansi = Pendidikan + Perusahaan;
+          }
+        })
+        .catch((err) => console.log(err));
     },
   },
 };
