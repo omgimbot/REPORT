@@ -196,10 +196,6 @@ export default {
         })
         .catch(() => this.$commonErrorNotif());
     },
-    generateRandomId(length) {
-      const randomStr = Math.random().toString(36).substr(2, length);
-      return randomStr;
-    },
     onSubmit() {
       this.onCreate();
     },
@@ -214,7 +210,7 @@ export default {
 
       const formData = new FormData();
 
-      formData.append("USER_ID", this.form.USER_ID.GUID);
+      formData.append("USER_ID", this.form.USER_ID.INSTANSI);
       formData.append("CARD_ID", this.form.CARD_ID.UID);
 
       console.log(formData);
