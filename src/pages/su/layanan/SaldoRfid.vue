@@ -86,7 +86,7 @@
             :rules="defaultRules"
           >
             <template v-slot:prepend>
-              <q-icon name="account_circle" class="q-pr-md" /> </template
+              <q-icon name="money" class="q-pr-md" /> </template
           ></q-input>
         </div>
         <q-separator class="q-my-md" color="grey-3" />
