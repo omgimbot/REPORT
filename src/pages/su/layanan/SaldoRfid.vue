@@ -20,23 +20,15 @@
           style="font-size: 20px"
           class="text-weight-bold text-dark"
         >
-          Tambah Akses Kartu RFID
+          Tambah Saldo Kartu Rfid Anda
         </q-item-label>
         <q-item-label style="font-size: 12px" class="text-primary text-caption"
           >Pastikan lakukan pengecekan data terlebih dulu sebelum melakukan
           penginputan data!</q-item-label
         >
       </div>
-      <q-space />
-      <q-btn
-        color="brown-8"
-        class="q-ml-sm q-mt-md"
-        size="sm"
-        :to="{ name: 'saldo' }"
-      >
-        Isi saldo</q-btn
-      ></q-card
-    >
+      <q-space
+    /></q-card>
 
     <q-card class="my-card q-pa-md" flat>
       <q-form
@@ -55,32 +47,6 @@
         </div>
 
         <div class="row items-start">
-          <q-select
-            standout="bg-primary text-white"
-            v-model="form.USER_ID"
-            class="text-white col-4 q-pa-sm text-capitalize"
-            label="Nama User Instansi"
-            option-label="INSTANSI"
-            key="INSTANSI"
-            transition-show="scale"
-            transition-hide="flip-down"
-            :options="options.instansi"
-            dense
-            lazy-rules
-          >
-            <template v-slot:prepend>
-              <q-icon name="grid_view" class="q-pr-md" />
-            </template>
-            <template v-slot:option="scope">
-              <q-item v-bind="scope.itemProps">
-                <q-item-section>
-                  <q-item-label class="text-capitalize"
-                    >{{ scope.opt.INSTANSI }}
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-select>
           <q-select
             standout="bg-primary text-white"
             v-model="form.CARD_ID"
@@ -107,6 +73,31 @@
               </q-item>
             </template>
           </q-select>
+
+          <q-input
+            standout="bg-primary text-white"
+            v-model="form.SALDO"
+            class="text-white col-4 q-pa-sm text-capitalize"
+            label="Nominal Topup"
+            mask="#.###.###"
+            reverse-fill-mask
+            dense
+            lazy-rules
+            :rules="defaultRules"
+          >
+            <template v-slot:prepend>
+              <q-icon name="account_circle" class="q-pr-md" /> </template
+          ></q-input>
+
+          <q-input
+            filled
+            v-model="price"
+            label="Price with 2 decimals"
+            mask="#.##"
+            fill-mask="#"
+            reverse-fill-mask
+            input-class="text-right"
+          />
         </div>
         <q-separator class="q-my-md" color="grey-3" />
         <div class="row items-start">
@@ -126,17 +117,16 @@
 
 <script>
 import { ListService } from "./../../../helper/services/ListService";
-let { instansi } = [];
+// let { instansi } = [];
 let { uid } = [];
 // const jenis_instansi = ["Pendidikan", "Pemerintahan", "Perusahaan", "Lainnya"];
 import { useQuasar, QSpinnerFacebook } from "quasar";
 
 const model = () => {
   return {
-    INSTANSI: [],
     UID: [],
-    USER_ID: null,
     CARD_ID: null,
+    SALDO: null,
   };
 };
 
@@ -150,7 +140,7 @@ export default {
       form: model(),
       options: {
         uid,
-        instansi,
+        // instansi,
       },
       isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
@@ -176,12 +166,6 @@ export default {
     //   });
     // },
     getList() {
-      ListService.getListInstansi()
-        .then((res) => {
-          this.options.instansi = res.data.data;
-        })
-        .catch(() => this.$commonErrorNotif());
-
       ListService.getListRfid()
         .then((res) => {
           this.options.code = res.data.data;
@@ -202,13 +186,14 @@ export default {
 
       const formData = new FormData();
 
-      formData.append("USER_ID", this.form.USER_ID.GUID);
+      // formData.append("USER_ID", this.form.USER_ID.GUID);
       formData.append("CARD_ID", this.form.CARD_ID.UID);
+      formData.append("SALDO", this.form.SALDO);
 
       console.log(formData);
 
       await this.$axios
-        .post("usercard/create", formData)
+        .post("saldo/create", formData)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {

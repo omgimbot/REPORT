@@ -30,6 +30,11 @@ const routes = [
         component: () => import("src/pages/su/layanan/KartuRfid.vue"),
       },
       {
+        path: "add_saldo",
+        name: "saldo",
+        component: () => import("src/pages/su/layanan/SaldoRfid.vue"),
+      },
+      {
         path: "add",
         name: "add_layanan",
         component: () => import("src/pages/su/layanan/AddLayananPage.vue"),
@@ -136,7 +141,7 @@ const routes = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: "/:catchAll(.*)*",
+    path: "/error",
     component: () => import("pages/ErrorNotFound.vue"),
   },
 ];
