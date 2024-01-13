@@ -88,16 +88,6 @@
             <template v-slot:prepend>
               <q-icon name="account_circle" class="q-pr-md" /> </template
           ></q-input>
-
-          <q-input
-            filled
-            v-model="price"
-            label="Price with 2 decimals"
-            mask="#.##"
-            fill-mask="#"
-            reverse-fill-mask
-            input-class="text-right"
-          />
         </div>
         <q-separator class="q-my-md" color="grey-3" />
         <div class="row items-start">
