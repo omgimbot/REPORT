@@ -144,6 +144,10 @@ const routes = [
     path: "/error",
     component: () => import("pages/ErrorNotFound.vue"),
   },
+  {
+    path: "/testdoang",
+    component: () => import("pages/TestRmq.vue"),
+  },
 ];
 
 export default routes;

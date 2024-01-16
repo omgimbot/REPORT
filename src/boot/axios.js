@@ -9,7 +9,7 @@ const baseURL = "http://localhost:5072/";
 const api = axios.create({ baseURL: baseURL });
 
 export default boot(({ app }) => {
-  app.config.globalProperties.$axios = axios;
+  // app.config.globalProperties.$axios = axios;
   app.config.globalProperties.$axios = api;
 });
 

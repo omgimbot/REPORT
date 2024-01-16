@@ -53,7 +53,7 @@
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Kartu RFID"
             option-label="UID"
-            key="UID"
+            key="uid"
             transition-show="scale"
             transition-hide="flip-down"
             :options="options.code"
@@ -79,7 +79,6 @@
             v-model="form.SALDO"
             class="text-white col-4 q-pa-sm text-capitalize"
             label="Nominal Topup"
-            mask="#.###.###"
             reverse-fill-mask
             dense
             lazy-rules
@@ -107,16 +106,14 @@
 
 <script>
 import { ListService } from "./../../../helper/services/ListService";
-// let { instansi } = [];
 let { uid } = [];
-// const jenis_instansi = ["Pendidikan", "Pemerintahan", "Perusahaan", "Lainnya"];
 import { useQuasar, QSpinnerFacebook } from "quasar";
 
 const model = () => {
   return {
     UID: [],
     CARD_ID: null,
-    SALDO: null,
+    SALDO: null
   };
 };
 
@@ -129,32 +126,17 @@ export default {
     return {
       form: model(),
       options: {
-        uid,
-        // instansi,
+        uid
       },
       isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
-      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"]
     };
   },
   created() {
     this.getList();
   },
   methods: {
-    // filterJenisInstansi(val, update) {
-    //   if (val === "") {
-    //     update(() => {
-    //       this.options.jenis_instansi = jenis_instansi;
-    //     });
-    //     return;
-    //   }
-    //   update(() => {
-    //     const needle = val.toLowerCase();
-    //     this.options.jenis_instansi = jenis_instansi.filter(
-    //       (v) => v.toLowerCase().indexOf(needle) > -1
-    //     );
-    //   });
-    // },
     getList() {
       ListService.getListRfid()
         .then((res) => {
@@ -171,31 +153,32 @@ export default {
         spinner: QSpinnerFacebook,
         spinnerColor: "green",
         spinnerSize: 100,
-        backgroundColor: "black",
+        backgroundColor: "black"
       });
 
       const formData = new FormData();
 
-      // formData.append("USER_ID", this.form.USER_ID.GUID);
       formData.append("CARD_ID", this.form.CARD_ID.UID);
       formData.append("SALDO", this.form.SALDO);
 
       console.log(formData);
 
       await this.$axios
-        .post("saldo/create", formData)
+        .post("emoney/create", formData)
         .finally(() => this.$q.loading.hide())
         .then((response) => {
           if (!this.$parseResponse(response.data)) {
             this.$successNotif(response.data.message, "positive");
-            this.$router.push("/rfid");
+            // this.$router.push("/rfid");
           }
         })
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    },
-    //TUTUP MENGIRIM DATA
-  },
+    }
+    // TUTUP MENGIRIM DATA
+  }
 };
+
+// };
 </script>

@@ -136,7 +136,7 @@ const model = () => {
     INSTANSI: [],
     UID: [],
     USER_ID: null,
-    CARD_ID: null,
+    CARD_ID: null
   };
 };
 
@@ -150,31 +150,17 @@ export default {
       form: model(),
       options: {
         uid,
-        instansi,
+        instansi
       },
       isPwd: true,
       dataUser: this.$q.localStorage.getItem("data"),
-      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"],
+      defaultRules: [(val) => (val && val.length > 0) || "Tidak Boleh Kosong"]
     };
   },
   created() {
     this.getList();
   },
   methods: {
-    // filterJenisInstansi(val, update) {
-    //   if (val === "") {
-    //     update(() => {
-    //       this.options.jenis_instansi = jenis_instansi;
-    //     });
-    //     return;
-    //   }
-    //   update(() => {
-    //     const needle = val.toLowerCase();
-    //     this.options.jenis_instansi = jenis_instansi.filter(
-    //       (v) => v.toLowerCase().indexOf(needle) > -1
-    //     );
-    //   });
-    // },
     getList() {
       ListService.getListInstansi()
         .then((res) => {
@@ -197,12 +183,12 @@ export default {
         spinner: QSpinnerFacebook,
         spinnerColor: "green",
         spinnerSize: 100,
-        backgroundColor: "black",
+        backgroundColor: "black"
       });
 
       const formData = new FormData();
 
-      formData.append("USER_ID", this.form.USER_ID.GUID);
+      formData.append("USER_ID", this.form.USER_ID.INSTANSI);
       formData.append("CARD_ID", this.form.CARD_ID.UID);
 
       console.log(formData);
@@ -219,8 +205,8 @@ export default {
         .catch((err) => {
           this.$commonErrorNotif();
         });
-    },
+    }
     //TUTUP MENGIRIM DATA
-  },
+  }
 };
 </script>

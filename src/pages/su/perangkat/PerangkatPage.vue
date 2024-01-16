@@ -227,7 +227,7 @@ const model = () => {
     NAMA: null,
     MAC_ADDRESS: null,
     JENIS: null,
-    DITAMBAHKAN: null,
+    DITAMBAHKAN: null
   };
 };
 
@@ -239,54 +239,55 @@ export default {
       filter: null,
       deletenotif: false,
       editnotif: false,
+      form: model(),
       options: {
-        status,
+        status
       },
       columns: [
         {
           name: "KODE_PERANGKAT",
           align: "left",
           label: "Kode Perangkat",
-          field: "KODE_PERANGKAT",
+          field: "KODE_PERANGKAT"
         },
         {
           name: "NAMA",
           align: "left",
           label: "Nama Perangkat",
-          field: "NAMA",
+          field: "NAMA"
         },
         {
           name: "JENIS",
           align: "left",
           label: "Jenis Perangkat",
-          field: "JENIS",
+          field: "JENIS"
         },
         {
           name: "MAC_ADDRESS",
           align: "left",
           label: "Mac Address",
-          field: "MAC_ADDRESS",
+          field: "MAC_ADDRESS"
         },
         {
           name: "TGL_DAFTAR",
           align: "left",
           label: "Tgl. daftar",
-          field: "TGL_DAFTAR",
+          field: "TGL_DAFTAR"
         },
         {
           name: "ACTION",
           align: "center",
           label: "Action",
-          field: "ACTION",
-        },
+          field: "ACTION"
+        }
       ],
       pagination: {
         sortBy: "desc",
         descending: false,
-        rowsPerPage: 5,
+        rowsPerPage: 5
       },
       rows: [],
-      visibles: false,
+      visibles: false
     };
   },
   created() {
@@ -331,7 +332,7 @@ export default {
           }
         })
         .catch(() => this.$commonErrorNotif());
-    },
-  },
+    }
+  }
 };
 </script>
